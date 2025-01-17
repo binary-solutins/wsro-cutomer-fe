@@ -27,7 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/competitions/:eventId" element={<EventCompetitions />} />
         <Route path="/workshop" element={<Workshop />} />
         <Route path="/sponsors" element={<SponsorPage />} />
-        
+           
       </Routes>
     </Router>
     <Chatbot />

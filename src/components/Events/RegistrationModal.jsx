@@ -486,25 +486,25 @@ const RegistrationModal = ({ event, onClose }) => {
                 )}
                 
                 {paymentStatus.status === 'error' && (
-          <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
-            <p>{paymentStatus.error}</p>
-            {paymentStatus.paymentId && (
-              <p className="mt-2 text-sm">Payment ID: {paymentStatus.paymentId}</p>
-            )}
-          </div>
-        )}
+                  <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
+                    <p>{paymentStatus.error}</p>
+                    {paymentStatus.paymentId && (
+                      <p className="mt-2 text-sm">Payment ID: {paymentStatus.paymentId}</p>
+                    )}
+                  </div>
+                )}
 
-        {paymentStatus.status === 'processing' && (
-          <div className="bg-blue-50 border border-blue-200 text-blue-600 px-4 py-3 rounded-lg">
-            Processing payment and registration...
-          </div>
-        )}
+                {paymentStatus.status === 'processing' && (
+                  <div className="bg-blue-50 border border-blue-200 text-blue-600 px-4 py-3 rounded-lg">
+                    Processing payment and registration...
+                  </div>
+                )}
 
                 {/* Team Information */}
                 <div>
                   <h3 className="text-lg font-semibold mb-4">Team Information</h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="col-span-2">
+                  <div className="grid grid-cols-1 gap-4">
+                    <div className="col-span-1">
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Team Name
                       </label>
@@ -522,7 +522,7 @@ const RegistrationModal = ({ event, onClose }) => {
                 {/* Leader Information */}
                 <div className="bg-gray-50 p-6 rounded-lg">
                   <h3 className="text-lg font-semibold mb-4">Team Leader Information</h3>
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Name
@@ -595,7 +595,7 @@ const RegistrationModal = ({ event, onClose }) => {
                         required
                       />
                     </div>
-                    <div className="col-span-2">
+                    <div className="col-span-1">
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Address
                       </label>
@@ -649,7 +649,7 @@ const RegistrationModal = ({ event, onClose }) => {
                 {/* Coach Information */}
                 <div className="bg-gray-50 p-6 rounded-lg">
                   <h3 className="text-lg font-semibold mb-4">Coach/Mentor Information</h3>
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Name
@@ -729,7 +729,7 @@ const RegistrationModal = ({ event, onClose }) => {
                           </button>
                         )}
                       </div>
-                      <div className="grid md:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 gap-4">
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
                             Name
