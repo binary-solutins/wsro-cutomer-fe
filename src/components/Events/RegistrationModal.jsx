@@ -201,6 +201,8 @@ const RegistrationModal = ({ event, onClose }) => {
   const [coachEmail, setCoachEmail] = useState('jane.smith@techmentors.com');
   const [emailCheckError, setEmailCheckError] = useState('');
   const [existingEmails, setExistingEmails] = useState([]);
+  const [paymentInProgress, setPaymentInProgress] = useState(false);
+  const [paymentError, setPaymentError] = useState('');
 
   const [members, setMembers] = useState([
     { name: 'Alice', email: 'alice@example.com', age: 16, phone: '555-2345', tshirtSize: 'M' },
@@ -276,48 +278,92 @@ const RegistrationModal = ({ event, onClose }) => {
     }
   };
 
+  const handleRegistration = async (paymentId) => {
+    try {
+      const registrationData = {
+        competition_id: event.id,
+        event_id: event.event_id,
+        team_name: teamName,
+        leader_name: leaderName,
+        leader_email: leaderEmail,
+        leader_age: leaderAge,
+        leader_school: leaderSchool,
+        leader_total_students: leaderTotalStudents,
+        leader_address: leaderAddress,
+        leader_city: leaderCity,
+        leader_state: leaderState,
+        leader_zipcode: leaderZipcode,
+        leader_phone: leaderPhone,
+        coach_mentor_name: coachName,
+        coach_mentor_organization: coachOrganization,
+        coach_mentor_phone: coachPhone,
+        coach_mentor_email: coachEmail,
+        member_names: members.map(m => m.name),
+        member_ages: members.map(m => m.age),
+        member_emails: members.map(m => m.email),
+        member_phones: members.map(m => m.phone),
+        member_tshirt_sizes: members.map(m => m.tshirtSize),
+        payment_id: paymentId
+      };
+
+      const registerResponse = await fetch('https://node-test-fu37.onrender.com/api/competitions/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(registrationData),
+      });
+
+      if (!registerResponse.ok) {
+        const errorData = await registerResponse.json();
+        throw new Error(errorData.message || 'Registration failed');
+      }
+
+      const responseData = await registerResponse.json();
+      setIsSuccess(true);
+      return true;
+    } catch (error) {
+      console.error('Registration error:', error);
+      setPaymentError(`Registration failed: ${error.message}. Payment ID: ${paymentId}`);
+      return false;
+    } finally {
+      setIsProcessing(false);
+      setPaymentInProgress(false);
+    }
+  };
+
+  const handlePaymentSuccess = async (response) => {
+    setPaymentInProgress(true);
+    const success = await handleRegistration(response.razorpay_payment_id);
+    if (!success) {
+      setPaymentError(`Registration failed after payment. Please contact support with Payment ID: ${response.razorpay_payment_id}`);
+    }
+  };
+
+  const handlePaymentFailure = (response) => {
+    setPaymentError('Payment failed. Please try again.');
+    setIsProcessing(false);
+    setPaymentInProgress(false);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsProcessing(true);
     setEmailCheckError('');
-
-    const emailsValid = await checkEmails();
-    
-    if (!emailsValid) {
-      setIsProcessing(false);
-      return;
-    }
-
-    const registrationData = {
-      competition_id: event.id,
-      event_id: event.event_id,
-      team_name: teamName,
-      leader_name: leaderName,
-      leader_email: leaderEmail,
-      leader_age: leaderAge,
-      leader_school: leaderSchool,
-      leader_total_students: leaderTotalStudents,
-      leader_address: leaderAddress,
-      leader_city: leaderCity,
-      leader_state: leaderState,
-      leader_zipcode: leaderZipcode,
-      leader_phone: leaderPhone,
-      coach_mentor_name: coachName,
-      coach_mentor_organization: coachOrganization,
-      coach_mentor_phone: coachPhone,
-      coach_mentor_email: coachEmail,
-      member_names: members.map(m => m.name),
-      member_ages: members.map(m => m.age),
-      member_emails: members.map(m => m.email),
-      member_phones: members.map(m => m.phone),
-      member_tshirt_sizes: members.map(m => m.tshirtSize)
-    };
+    setPaymentError('');
 
     try {
+      const emailsValid = await checkEmails();
+      
+      if (!emailsValid) {
+        setIsProcessing(false);
+        return;
+      }
+
       const res = await loadRazorpay();
       
       if (!res) {
-        alert('Razorpay SDK failed to load');
+        setPaymentError('Payment system failed to load. Please try again.');
         setIsProcessing(false);
         return;
       }
@@ -328,31 +374,11 @@ const RegistrationModal = ({ event, onClose }) => {
         currency: "INR",
         name: "WSRO Robotics",
         description: `Registration for ${event.name}`,
-        handler: async function (response) {
-          try {
-            const finalData = {
-              ...registrationData,
-              payment_id: response.razorpay_payment_id
-            };
-
-            const registerResponse = await fetch('https://node-test-fu37.onrender.com/api/competitions/register', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(finalData),
-            });
-
-            if (!registerResponse.ok) {
-              throw new Error('Registration failed');
-            }
-
-            setIsSuccess(true);
-            setIsProcessing(false); // Set processing to false on successful registration
-          } catch (error) {
-            alert('Registration failed. Please contact support with your payment ID: ' + response.razorpay_payment_id);
-            console.error('Registration error:', error);
-            setIsProcessing(false); // Ensure processing is false on error
+        handler: handlePaymentSuccess,
+        modal: {
+          ondismiss: function() {
+            setIsProcessing(false);
+            setPaymentInProgress(false);
           }
         },
         prefill: {
@@ -363,25 +389,29 @@ const RegistrationModal = ({ event, onClose }) => {
         theme: {
           color: "#2563eb",
         },
-        modal: {
-          ondismiss: function() {
-            setIsProcessing(false);
-          }
+        retry: {
+          enabled: true,
+          max_count: 3
+        },
+        notes: {
+          team_name: teamName,
+          event_name: event.name
         }
       };
 
       const paymentObject = new window.Razorpay(options);
+      paymentObject.on('payment.failed', handlePaymentFailure);
       paymentObject.open();
     } catch (error) {
-      alert('Payment initialization failed');
-      console.error('Payment error:', error);
+      console.error('Payment initialization error:', error);
+      setPaymentError('Failed to initialize payment. Please try again.');
       setIsProcessing(false);
     }
   };
 
   return (
     <AnimatePresence>
-        {isProcessing && <LoadingOverlay />}
+      {isProcessing && <LoadingOverlay />}
       <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
@@ -395,6 +425,7 @@ const RegistrationModal = ({ event, onClose }) => {
               <button 
                 onClick={onClose}
                 className="p-2 hover:bg-gray-100 rounded-full"
+                disabled={paymentInProgress}
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -403,15 +434,22 @@ const RegistrationModal = ({ event, onClose }) => {
             </div>
 
             {isSuccess ? (
-             <SuccessMessage onClose={()=>console.log('close')} />
+              <SuccessMessage onClose={onClose} />
             ) : (
               <form onSubmit={handleSubmit} className="space-y-8">
                 {emailCheckError && (
-                     <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
-                     {emailCheckError}
-                   </div>
+                  <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
+                    {emailCheckError}
+                  </div>
                 )}
-              
+                
+                {paymentError && (
+                  <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
+                    {paymentError}
+                  </div>
+                )}
+
+                {/* Team Information */}
                 <div>
                   <h3 className="text-lg font-semibold mb-4">Team Information</h3>
                   <div className="grid grid-cols-2 gap-4">
@@ -430,6 +468,7 @@ const RegistrationModal = ({ event, onClose }) => {
                   </div>
                 </div>
 
+                {/* Leader Information */}
                 <div className="bg-gray-50 p-6 rounded-lg">
                   <h3 className="text-lg font-semibold mb-4">Team Leader Information</h3>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -556,6 +595,7 @@ const RegistrationModal = ({ event, onClose }) => {
                   </div>
                 </div>
 
+                {/* Coach Information */}
                 <div className="bg-gray-50 p-6 rounded-lg">
                   <h3 className="text-lg font-semibold mb-4">Coach/Mentor Information</h3>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -609,8 +649,6 @@ const RegistrationModal = ({ event, onClose }) => {
                     </div>
                   </div>
                 </div>
-
-                
 
                 {/* Team Members */}
                 <div className="space-y-4">
@@ -712,10 +750,10 @@ const RegistrationModal = ({ event, onClose }) => {
 
                 <button
                   type="submit"
-                  disabled={isProcessing}
+                  disabled={isProcessing || paymentInProgress}
                   className="w-full bg-primary text-white py-3 rounded-lg hover:bg-secondary transition-colors duration-300 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isProcessing ? 'Processing...' : 'Submit Registration'}
+                  {isProcessing || paymentInProgress ? 'Processing...' : 'Submit Registration'}
                 </button>
               </form>
             )}
