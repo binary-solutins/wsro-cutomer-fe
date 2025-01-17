@@ -212,7 +212,11 @@ const RegistrationModal = ({ event, onClose }) => {
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-
+  const [paymentStatus, setPaymentStatus] = useState({
+    status: 'idle', // idle, processing, success, error
+    paymentId: null,
+    error: null
+  });
   const tshirtSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
   const addMember = () => {
@@ -278,7 +282,7 @@ const RegistrationModal = ({ event, onClose }) => {
     }
   };
 
-  const handleRegistration = async (paymentId) => {
+  const handleRegistration = useCallback(async (paymentId) => {
     try {
       const registrationData = {
         competition_id: event.id,
@@ -319,53 +323,64 @@ const RegistrationModal = ({ event, onClose }) => {
         throw new Error(errorData.message || 'Registration failed');
       }
 
-      const responseData = await registerResponse.json();
+      await registerResponse.json();
       setIsSuccess(true);
       return true;
-    } catch (error) {
+    }  catch (error) {
       console.error('Registration error:', error);
-      setPaymentError(`Registration failed: ${error.message}. Payment ID: ${paymentId}`);
+      setPaymentStatus({
+        status: 'error',
+        paymentId,
+        error: `Registration failed: ${error.message}. Payment ID: ${paymentId}`
+      });
       return false;
     } finally {
       setIsProcessing(false);
       setPaymentInProgress(false);
     }
-  };
+  }, [event.id, event.event_id, teamName, leaderName, leaderEmail]);
 
-  const handlePaymentSuccess = async (response) => {
-    setPaymentInProgress(true);
-    const success = await handleRegistration(response.razorpay_payment_id);
-    if (!success) {
-      setPaymentError(`Registration failed after payment. Please contact support with Payment ID: ${response.razorpay_payment_id}`);
-    }
-  };
-
-  const handlePaymentFailure = (response) => {
-    setPaymentError('Payment failed. Please try again.');
-    setIsProcessing(false);
-    setPaymentInProgress(false);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsProcessing(true);
-    setEmailCheckError('');
-    setPaymentError('');
+  const handlePaymentSuccess = useCallback(async (response) => {
+    setPaymentStatus({
+      status: 'processing',
+      paymentId: response.razorpay_payment_id,
+      error: null
+    });
 
     try {
-      const emailsValid = await checkEmails();
-      
-      if (!emailsValid) {
-        setIsProcessing(false);
-        return;
+      const success = await handleRegistration(response.razorpay_payment_id);
+      if (success) {
+        setPaymentStatus({
+          status: 'success',
+          paymentId: response.razorpay_payment_id,
+          error: null
+        });
       }
+    } catch (error) {
+      setPaymentStatus({
+        status: 'error',
+        paymentId: response.razorpay_payment_id,
+        error: `Registration failed after payment. Please contact support with Payment ID: ${response.razorpay_payment_id}`
+      });
+    }
+  }, [handleRegistration]);
 
+  const handlePaymentFailure = useCallback((response) => {
+    setPaymentStatus({
+      status: 'error',
+      paymentId: response.error?.metadata?.payment_id,
+      error: `Payment failed: ${response.error?.description || 'Unknown error'}`
+    });
+    setIsProcessing(false);
+    setPaymentInProgress(false);
+  }, []);
+
+  const initializeRazorpay = useCallback(async () => {
+    try {
       const res = await loadRazorpay();
       
       if (!res) {
-        setPaymentError('Payment system failed to load. Please try again.');
-        setIsProcessing(false);
-        return;
+        throw new Error('Razorpay SDK failed to load');
       }
 
       const options = {
@@ -376,7 +391,7 @@ const RegistrationModal = ({ event, onClose }) => {
         description: `Registration for ${event.name}`,
         handler: handlePaymentSuccess,
         modal: {
-          ondismiss: function() {
+          ondismiss: () => {
             setIsProcessing(false);
             setPaymentInProgress(false);
           }
@@ -401,13 +416,40 @@ const RegistrationModal = ({ event, onClose }) => {
 
       const paymentObject = new window.Razorpay(options);
       paymentObject.on('payment.failed', handlePaymentFailure);
-      paymentObject.open();
+      return paymentObject;
+    } catch (error) {
+      console.error('Razorpay initialization error:', error);
+      throw error;
+    }
+  }, [event, leaderName, leaderEmail, leaderPhone, teamName, handlePaymentSuccess, handlePaymentFailure]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsProcessing(true);
+    setEmailCheckError('');
+    setPaymentStatus({ status: 'idle', paymentId: null, error: null });
+
+    try {
+      const emailsValid = await checkEmails();
+      
+      if (!emailsValid) {
+        setIsProcessing(false);
+        return;
+      }
+
+      const razorpay = await initializeRazorpay();
+      razorpay.open();
     } catch (error) {
       console.error('Payment initialization error:', error);
-      setPaymentError('Failed to initialize payment. Please try again.');
+      setPaymentStatus({
+        status: 'error',
+        paymentId: null,
+        error: 'Failed to initialize payment. Please try again.'
+      });
       setIsProcessing(false);
     }
   };
+
 
   return (
     <AnimatePresence>
@@ -443,11 +485,20 @@ const RegistrationModal = ({ event, onClose }) => {
                   </div>
                 )}
                 
-                {paymentError && (
-                  <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
-                    {paymentError}
-                  </div>
-                )}
+                {paymentStatus.status === 'error' && (
+          <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
+            <p>{paymentStatus.error}</p>
+            {paymentStatus.paymentId && (
+              <p className="mt-2 text-sm">Payment ID: {paymentStatus.paymentId}</p>
+            )}
+          </div>
+        )}
+
+        {paymentStatus.status === 'processing' && (
+          <div className="bg-blue-50 border border-blue-200 text-blue-600 px-4 py-3 rounded-lg">
+            Processing payment and registration...
+          </div>
+        )}
 
                 {/* Team Information */}
                 <div>
