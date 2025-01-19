@@ -187,9 +187,9 @@ const RegistrationModal = ({ event, onClose }) => {
   const [teamName, setTeamName] = useState('');
   const [leaderName, setLeaderName] = useState('');
   const [leaderEmail, setLeaderEmail] = useState('');
-  const [leaderAge, setLeaderAge] = useState(17);
+  const [leaderAge, setLeaderAge] = useState();
   const [leaderSchool, setLeaderSchool] = useState('');
-  const [leaderTotalStudents, setLeaderTotalStudents] = useState(10);
+  const [leaderTotalStudents, setLeaderTotalStudents] = useState();
   const [leaderAddress, setLeaderAddress] = useState('');
   const [leaderCity, setLeaderCity] = useState('');
   const [leaderState, setLeaderState] = useState('');
