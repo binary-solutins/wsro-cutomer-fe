@@ -184,36 +184,33 @@ const LoadingOverlay = () => (
 );
 
 const RegistrationModal = ({ event, onClose }) => {
-  const [teamName, setTeamName] = useState('Future Innovators');
-  const [leaderName, setLeaderName] = useState('John Doe');
-  const [leaderEmail, setLeaderEmail] = useState('john.doe@example.com');
+  const [teamName, setTeamName] = useState('');
+  const [leaderName, setLeaderName] = useState('');
+  const [leaderEmail, setLeaderEmail] = useState('');
   const [leaderAge, setLeaderAge] = useState(17);
-  const [leaderSchool, setLeaderSchool] = useState('Springfield High');
+  const [leaderSchool, setLeaderSchool] = useState('');
   const [leaderTotalStudents, setLeaderTotalStudents] = useState(10);
-  const [leaderAddress, setLeaderAddress] = useState('123 Main St');
-  const [leaderCity, setLeaderCity] = useState('Springfield');
-  const [leaderState, setLeaderState] = useState('IL');
-  const [leaderZipcode, setLeaderZipcode] = useState('62701');
-  const [leaderPhone, setLeaderPhone] = useState('555-1234');
-  const [coachName, setCoachName] = useState('Jane Smith');
-  const [coachOrganization, setCoachOrganization] = useState('Tech Mentors');
-  const [coachPhone, setCoachPhone] = useState('555-5678');
-  const [coachEmail, setCoachEmail] = useState('jane.smith@techmentors.com');
+  const [leaderAddress, setLeaderAddress] = useState('');
+  const [leaderCity, setLeaderCity] = useState('');
+  const [leaderState, setLeaderState] = useState('');
+  const [leaderZipcode, setLeaderZipcode] = useState('');
+  const [leaderPhone, setLeaderPhone] = useState('');
+  const [coachName, setCoachName] = useState('');
+  const [coachOrganization, setCoachOrganization] = useState('');
+  const [coachPhone, setCoachPhone] = useState('');
+  const [coachEmail, setCoachEmail] = useState('');
   const [emailCheckError, setEmailCheckError] = useState('');
   const [existingEmails, setExistingEmails] = useState([]);
   const [paymentInProgress, setPaymentInProgress] = useState(false);
   const [paymentError, setPaymentError] = useState('');
 
   const [members, setMembers] = useState([
-    { name: 'Alice', email: 'alice@example.com', age: 16, phone: '555-2345', tshirtSize: 'M' },
-    { name: 'Bob', email: 'bob@example.com', age: 17, phone: '555-3456', tshirtSize: 'L' },
-    { name: 'Charlie', email: 'charlie@example.com', age: 16, phone: '555-4567', tshirtSize: 'S' }
   ]);
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState({
-    status: 'idle', // idle, processing, success, error
+    status: 'idle', 
     paymentId: null,
     error: null
   });
