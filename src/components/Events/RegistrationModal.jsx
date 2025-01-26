@@ -422,105 +422,96 @@ const handlePaymentSuccess = useCallback(async (response) => {
     });
   }, [cleanupPayment]);
 
- const initializeRazorpay = useCallback(async () => {
-    try {
-      const res = await loadRazorpay();
-      
-      if (!res) {
-        throw new Error('Razorpay SDK failed to load');
-      }
+const initializeRazorpay = useCallback(async () => {
+  try {
+    const res = await loadRazorpay();
+    
+    if (!res) {
+      throw new Error('Razorpay SDK failed to load');
+    }
 
-      const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-        amount: Math.round(event.fees * 100),
-        currency: "INR",
-        name: "WSRO Robotics",
-        description: `Registration for ${event.name}`,
-        handler: handlePaymentSuccess,
-        modal: {
-          ondismiss: () => {
-            cleanupPayment();
-          },
-          escape: false,
-          animation: true,
-          backdropClose: false
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: Math.round(event.fees * 100),
+      currency: "INR",
+      name: "WSRO Robotics",
+      description: `Registration for ${event.name}`,
+      handler: handlePaymentSuccess,
+      modal: {
+        ondismiss: () => {
+          cleanupPayment();
         },
-        prefill: {
-          name: leaderName,
-          email: leaderEmail,
-          contact: leaderPhone
-        },
-        theme: {
-          color: "#2563eb",
-        },
-        retry: {
-          enabled: true,
-          max_count: 3
-        },
-        notes: {
-          team_name: teamName,
-          event_name: event.name
-        },
-        config: {
-          display: {
-            blocks: {
-              utib: { // Mobikwik
-                name: "Pay with Mobikwik",
-                instruments: [
-                  {
-                    method: 'wallet',
-                    walletName: 'Mobikwik'
-                  }
-                ]
-              },
-              other: { // Other payment methods
-                name: 'Other Payment Methods',
-                instruments: [
-                  {
-                    method: 'upi',
-                  },
-                  {
-                    method: 'card'
-                  },
-                  {
-                    method: 'netbanking'
-                  }
-                ]
-              }
-            },
-            sequence: ['block.utib', 'block.other'], // Reorder block
-            preferences: {
-              show_default_blocks: false // Hide default block 
+        escape: false,
+        animation: true,
+        backdropClose: false
+      },
+      prefill: {
+        name: leaderName,
+        email: leaderEmail,
+        contact: leaderPhone
+      },
+      theme: {
+        color: "#2563eb",
+      },
+      retry: {
+        enabled: true,
+        max_count: 3
+      },
+      config: {
+        display: {
+          blocks: {
+            upi: {
+              name: 'Pay via UPI',
+              instruments: [
+                {
+                  method: 'upi'
+                }
+              ]
             }
+          },
+          sequence: ['upi'],
+          preferences: {
+            show_default_blocks: true
           }
         }
-      };
+      },
+      method: {
+        upi: {
+          flow: 'both', // Support both QR and intent
+          apps: ['googlepay', 'phonepe', 'paytm']
+        }
+      },
+      notes: {
+        team_name: teamName,
+        event_name: event.name
+      }
+    };
 
-      const paymentObject = new window.Razorpay(options);
-      
-      setRazorpayInstance(paymentObject);
+    const paymentObject = new window.Razorpay(options);
+    
+    setRazorpayInstance(paymentObject);
 
-      const timeout = setTimeout(() => {
-        cleanupPayment();
-        setPaymentStatus({
-          status: 'error',
-          paymentId: null,
-          error: 'Payment timed out. Please try again.'
-        });
-      }, 5 * 60 * 1000);
-      
-      setPaymentTimeout(timeout);
-
-      paymentObject.on('payment.failed', handlePaymentFailure);
-      paymentObject.on('payment.error', handlePaymentFailure);
-      
-      return paymentObject;
-    } catch (error) {
-      console.error('Razorpay initialization error:', error);
+    const timeout = setTimeout(() => {
       cleanupPayment();
-      throw error;
-    }
-  }, [event, leaderName, leaderEmail, leaderPhone, teamName, handlePaymentSuccess, handlePaymentFailure, cleanupPayment]);
+      setPaymentStatus({
+        status: 'error',
+        paymentId: null,
+        error: 'Payment timed out. Please try again.'
+      });
+    }, 5 * 60 * 1000);
+    
+    setPaymentTimeout(timeout);
+
+    paymentObject.on('payment.failed', handlePaymentFailure);
+    paymentObject.on('payment.error', handlePaymentFailure);
+    
+    return paymentObject;
+  } catch (error) {
+    console.error('Razorpay initialization error:', error);
+    cleanupPayment();
+    throw error;
+  }
+}, [event, leaderName, leaderEmail, leaderPhone, teamName, handlePaymentSuccess, handlePaymentFailure, cleanupPayment]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
