@@ -276,8 +276,7 @@ const RegistrationModal = ({ event, onClose }) => {
         },
         body: JSON.stringify({
           emails: allEmails,
-          competition_id: event.id,
-          team_name: teamName // Added team_name to the payload
+          competition_id: event.id
         }),
       });
 
@@ -357,8 +356,7 @@ const RegistrationModal = ({ event, onClose }) => {
       setPaymentInProgress(false);
     }
   }, [event.id, event.event_id, teamName, leaderName, leaderEmail]);
-
-  const handlePaymentSuccess = useCallback(async (response) => {
+const handlePaymentSuccess = useCallback(async (response) => {
     if (paymentTimeout) {
       clearTimeout(paymentTimeout);
       setPaymentTimeout(null);
@@ -393,6 +391,15 @@ const RegistrationModal = ({ event, onClose }) => {
           error: null
         });
         setIsSuccess(true);
+
+        // Redirect mechanism for different devices
+        const redirectToConfirmation = () => {
+          // Customize this URL to your confirmation page
+          window.location.href = `/registration-confirmation?paymentId=${response.razorpay_payment_id}`;
+        };
+
+        // Slight delay to ensure all states are updated
+        setTimeout(redirectToConfirmation, 1000);
       }
     } catch (error) {
       console.error('Final registration error:', error);
@@ -415,7 +422,7 @@ const RegistrationModal = ({ event, onClose }) => {
     });
   }, [cleanupPayment]);
 
-  const initializeRazorpay = useCallback(async () => {
+ const initializeRazorpay = useCallback(async () => {
     try {
       const res = await loadRazorpay();
       
@@ -453,6 +460,39 @@ const RegistrationModal = ({ event, onClose }) => {
         notes: {
           team_name: teamName,
           event_name: event.name
+        },
+        config: {
+          display: {
+            blocks: {
+              utib: { // Mobikwik
+                name: "Pay with Mobikwik",
+                instruments: [
+                  {
+                    method: 'wallet',
+                    walletName: 'Mobikwik'
+                  }
+                ]
+              },
+              other: { // Other payment methods
+                name: 'Other Payment Methods',
+                instruments: [
+                  {
+                    method: 'upi',
+                  },
+                  {
+                    method: 'card'
+                  },
+                  {
+                    method: 'netbanking'
+                  }
+                ]
+              }
+            },
+            sequence: ['block.utib', 'block.other'], // Reorder block
+            preferences: {
+              show_default_blocks: false // Hide default block 
+            }
+          }
         }
       };
 
