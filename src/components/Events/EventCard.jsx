@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { format } from 'date-fns';
-import { Calendar, MapPin, Users, Trophy, ChevronRight, IndianRupee } from 'lucide-react';
+import { format, isPast } from 'date-fns';
+import { Calendar, MapPin, Users, Trophy, ChevronRight, IndianRupee, Lock } from 'lucide-react';
 
 const EventCard = ({ event, onLearnMore }) => {
   // Return null or a loading state if event is undefined
@@ -15,6 +15,9 @@ const EventCard = ({ event, onLearnMore }) => {
     currency: 'INR',
     minimumFractionDigits: 2
   }).format(event.fees);
+
+  // Check if registration deadline has passed
+  const isRegistrationClosed = isPast(new Date(event.registration_deadline));
 
   return (
     <motion.div 
@@ -69,17 +72,25 @@ const EventCard = ({ event, onLearnMore }) => {
           </div>
         </div>
 
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="w-full bg-gradient-to-r from-[#485db5] to-[#6478d3] text-white py-3 px-6 rounded-xl
-            font-semibold shadow-lg shadow-[#485db5]/20 hover:shadow-xl hover:shadow-[#485db5]/30
-            transition-all duration-300 flex items-center justify-center gap-2 group"
-          onClick={() => onLearnMore(event)}
-        >
-          <span>Learn More</span>
-          <ChevronRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
-        </motion.button>
+        {isRegistrationClosed ? (
+          <div className="w-full bg-red-500 text-white py-3 px-6 rounded-xl
+            font-semibold flex items-center justify-center gap-2 cursor-not-allowed">
+            <Lock className="w-5 h-5" />
+            <span>Registration Closed</span>
+          </div>
+        ) : (
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full bg-gradient-to-r from-[#485db5] to-[#6478d3] text-white py-3 px-6 rounded-xl
+              font-semibold shadow-lg shadow-[#485db5]/20 hover:shadow-xl hover:shadow-[#485db5]/30
+              transition-all duration-300 flex items-center justify-center gap-2 group"
+            onClick={() => onLearnMore(event)}
+          >
+            <span>Learn More</span>
+            <ChevronRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
+          </motion.button>
+        )}
       </div>
     </motion.div>
   );

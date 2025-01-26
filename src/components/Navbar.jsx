@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Menu } from 'lucide-react';
+import { Menu, Notebook as Robot } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import TopBar from './Navbar/Topbar';
-import DesktopMenu from './Navbar/DesktopMenu';
-import MobileMenu from './Navbar/MobileMenu';
+import TopBar from '.././components/Navbar/Topbar';
+import DesktopMenu from '.././components/Navbar/DesktopMenu';
+import MobileMenu from '.././components/Navbar/MobileMenu';
 
 const navLinks = [
   { href: '/', label: 'HOME' },
@@ -36,35 +36,41 @@ const Navbar = () => {
     }
   }, [isOpen]);
 
-  const handleNavigation = (href) => {
-    navigate(href);
-    setIsOpen(false);
-  };
-
   return (
-    <nav className={`fixed w-full z-40 transition-all duration-300 ${
+    <nav className={`fixed w-full z-40 transition-all duration-500 ${
       scrolled ? 'bg-white shadow-lg animate-slideDown' : 'bg-white/95'
     }`}>
       <TopBar />
       
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center py-4">
-          <Link to="/" className="text-2xl font-bold text-primary relative group cursor-pointer">
-            <img src='/logo.png' alt="Logo" className="h-[50px] w-[140px] object-contain transform group-hover:scale-105 
-              transition-transform duration-300" />
-            <span className="absolute -inset-1 bg-primary/10 rounded-lg transform scale-95 opacity-0
+          <Link to="/" className="relative group">
+            <div className="flex items-center space-x-2">
+              <img 
+                src="/logo.png" 
+                alt="WSRO Logo" 
+                className="h-[50px] w-[140px] object-contain transform group-hover:scale-105 
+                  transition-transform duration-300"
+              />
+              <Robot className="w-5 h-5 text-primary opacity-0 group-hover:opacity-100 
+                transition-all duration-300 animate-float" />
+            </div>
+            <span className="absolute -inset-2 bg-primary/5 rounded-xl transform scale-95 opacity-0
               group-hover:opacity-100 transition-all duration-300 ease-out -z-10" />
           </Link>
 
-          <DesktopMenu navLinks={navLinks} onNavigate={handleNavigation} />
+          <DesktopMenu navLinks={navLinks} />
 
           <button 
-            className="md:hidden p-2 hover:bg-primary/10 rounded-lg transition-all duration-300 relative
-              hover:rotate-180 transform"
+            className="md:hidden relative group p-2 hover:bg-primary/10 rounded-lg 
+              transition-all duration-300"
             onClick={() => setIsOpen(true)}
             aria-label="Open menu"
           >
-            <Menu className="w-6 h-6 text-primary" />
+            <Menu className="w-6 h-6 text-primary group-hover:text-secondary 
+              transition-colors duration-300" />
+            <span className="absolute inset-0 bg-primary/5 rounded-lg transform scale-0 
+              group-hover:scale-100 transition-transform duration-300" />
           </button>
         </div>
       </div>
@@ -73,7 +79,6 @@ const Navbar = () => {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         navLinks={navLinks}
-        onNavigate={handleNavigation}
       />
     </nav>
   );

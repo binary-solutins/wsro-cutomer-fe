@@ -1,26 +1,23 @@
 import React from "react";
-import Background3D from "./Hero/Background3D";
-import HeroContent from "./Hero/HeroContent";
-import ScrollIndicator from "./Hero/ScrollIndicator";
-import SponsorSlider from "./Hero/Sponsor/SponsorSlider";
-import VideoSection from "./Hero/VideoSection";
-
+import Background3D from '../components/Hero/Background3D';
+import HeroContent from '../components/Hero/HeroContent';
+import VideoSection from '../components/Hero/VideoSection';
+import SponsorSlider from '../components/Hero/SponsorSlider'
+import ScrollIndicator from '../components/Hero/ScrollIndicator';
 const Hero = () => {
   return (
     <>
-      <div className="relative overflow-hidden pt-[200px] md:pt-[50px]">
+      <div className="relative overflow-hidden pt-[100px] md:pt-[50px]">
         <Background3D />
 
-        <div className="relative px-4 lg:px-10 h-auto md:h-screen lg:h-screen">
-          <div className="h-full flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-8 lg:gap-15 max-w-7xl mx-auto">
-            <div className="w-full lg:w-1/2 px-4 lg:pl-20 order-2 lg:order-1">
+        <div className="relative px-4 lg:px-10 min-h-screen">
+          <div className="h-full flex flex-col items-center justify-start gap-6 max-w-[1400px] mx-auto">
+            <div className="w-full text-center pt-[150px]">
               <HeroContent />
             </div>
 
-            <div className="w-full lg:w-1/2 px-4 lg:pl-20 order-1 lg:order-2">
-              <div className="aspect-video w-full">
-                <VideoSection videoId="QREiXmRgmo4" />
-              </div>
+            <div className="w-full lg:w-[85%] xl:w-[90%] mx-auto max-h-[100vh] mb-[20px]">
+              <VideoSection videoId="QREiXmRgmo4" />
             </div>
           </div>
 
@@ -30,9 +27,6 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="w-full">
-        <SponsorSlider />
-      </div>
     </>
   );
 };

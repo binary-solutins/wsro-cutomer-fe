@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bot, CheckCircle, Cog } from 'lucide-react';
 
@@ -203,9 +203,9 @@ const RegistrationModal = ({ event, onClose }) => {
   const [existingEmails, setExistingEmails] = useState([]);
   const [paymentInProgress, setPaymentInProgress] = useState(false);
   const [paymentError, setPaymentError] = useState('');
-
-  const [members, setMembers] = useState([
-  ]);
+  const [paymentTimeout, setPaymentTimeout] = useState(null);
+  const [razorpayInstance, setRazorpayInstance] = useState(null);
+  const [members, setMembers] = useState([]);
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -215,6 +215,25 @@ const RegistrationModal = ({ event, onClose }) => {
     error: null
   });
   const tshirtSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+
+  const cleanupPayment = useCallback(() => {
+    if (paymentTimeout) {
+      clearTimeout(paymentTimeout);
+      setPaymentTimeout(null);
+    }
+    if (razorpayInstance) {
+      razorpayInstance.close();
+      setRazorpayInstance(null);
+    }
+    setIsProcessing(false);
+    setPaymentInProgress(false);
+  }, [paymentTimeout, razorpayInstance]);
+
+  useEffect(() => {
+    return () => {
+      cleanupPayment();
+    };
+  }, [cleanupPayment]);
 
   const addMember = () => {
     if (members.length < 4) {
@@ -257,15 +276,17 @@ const RegistrationModal = ({ event, onClose }) => {
         },
         body: JSON.stringify({
           emails: allEmails,
-          competition_id: event.id
+          competition_id: event.id,
+          team_name: teamName // Added team_name to the payload
         }),
       });
 
       const data = await response.json();
 
-      if (data.exists) {
-        setEmailCheckError('One or more email addresses are already registered for this competition: ' + data.emails.join(', '));
-        setExistingEmails(data.emails);
+      if (data.existingEmails && data.existingEmails.length > 0) {
+        const uniqueEmails = [...new Set(data.existingEmails)];
+        setEmailCheckError('The following email addresses are already registered for this competition: ' + uniqueEmails.join(', '));
+        setExistingEmails(uniqueEmails);
         return false;
       }
 
@@ -338,6 +359,11 @@ const RegistrationModal = ({ event, onClose }) => {
   }, [event.id, event.event_id, teamName, leaderName, leaderEmail]);
 
   const handlePaymentSuccess = useCallback(async (response) => {
+    if (paymentTimeout) {
+      clearTimeout(paymentTimeout);
+      setPaymentTimeout(null);
+    }
+
     setPaymentStatus({
       status: 'processing',
       paymentId: response.razorpay_payment_id,
@@ -345,32 +371,49 @@ const RegistrationModal = ({ event, onClose }) => {
     });
 
     try {
-      const success = await handleRegistration(response.razorpay_payment_id);
+      let retries = 3;
+      let success = false;
+      
+      while (retries > 0 && !success) {
+        try {
+          success = await handleRegistration(response.razorpay_payment_id);
+          if (success) break;
+        } catch (error) {
+          console.error(`Registration attempt failed. Retries left: ${retries - 1}`, error);
+          retries--;
+          if (retries === 0) throw error;
+          await new Promise(resolve => setTimeout(resolve, 2000));
+        }
+      }
+
       if (success) {
         setPaymentStatus({
           status: 'success',
           paymentId: response.razorpay_payment_id,
           error: null
         });
+        setIsSuccess(true);
       }
     } catch (error) {
+      console.error('Final registration error:', error);
       setPaymentStatus({
         status: 'error',
         paymentId: response.razorpay_payment_id,
         error: `Registration failed after payment. Please contact support with Payment ID: ${response.razorpay_payment_id}`
       });
+    } finally {
+      cleanupPayment();
     }
-  }, [handleRegistration]);
+  }, [handleRegistration, paymentTimeout, cleanupPayment]);
 
   const handlePaymentFailure = useCallback((response) => {
+    cleanupPayment();
     setPaymentStatus({
       status: 'error',
       paymentId: response.error?.metadata?.payment_id,
       error: `Payment failed: ${response.error?.description || 'Unknown error'}`
     });
-    setIsProcessing(false);
-    setPaymentInProgress(false);
-  }, []);
+  }, [cleanupPayment]);
 
   const initializeRazorpay = useCallback(async () => {
     try {
@@ -389,9 +432,11 @@ const RegistrationModal = ({ event, onClose }) => {
         handler: handlePaymentSuccess,
         modal: {
           ondismiss: () => {
-            setIsProcessing(false);
-            setPaymentInProgress(false);
-          }
+            cleanupPayment();
+          },
+          escape: false,
+          animation: true,
+          backdropClose: false
         },
         prefill: {
           name: leaderName,
@@ -412,13 +457,30 @@ const RegistrationModal = ({ event, onClose }) => {
       };
 
       const paymentObject = new window.Razorpay(options);
+      
+      setRazorpayInstance(paymentObject);
+
+      const timeout = setTimeout(() => {
+        cleanupPayment();
+        setPaymentStatus({
+          status: 'error',
+          paymentId: null,
+          error: 'Payment timed out. Please try again.'
+        });
+      }, 5 * 60 * 1000);
+      
+      setPaymentTimeout(timeout);
+
       paymentObject.on('payment.failed', handlePaymentFailure);
+      paymentObject.on('payment.error', handlePaymentFailure);
+      
       return paymentObject;
     } catch (error) {
       console.error('Razorpay initialization error:', error);
+      cleanupPayment();
       throw error;
     }
-  }, [event, leaderName, leaderEmail, leaderPhone, teamName, handlePaymentSuccess, handlePaymentFailure]);
+  }, [event, leaderName, leaderEmail, leaderPhone, teamName, handlePaymentSuccess, handlePaymentFailure, cleanupPayment]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -436,6 +498,7 @@ const RegistrationModal = ({ event, onClose }) => {
 
       const razorpay = await initializeRazorpay();
       razorpay.open();
+      setPaymentInProgress(true);
     } catch (error) {
       console.error('Payment initialization error:', error);
       setPaymentStatus({
@@ -443,10 +506,9 @@ const RegistrationModal = ({ event, onClose }) => {
         paymentId: null,
         error: 'Failed to initialize payment. Please try again.'
       });
-      setIsProcessing(false);
+      cleanupPayment();
     }
   };
-
 
   return (
     <AnimatePresence>
@@ -518,11 +580,11 @@ const RegistrationModal = ({ event, onClose }) => {
 
                 {/* Leader Information */}
                 <div className="bg-gray-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold mb-4">Team Leader Information</h3>
+                  <h3 className="text-lg font-semibold mb-4">Team Captain Information</h3>
                   <div className="grid grid-cols-1 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Name
+                       Captain Name
                       </label>
                       <input
                         type="text"
@@ -534,7 +596,7 @@ const RegistrationModal = ({ event, onClose }) => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Email
+                        Captain Email
                       </label>
                       <input
                         type="email"
@@ -546,7 +608,7 @@ const RegistrationModal = ({ event, onClose }) => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Age
+                        Captain Age
                       </label>
                       <input
                         type="number"
@@ -558,7 +620,7 @@ const RegistrationModal = ({ event, onClose }) => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Phone
+                        Captain Phone/Mobile Number
                       </label>
                       <input
                         type="tel"
@@ -570,7 +632,7 @@ const RegistrationModal = ({ event, onClose }) => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        School
+                      Captain School /Institute/ University / Organization
                       </label>
                       <input
                         type="text"
@@ -582,7 +644,7 @@ const RegistrationModal = ({ event, onClose }) => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Total Students
+                        Total Number of Students
                       </label>
                       <input
                         type="number"
@@ -594,7 +656,7 @@ const RegistrationModal = ({ event, onClose }) => {
                     </div>
                     <div className="col-span-1">
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Address
+                      Captain Full Address
                       </label>
                       <input
                         type="text"
@@ -649,7 +711,7 @@ const RegistrationModal = ({ event, onClose }) => {
                   <div className="grid grid-cols-1 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Name
+                        Coach/Mentor Name
                       </label>
                       <input
                         type="text"
@@ -661,7 +723,7 @@ const RegistrationModal = ({ event, onClose }) => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Organization
+                      Coach/Mentor Organization
                       </label>
                       <input
                         type="text"
@@ -673,7 +735,7 @@ const RegistrationModal = ({ event, onClose }) => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Phone
+                      Coach/Mentor Phone/Mobile Number
                       </label>
                       <input
                         type="tel"
@@ -685,7 +747,7 @@ const RegistrationModal = ({ event, onClose }) => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Email
+                      Coach/Mentor Email Address
                       </label>
                       <input
                         type="email"
@@ -765,7 +827,7 @@ const RegistrationModal = ({ event, onClose }) => {
                         </div>
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Phone
+                            Mobile Number
                           </label>
                           <input
                             type="tel"
