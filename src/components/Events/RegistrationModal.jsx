@@ -620,9 +620,7 @@ const handlePaymentSuccess = useCallback(async (response) => {
                 )}
 
                 {paymentStatus.status === 'processing' && (
-                  <div className="bg-blue-50 border border-blue-200 text-blue-600 px-4 py-3 rounded-lg">
-                    Processing payment and registration...
-                  </div>
+                <LoadingOverlay />
                 )}
 
                 {/* Team Information */}
