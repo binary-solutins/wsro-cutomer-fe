@@ -7,7 +7,7 @@ import ScrollIndicator from '../components/Hero/ScrollIndicator';
 const Hero = () => {
   return (
     <>
-      <div className="relative overflow-hidden pt-[100px] md:pt-[50px]">
+      <div className="relative overflow-hidden pt-[2px] md:pt-[30px]">
         <Background3D />
 
         <div className="relative px-4 lg:px-10 min-h-screen">
@@ -16,7 +16,7 @@ const Hero = () => {
               <HeroContent />
             </div>
 
-            <div className="w-full lg:w-[85%] xl:w-[90%] mx-auto max-h-[100vh] mb-[20px]">
+            <div className="w-full lg:w-[85%] xl:w-[90%] mx-auto max-h-[70vh] mb-[20px]">
               <VideoSection videoId="QREiXmRgmo4" />
             </div>
           </div>

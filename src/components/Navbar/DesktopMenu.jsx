@@ -1,16 +1,13 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Notebook as Robot } from 'lucide-react';
 
 const DesktopMenu = ({ navLinks }) => {
-  const navigate = useNavigate();
-
   return (
     <div className="hidden md:flex items-center space-x-1">
       {navLinks.map((link) => (
-        <button
+        <a
           key={link.href}
-          onClick={() => navigate(link.href)}
+          href={link.href}
           className="relative group px-4 py-2 text-sm font-medium text-gray-700 rounded-lg
             hover:text-primary transition-all duration-300 ease-out"
         >
@@ -25,7 +22,7 @@ const DesktopMenu = ({ navLinks }) => {
             <Robot className="absolute -top-1 -right-1 w-3 h-3 text-secondary opacity-0 group-hover:opacity-100
               transition-opacity duration-300 animate-float" />
           )}
-        </button>
+        </a>
       ))}
     </div>
   );

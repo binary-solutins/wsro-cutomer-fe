@@ -4,13 +4,10 @@ import EventDetailsModal from '../Events/EventDetailsModal';
 import RegistrationModal from '../Events/RegistrationModal';
 import EventSkeleton from '../Events/EventSkelaton';
 import LevelCard from '../Events/LevelCard';
-import { useNavigate } from 'react-router-dom';
 
 const CompetitionGrid = ({ competitions = [], loading }) => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showRegistration, setShowRegistration] = useState(false);
-  
-
 
   const handleRegister = (event) => {
     setSelectedEvent(event);
@@ -22,14 +19,10 @@ const CompetitionGrid = ({ competitions = [], loading }) => {
     setShowRegistration(false);
   };
 
- 
-  const navigate = useNavigate();
-
   const handleLearnMore = (event) => {
     setSelectedEvent(event);
-    navigate(`/events/${event.id}`);
+    window.location.href = `/events/${event.id}`;
   };
-
 
   const levels = [
     {

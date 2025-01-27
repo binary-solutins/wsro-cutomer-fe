@@ -69,7 +69,7 @@ const ContactForm = () => {
     };
 
     try {
-      const response = await fetch('https://node-test-fu37.onrender.com/api/inquiries', {
+      const response = await fetch('https://wsro-backend.onrender.com/api/inquiries', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

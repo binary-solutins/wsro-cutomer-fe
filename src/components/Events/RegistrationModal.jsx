@@ -267,19 +267,19 @@ const RegistrationModal = ({ event, onClose }) => {
       coachEmail,
       ...members.map(member => member.email)
     ].filter(Boolean);
-
+  
     try {
-      const response = await fetch('https://node-test-fu37.onrender.com/api/auth/check-email', {
+      const response = await fetch('https://wsro-backend.onrender.com/api/auth/check-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           emails: allEmails,
-          competition_id: event.id
+          competition_id: event.id,
+          team_name: teamName  // Add this line
         }),
       });
-
       const data = await response.json();
 
       if (data.existingEmails && data.existingEmails.length > 0) {
@@ -327,7 +327,7 @@ const RegistrationModal = ({ event, onClose }) => {
         payment_id: paymentId
       };
 
-      const registerResponse = await fetch('https://node-test-fu37.onrender.com/api/competitions/register', {
+      const registerResponse = await fetch('https://wsro-backend.onrender.com/api/competitions/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -391,15 +391,7 @@ const handlePaymentSuccess = useCallback(async (response) => {
           error: null
         });
         setIsSuccess(true);
-
-        // Redirect mechanism for different devices
-        const redirectToConfirmation = () => {
-          // Customize this URL to your confirmation page
-          window.location.href = `/registration-confirmation?paymentId=${response.razorpay_payment_id}`;
-        };
-
-        // Slight delay to ensure all states are updated
-        setTimeout(redirectToConfirmation, 1000);
+       
       }
     } catch (error) {
       console.error('Final registration error:', error);
@@ -422,96 +414,139 @@ const handlePaymentSuccess = useCallback(async (response) => {
     });
   }, [cleanupPayment]);
 
-const initializeRazorpay = useCallback(async () => {
-  try {
-    const res = await loadRazorpay();
-    
-    if (!res) {
-      throw new Error('Razorpay SDK failed to load');
-    }
-
-    const options = {
-      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-      amount: Math.round(event.fees * 100),
-      currency: "INR",
-      name: "WSRO Robotics",
-      description: `Registration for ${event.name}`,
-      handler: handlePaymentSuccess,
-      modal: {
-        ondismiss: () => {
-          cleanupPayment();
-        },
-        escape: false,
-        animation: true,
-        backdropClose: false
-      },
-      prefill: {
-        name: leaderName,
-        email: leaderEmail,
-        contact: leaderPhone
-      },
-      theme: {
-        color: "#2563eb",
-      },
-      retry: {
-        enabled: true,
-        max_count: 3
-      },
-      config: {
-        display: {
-          blocks: {
-            upi: {
-              name: 'Pay via UPI',
-              instruments: [
-                {
-                  method: 'upi'
-                }
-              ]
-            }
-          },
-          sequence: ['upi'],
-          preferences: {
-            show_default_blocks: true
-          }
-        }
-      },
-      method: {
-        upi: {
-          flow: 'both', // Support both QR and intent
-          apps: ['googlepay', 'phonepe', 'paytm']
-        }
-      },
-      notes: {
-        team_name: teamName,
-        event_name: event.name
+  const initializeRazorpay = useCallback(async () => {
+    try {
+      const res = await loadRazorpay();
+  
+      if (!res) {
+        throw new Error("Razorpay SDK failed to load");
       }
-    };
-
-    const paymentObject = new window.Razorpay(options);
-    
-    setRazorpayInstance(paymentObject);
-
-    const timeout = setTimeout(() => {
+  
+      // Create order via backend
+      const orderResponse = await fetch("https://wsro-backend.onrender.com/razorpay/create-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount: event.fees,
+          currency: "INR",
+          receipt: `team_${teamName}_${Date.now()}`,
+          notes: {
+            team_name: teamName,
+            event_name: event.name,
+            event_id: event.id,
+          },
+        }),
+      });
+  
+      if (!orderResponse.ok) {
+        throw new Error("Failed to create Razorpay order");
+      }
+  
+      const orderData = await orderResponse.json();
+  
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        order_id: orderData.order.id, 
+        amount: orderData.order.amount,
+        currency: orderData.order.currency,
+        name: "WSRO Robotics",
+        description: `Registration for ${event.name}`,
+        handler: async function(response) {
+          try {
+           
+            const verifyResponse = await fetch("https://wsro-backend.onrender.com/razorpay/verify-payment", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature
+              }),
+            });
+  
+            if (!verifyResponse.ok) {
+              const errorData = await verifyResponse.json();
+              throw new Error(errorData.message || "Payment verification failed");
+            }
+  
+            const verifyData = await verifyResponse.json();
+            if (verifyData.success) {
+              await handlePaymentSuccess(response);
+            } else {
+              throw new Error("Payment verification failed");
+            }
+          } catch (error) {
+            console.error("Payment verification error:", error);
+            handlePaymentFailure({
+              error: {
+                description: error.message,
+                metadata: { payment_id: response.razorpay_payment_id }
+              }
+            });
+          }
+        },
+        modal: {
+          ondismiss: () => {
+            cleanupPayment();
+          },
+          escape: false,
+          animation: true,
+          backdropClose: false,
+        },
+        prefill: {
+          name: leaderName,
+          email: leaderEmail,
+          contact: leaderPhone,
+        },
+        theme: {
+          color: "#2563eb",
+        },
+        retry: {
+          enabled: true,
+          max_count: 3,
+        },
+      };
+  
+      const paymentObject = new window.Razorpay(options);
+      setRazorpayInstance(paymentObject);
+  
+      const timeout = setTimeout(() => {
+        cleanupPayment();
+        setPaymentStatus({
+          status: "error",
+          paymentId: null,
+          error: "Payment timed out. Please try again.",
+        });
+      }, 5 * 60 * 1000);
+  
+      setPaymentTimeout(timeout);
+      paymentObject.open();
+      setPaymentInProgress(true);
+    } catch (error) {
+      console.error("Razorpay initialization error:", error);
       cleanupPayment();
       setPaymentStatus({
-        status: 'error',
+        status: "error",
         paymentId: null,
-        error: 'Payment timed out. Please try again.'
+        error: "Failed to initialize payment. Please try again.",
       });
-    }, 5 * 60 * 1000);
-    
-    setPaymentTimeout(timeout);
-
-    paymentObject.on('payment.failed', handlePaymentFailure);
-    paymentObject.on('payment.error', handlePaymentFailure);
-    
-    return paymentObject;
-  } catch (error) {
-    console.error('Razorpay initialization error:', error);
-    cleanupPayment();
-    throw error;
-  }
-}, [event, leaderName, leaderEmail, leaderPhone, teamName, handlePaymentSuccess, handlePaymentFailure, cleanupPayment]);
+    }
+  }, [
+    event,
+    leaderName,
+    leaderEmail,
+    leaderPhone,
+    teamName,
+    handlePaymentSuccess,
+    handlePaymentFailure,
+    cleanupPayment,
+  ]);
+  
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();

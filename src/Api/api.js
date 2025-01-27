@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'https://node-test-fu37.onrender.com/api';
+const baseUrl = 'https://wsro-backend.onrender.com/api';
 
 export const getCompetitions = async () => {
     try {
