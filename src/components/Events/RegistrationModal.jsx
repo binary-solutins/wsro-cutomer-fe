@@ -610,14 +610,14 @@ const handlePaymentSuccess = useCallback(async (response) => {
                   </div>
                 )}
                 
-                {paymentStatus.status === 'error' && (
+                {/* {paymentStatus.status === 'error' && (
                   <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
                     <p>{paymentStatus.error}</p>
                     {paymentStatus.paymentId && (
                       <p className="mt-2 text-sm">Payment ID: {paymentStatus.paymentId}</p>
                     )}
                   </div>
-                )}
+                )} */}
 
                 {paymentStatus.status === 'processing' && (
                 <LoadingOverlay />
