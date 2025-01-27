@@ -1,7 +1,14 @@
 import React from 'react';
-import { Phone, MapPin, Mail } from 'lucide-react';
+import { Phone, MapPin } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const TopBar = () => {
+  const navigate = useNavigate();
+
+  const handleRegistrationClick = () => {
+    navigate('/competitions');
+  };
+
   return (
     <div className="bg-gradient-to-r from-primary via-primary to-secondary/90 text-white relative overflow-hidden">
       {/* Circuit Board Pattern Background */}
@@ -47,7 +54,7 @@ const TopBar = () => {
               </div>
               <span className="group-hover:text-white/90 transition-all duration-300">
                 Have any questions?
-                <span className="ml-2 text-secondary group-hover:text-white">
+                <span className="ml-2 text-white group-hover:text-white">
                   9904463224 / 8128728882
                 </span>
               </span>
@@ -65,8 +72,10 @@ const TopBar = () => {
               </span>
             </div>
           </div>
-          <button className="relative overflow-hidden group px-6 py-2 rounded-full bg-white text-primary font-medium
-            hover:text-white transition-all duration-300 ease-out transform hover:scale-105 active:scale-95">
+          <button 
+            onClick={handleRegistrationClick} 
+            className="relative overflow-hidden group px-6 py-2 rounded-full bg-white text-primary font-medium
+              hover:text-white transition-all duration-300 ease-out transform hover:scale-105 active:scale-95">
             <span className="relative z-10">REGISTRATION</span>
             <span className="absolute inset-0 bg-secondary transform scale-x-0 group-hover:scale-x-100
               transition-transform duration-500 origin-left" />
