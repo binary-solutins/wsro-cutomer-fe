@@ -584,7 +584,7 @@ const handlePaymentSuccess = useCallback(async (response) => {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.9 }}
-          className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+          className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative"
         >
           <div className="p-6">
             <div className="flex justify-between items-start mb-6">
@@ -828,101 +828,121 @@ const handlePaymentSuccess = useCallback(async (response) => {
 
                 {/* Team Members */}
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <h3 className="text-lg font-semibold">Team Members</h3>
-                    <button
-                      type="button"
-                      onClick={addMember}
-                      disabled={members.length >= 4}
-                      className="text-primary hover:text-secondary disabled:text-gray-400"
-                    >
-                      + Add Member
-                    </button>
-                  </div>
+  <h3 className="text-lg font-semibold">Team Members</h3>
 
-                  {members.map((member, index) => (
-                    <div key={index} className="bg-gray-50 p-6 rounded-lg space-y-4">
-                      <div className="flex justify-between items-center">
-                        <h4 className="font-medium">Member {index + 1}</h4>
-                        {index > 0 && (
-                          <button
-                            type="button"
-                            onClick={() => removeMember(index)}
-                            className="text-red-500 hover:text-red-600"
-                          >
-                            Remove
-                          </button>
-                        )}
-                      </div>
-                      <div className="grid grid-cols-1 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Name
-                          </label>
-                          <input
-                            type="text"
-                            value={member.name}
-                            onChange={(e) => updateMember(index, 'name', e.target.value)}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                            required
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Email
-                          </label>
-                          <input
-                            type="email"
-                            value={member.email}
-                            onChange={(e) => updateMember(index, 'email', e.target.value)}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                            required
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Age
-                          </label>
-                          <input
-                            type="number"
-                            value={member.age}
-                            onChange={(e) => updateMember(index, 'age', e.target.value)}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                            required
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Mobile Number
-                          </label>
-                          <input
-                            type="tel"
-                            value={member.phone}
-                            onChange={(e) => updateMember(index, 'phone', e.target.value)}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                            required
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            T-Shirt Size
-                          </label>
-                          <select
-                            value={member.tshirtSize}
-                            onChange={(e) => updateMember(index, 'tshirtSize', e.target.value)}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                            required
-                          >
-                            <option value="">Select Size</option>
-                            {tshirtSizes.map(size => (
-                              <option key={size} value={size}>{size}</option>
-                            ))}
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+  <div className="space-y-6">
+    {members.map((member, index) => (
+      <div key={index}>
+        <div className="bg-gray-50 p-6 rounded-lg space-y-4">
+          <div className="flex justify-between items-center">
+            <h4 className="font-medium">Member {index + 1}</h4>
+            {index > 0 && (
+              <button
+                type="button"
+                onClick={() => removeMember(index)}
+                className="text-red-500 hover:text-red-600"
+              >
+                Remove
+              </button>
+            )}
+          </div>
+          <div className="grid grid-cols-1 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Name
+              </label>
+              <input
+                type="text"
+                value={member.name}
+                onChange={(e) => updateMember(index, 'name', e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Email
+              </label>
+              <input
+                type="email"
+                value={member.email}
+                onChange={(e) => updateMember(index, 'email', e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Age
+              </label>
+              <input
+                type="number"
+                value={member.age}
+                onChange={(e) => updateMember(index, 'age', e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Mobile Number
+              </label>
+              <input
+                type="tel"
+                value={member.phone}
+                onChange={(e) => updateMember(index, 'phone', e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                T-Shirt Size
+              </label>
+              <select
+                value={member.tshirtSize}
+                onChange={(e) => updateMember(index, 'tshirtSize', e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                required
+              >
+                <option value="">Select Size</option>
+                {tshirtSizes.map(size => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        {/* Add Member button after each member form except when max members reached */}
+        {index === members.length - 1 && members.length < 4 && (
+          <div className="mt-4 flex justify-center">
+            <button
+              type="button"
+              onClick={addMember}
+              className="inline-flex items-center px-4 py-2 text-primary hover:text-secondary"
+            >
+              <span className="mr-2">+</span> Add Another Member
+            </button>
+          </div>
+        )}
+      </div>
+    ))}
+
+    {/* Show Add Member button if no members yet */}
+    {members.length === 0 && (
+      <div className="flex justify-center">
+        <button
+          type="button"
+          onClick={addMember}
+          className="inline-flex items-center px-4 py-2 text-primary hover:text-secondary"
+        >
+          <span className="mr-2">+</span> Add Member
+        </button>
+      </div>
+    )}
+  </div>
+</div>
 
                 <button
                   type="submit"

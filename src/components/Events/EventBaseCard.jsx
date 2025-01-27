@@ -38,7 +38,7 @@ const EventBaseCard = ({ level, onLearnMore }) => {
             transition-all duration-300 flex items-center justify-center gap-2 group"
           onClick={() => onLearnMore(level)}
         >
-          <span>Learn More</span>
+          <span>Explore Competitions</span>
           <ChevronRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
         </motion.button>
       </div>
