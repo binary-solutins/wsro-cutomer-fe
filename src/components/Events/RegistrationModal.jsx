@@ -277,27 +277,38 @@ const RegistrationModal = ({ event, onClose }) => {
         body: JSON.stringify({
           emails: allEmails,
           competition_id: event.id,
-          team_name: teamName  // Add this line
+          team_name: teamName
         }),
       });
+      console.log(response);
       const data = await response.json();
-
-      if (data.existingEmails && data.existingEmails.length > 0) {
-        const uniqueEmails = [...new Set(data.existingEmails)];
-        setEmailCheckError('The following email addresses are already registered for this competition: ' + uniqueEmails.join(', '));
-        setExistingEmails(uniqueEmails);
+      
+      let errorMessage = '';
+      
+      // Check for existing emails
+      if (data.emails && data.emails.length > 0) {
+        errorMessage += `The following email addresses are already registered for this competition: ${data.emails.join(', ')}\n`;
+      }
+      
+      // Check for existing team name
+      if (data.team_names && data.team_names.length > 0) {
+        errorMessage += `The team name "${teamName}" is already taken for this competition.`;
+      }
+      
+      if (errorMessage) {
+        setEmailCheckError(errorMessage.trim());
         return false;
       }
-
+  
       setEmailCheckError('');
-      setExistingEmails([]);
       return true;
     } catch (error) {
       console.error('Email check error:', error);
-      setEmailCheckError('Failed to verify email addresses. Please try again.');
+      setEmailCheckError('Failed to verify email addresses and team name. Please try again.');
       return false;
     }
   };
+  
 
   const handleRegistration = useCallback(async (paymentId) => {
     try {
@@ -553,17 +564,18 @@ const handlePaymentSuccess = useCallback(async (response) => {
     setIsProcessing(true);
     setEmailCheckError('');
     setPaymentStatus({ status: 'idle', paymentId: null, error: null });
-
+  
     try {
-      const emailsValid = await checkEmails();
+      // First check emails and team name
+      const validationPassed = await checkEmails();
       
-      if (!emailsValid) {
+      if (!validationPassed) {
         setIsProcessing(false);
         return;
       }
-
-      const razorpay = await initializeRazorpay();
-      razorpay.open();
+  
+      // If validation passes, proceed with payment
+      await initializeRazorpay();
       setPaymentInProgress(true);
     } catch (error) {
       console.error('Payment initialization error:', error);
