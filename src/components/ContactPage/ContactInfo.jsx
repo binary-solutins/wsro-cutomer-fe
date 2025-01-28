@@ -6,17 +6,17 @@ const ContactInfo = () => {
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Visit Us",
-      details: ["123 Innovation Street", "Tech Hub, Building 4", "Bangalore, 560001"]
+      details: ["Shanti Corporate House", " Near Hira Rupa Hall, Bopal-Ambli Road,", "Ahmedabad, 380058"]
     },
     {
       icon: <Phone className="w-6 h-6" />,
       title: "Call Us",
-      details: ["+91 (800) 123-4567", "+91 (800) 123-4568"]
+      details: ["+91-9904463224", "+91-8128728882"]
     },
     {
       icon: <Mail className="w-6 h-6" />,
       title: "Email Us",
-      details: ["support@wsrobotics.com", "info@wsrobotics.com"]
+      details: ["wsroindia@gmail.com","support@wsro.com"]
     },
     {
       icon: <Clock className="w-6 h-6" />,

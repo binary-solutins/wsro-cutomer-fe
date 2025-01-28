@@ -13,7 +13,7 @@ const ContentSection = () => {
       <Description />
       <div className="flex flex-col sm:flex-row gap-4">
         <button 
-          onClick={() => navigate('/competition')} 
+          onClick={() => navigate('/competitions')} 
           className="bg-[#485db5] text-white px-8 py-4 rounded-lg text-lg font-semibold
             hover:bg-[#5b6fc7] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg
             hover:shadow-[#485db5]/30 relative overflow-hidden group"
