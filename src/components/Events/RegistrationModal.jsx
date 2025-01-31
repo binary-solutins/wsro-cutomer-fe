@@ -206,7 +206,8 @@ const RegistrationModal = ({ event, onClose }) => {
   const [paymentTimeout, setPaymentTimeout] = useState(null);
   const [razorpayInstance, setRazorpayInstance] = useState(null);
   const [members, setMembers] = useState([]);
-
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [liabilityAccepted, setLiabilityAccepted] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState({
@@ -561,6 +562,14 @@ const handlePaymentSuccess = useCallback(async (response) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!termsAccepted || !liabilityAccepted) {
+      setPaymentStatus({
+        status: 'error',
+        paymentId: null,
+        error: 'Please accept both the Terms and Conditions and the Liability Waiver to continue.'
+      });
+      return;
+    }
     setIsProcessing(true);
     setEmailCheckError('');
     setPaymentStatus({ status: 'idle', paymentId: null, error: null });
@@ -954,9 +963,40 @@ const handlePaymentSuccess = useCallback(async (response) => {
   </div>
 </div>
 
+<div className="space-y-4">
+          <div className="flex items-start space-x-3">
+            <input
+              type="checkbox"
+              id="terms"
+              checked={termsAccepted}
+              onChange={(e) => setTermsAccepted(e.target.checked)}
+              className="mt-1 rounded border-gray-300 text-primary focus:ring-primary"
+              required
+            />
+            <label htmlFor="terms" className="text-sm text-gray-700">
+              I have read and agree to the Terms and Conditions and Return and Refund Policy
+            </label>
+          </div>
+
+          <div className="flex items-start space-x-3">
+            <input
+              type="checkbox"
+              id="liability"
+              checked={liabilityAccepted}
+              onChange={(e) => setLiabilityAccepted(e.target.checked)}
+              className="mt-1 rounded border-gray-300 text-primary focus:ring-primary"
+              required
+            />
+            <label htmlFor="liability" className="text-sm text-gray-700">
+              We understand that participation in this robotics event is not by force and if any physical injury, including serious injury may occur during competition then its my/our responsibility. Also I agree to accept any liability for personal injury arising out of my participation in this WSRO event
+            </label>
+          </div>
+        </div>
+
+
                 <button
                   type="submit"
-                  disabled={isProcessing || paymentInProgress}
+                  disabled={isProcessing || paymentInProgress || !termsAccepted || !liabilityAccepted}
                   className="w-full bg-primary text-white py-3 rounded-lg hover:bg-secondary transition-colors duration-300 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isProcessing || paymentInProgress ? 'Processing...' : 'Submit Registration'}

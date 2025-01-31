@@ -46,7 +46,7 @@ const FooterSection = () => {
             <ul className="space-y-3">
               <li className="flex items-start gap-3 text-gray-400">
                 <MapPin className="w-5 h-5 text-secondary mt-1" />
-                <span>Shanti Corporate House, Ahmedabad</span>
+                <span>Shanti Corporate House, Near Hira Rupa Hall, Bopal-Ambli Road, Ahmedabad</span>
               </li>
               <li className="flex items-center gap-3 text-gray-400">
                 <Phone className="w-5 h-5 text-secondary" />

@@ -3,6 +3,9 @@ import { motion } from 'framer-motion';
 import { Trophy, ChevronRight } from 'lucide-react';
 
 const EventBaseCard = ({ level, onLearnMore }) => {
+  // Generate a random number between 1 and 9 for the image
+  const randomImageId = Math.floor(Math.random() * 12) + 1;
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -12,7 +15,7 @@ const EventBaseCard = ({ level, onLearnMore }) => {
     >
       <div className="relative h-60 overflow-hidden group">
         <img 
-          src="https://img.freepik.com/free-vector/robot-competition-illustration_1284-59228.jpg"
+          src={`/comp-${randomImageId}.png`} // Using the random number for the image
           alt={level.name}
           className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
         />
@@ -27,7 +30,7 @@ const EventBaseCard = ({ level, onLearnMore }) => {
 
       <div className="p-6 space-y-4">
         <div>
-          <h3 className="text-xl font-bold text-gray-800 mb-2">{level.title}</h3>
+          <h3 className="text-md font-bold text-gray-800 mb-2">{level.title}</h3>
         </div>
 
         <motion.button
@@ -38,7 +41,7 @@ const EventBaseCard = ({ level, onLearnMore }) => {
             transition-all duration-300 flex items-center justify-center gap-2 group"
           onClick={() => onLearnMore(level)}
         >
-          <span>Explore Competitions</span>
+          <span className='text-sm'>Explore Competitions</span>
           <ChevronRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
         </motion.button>
       </div>

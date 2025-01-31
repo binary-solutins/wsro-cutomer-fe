@@ -41,8 +41,8 @@ const StatCard = ({ number, label }) => {
           </div>
           
           <div className={`
-            text-sm text-center text-dark/70
-            transition-all duration-500 delay-100
+            text-md text-center text-dark/70
+            transition-all duration-500 delay-100 text-primary
             ${inView ? 'opacity-100' : 'opacity-0'}
           `}>
             {label}

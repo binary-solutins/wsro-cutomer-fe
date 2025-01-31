@@ -18,7 +18,7 @@ const EventCard = ({ event, onLearnMore }) => {
 
   // Check if registration deadline has passed
   const isRegistrationClosed = isPast(new Date(event.registration_deadline));
-
+  const randomImageId = Math.floor(Math.random() * 12) + 1;
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -26,11 +26,11 @@ const EventCard = ({ event, onLearnMore }) => {
       whileHover={{ y: -8, transition: { duration: 0.2 } }}
       className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
     >
-      <div className="relative h-56 overflow-hidden group">
+      <div className="relative h-50 overflow-hidden group">
         <img 
-          src={event.image || "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80"}
+          src={`/comp-${randomImageId}.png`}
           alt={event.name}
-          className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+          className="w-full h-[300px] object-cover transform group-hover:scale-110 transition-transform duration-700"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
         
@@ -49,8 +49,16 @@ const EventCard = ({ event, onLearnMore }) => {
 
       <div className="p-6 space-y-6">
         <div>
-          <h3 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2">{event.name}</h3>
-          
+        <div className="relative group w-fit">
+  <h3 className="text-md font-bold text-gray-800 mb-3 cursor-pointer">
+    {event.name.length > 20 ? `${event.name.substring(0, 20)}...` : event.name}
+  </h3>
+  <div className="absolute bottom-full left-[100px] -translate-x-1/2 mb-2 w-max max-w-xs bg-gray-900 text-white text-xs rounded-lg px-3 py-1 
+      opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-lg">
+    {event.name}
+  </div>
+</div>
+
           <div className="space-y-3">
             {/* Venue */}
             <div className="flex items-center gap-3 text-gray-600">
@@ -87,7 +95,7 @@ const EventCard = ({ event, onLearnMore }) => {
               transition-all duration-300 flex items-center justify-center gap-2 group"
             onClick={() => onLearnMore(event)}
           >
-            <span>Get Details</span>
+            <span>Register</span>
             <ChevronRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
           </motion.button>
         )}

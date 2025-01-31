@@ -17,7 +17,7 @@ const Hero = () => {
             </div>
 
             <div className="w-full lg:w-[85%] xl:w-[90%] mx-auto max-h-[70vh] mb-[20px]">
-              <VideoSection videoId="QREiXmRgmo4" />
+              <VideoSection videoId="UoktjftyStg" />
             </div>
           </div>
 

@@ -75,7 +75,7 @@ const Events = () => {
   return (
     <>
       <Navbar />
-      <section className="py-20 bg-gray-50 pt-[150px]">
+      <section className=" bg-gray-50 pt-[150px]">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-4 text-primary">
             Upcoming <span className="text-secondary">Events</span>
@@ -85,7 +85,7 @@ const Events = () => {
             opportunities
           </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {loading
               ? [...Array(3)].map((_, index) => <EventSkeleton key={index} />)
               : events.length === 0 ? (

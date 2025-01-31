@@ -3,6 +3,9 @@ import { motion } from 'framer-motion';
 import { Trophy, ChevronRight } from 'lucide-react';
 
 const LevelCard = ({ level, onLearnMore }) => {
+  // Generate the image URL based on the level id
+  const imageUrl = `/regional-${Math.floor(Math.random() * 3) + 1}.jpg`;
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -12,7 +15,7 @@ const LevelCard = ({ level, onLearnMore }) => {
     >
       <div className="relative h-60 overflow-hidden group">
         <img 
-          src="https://img.freepik.com/free-vector/robot-competition-illustration_1284-59228.jpg"
+          src={imageUrl}
           alt={level.name}
           className="w-full h-full object-fill transform group-hover:scale-110 transition-transform duration-700"
         />
@@ -27,7 +30,7 @@ const LevelCard = ({ level, onLearnMore }) => {
 
       <div className="p-6 space-y-4">
         <div>
-          <h3 className="text-xl font-bold text-gray-800 mb-2">{level.name}</h3>
+          <h3 className="text-md font-bold text-gray-800 mb-2">{level.name}</h3>
           <p className="text-gray-600 text-sm line-clamp-2">{level.description}</p>
         </div>
 
@@ -39,7 +42,7 @@ const LevelCard = ({ level, onLearnMore }) => {
             transition-all duration-300 flex items-center justify-center gap-2 group"
           onClick={() => onLearnMore(level)}
         >
-          <span>Get Details</span>
+          <span>Register</span>
           <ChevronRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
         </motion.button>
       </div>

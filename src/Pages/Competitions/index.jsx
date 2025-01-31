@@ -56,7 +56,7 @@ const EventCompetitions = () => {
             opportunities
           </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {loading
               ? [...Array(3)].map((_, index) => <EventSkeleton key={index} />)
               : events.map((event) => (

@@ -40,12 +40,12 @@ const features = [
 ];
 
 const stats = [
-  { number: '19k', label: 'Visitors' },
-  { number: '100+', label: 'Investors' },
-  { number: '1.1k', label: 'Robots Built' },
-  { number: '200+', label: 'Start-Ups' },
-  { number: '400+', label: 'Entrepreneurs' },
-  { number: '1k+', label: 'Scientists' }
+  { number: '20k +', label: 'Visitors' },
+  { number: '100 +', label: 'Investors' },
+  { number: '5k  +', label: 'Robots Built' },
+  { number: '200 +', label: 'Start-Ups' },
+  { number: '400 +', label: 'Entrepreneurs' },
+  { number: '300 +', label: 'Schools' }
 ];
 
 
