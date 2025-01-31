@@ -521,7 +521,17 @@ const handlePaymentSuccess = useCallback(async (response) => {
           enabled: true,
           max_count: 3,
         },
+        method: {
+          upi: {
+            _: true, 
+            qr: false
+          },
+          netbanking: true,
+          card: true,
+          wallet: true,
+        },
       };
+      
   
       const paymentObject = new window.Razorpay(options);
       setRazorpayInstance(paymentObject);
