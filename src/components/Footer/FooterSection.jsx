@@ -1,13 +1,21 @@
-import React from 'react';
-import { MapPin, Phone, Mail, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
-import FooterLink from './FooterLinks';
+import React from "react";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+} from "lucide-react";
+import FooterLink from "./FooterLinks";
 
 const FooterSection = () => {
   const socialLinks = [
-    { icon: Facebook, href: '#' },
-    { icon: Twitter, href: '#' },
-    { icon: Instagram, href: '#' },
-    { icon: Linkedin, href: '#' }
+    { icon: Facebook, href: "https://www.facebook.com/WSROIndia" },
+    { icon: Twitter, href: "https://www.linkedin.com/company/wsro/" },
+    { icon: Instagram, href: "https://www.instagram.com/wsroindia/" },
+    { icon: Linkedin, href: "https://twitter.com/WSROIndia" },
   ];
 
   return (
@@ -21,10 +29,15 @@ const FooterSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* About Section */}
           <div className="space-y-4">
-            <h3 className="text-xl font-bold bg-gradient-to-r from-primary to-secondary 
-              text-transparent bg-clip-text">World Stem & Robotics</h3>
+            <h3
+              className="text-xl font-bold bg-gradient-to-r from-primary to-secondary 
+              text-transparent bg-clip-text"
+            >
+              World Stem & Robotics
+            </h3>
             <p className="text-gray-400 leading-relaxed">
-              Empowering the next generation through robotics education and innovation.
+              Empowering the next generation through robotics education and
+              innovation.
             </p>
           </div>
 
@@ -32,11 +45,23 @@ const FooterSection = () => {
           <div className="space-y-4">
             <h4 className="text-lg font-semibold">Quick Links</h4>
             <ul className="space-y-2">
-              {['About Us', 'Programs', 'Competitions', 'Gallery'].map(link => (
-                <li key={link}>
-                  <FooterLink href="#">{link}</FooterLink>
-                </li>
-              ))}
+              <li>
+                <FooterLink href="/about-us">About Us</FooterLink>
+              </li>
+              <li>
+                <FooterLink href="/competitions">Competitions</FooterLink>
+              </li>
+              <li>
+                <FooterLink href="/gallery">Gallery</FooterLink>
+              </li>
+              <li>
+                <FooterLink href="/contact-us">Contact Us</FooterLink>
+              </li>
+              <li>
+                <FooterLink href="/terms & conditions">
+                  Terms And Conditions
+                </FooterLink>
+              </li>
             </ul>
           </div>
 
@@ -46,7 +71,10 @@ const FooterSection = () => {
             <ul className="space-y-3">
               <li className="flex items-start gap-3 text-gray-400">
                 <MapPin className="w-5 h-5 text-secondary mt-1" />
-                <span>Shanti Corporate House, Near Hira Rupa Hall, Bopal-Ambli Road, Ahmedabad</span>
+                <span>
+                  Shanti Corporate House, Near Hira Rupa Hall, Bopal-Ambli Road,
+                  Ahmedabad
+                </span>
               </li>
               <li className="flex items-center gap-3 text-gray-400">
                 <Phone className="w-5 h-5 text-secondary" />
@@ -84,8 +112,9 @@ const FooterSection = () => {
               © 2024 World Stem & Robotics Olympiad. All rights reserved.
             </p>
             <div className="flex gap-6">
-              <FooterLink href="#">Privacy Policy</FooterLink>
-              <FooterLink href="#">Terms of Service</FooterLink>
+              <FooterLink href="/terms & conditions">
+                Terms And Conditions
+              </FooterLink>
             </div>
           </div>
         </div>

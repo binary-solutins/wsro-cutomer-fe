@@ -27,12 +27,12 @@ const SponsorSlider = () => {
         </motion.div>
 
         <div className="relative">
-          <div className="flex space-x-8 animate-scrollX hover:pause">
-            {[...sponsors, ...sponsors].map((sponsor, index) => (
+          <div className="flex space-x-8  animate-scrollX hover:pause">
+            {sponsors.map((sponsor, index) => (
               <SponsorCard
-                key={`${sponsor.id}-${index}`}
+                key={sponsor.id}
                 {...sponsor}
-                index={index}
+                index={sponsor.id}
               />
             ))}
           </div>

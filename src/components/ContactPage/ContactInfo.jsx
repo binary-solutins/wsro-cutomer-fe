@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 
 const ContactInfo = () => {
   const contactDetails = [
@@ -23,6 +23,13 @@ const ContactInfo = () => {
       title: "Working Hours",
       details: ["Monday - Friday: 9:00 AM - 6:00 PM", "Saturday: 10:00 AM - 2:00 PM"]
     }
+  ];
+
+  const socialLinks = [
+    { icon: Facebook, href: "https://www.facebook.com/WSROIndia" },
+    { icon: Twitter, href: "https://www.linkedin.com/company/wsro/" },
+    { icon: Instagram, href: "https://www.instagram.com/wsroindia/" },
+    { icon: Linkedin, href: "https://twitter.com/WSROIndia" },
   ];
 
   return (
@@ -53,15 +60,18 @@ const ContactInfo = () => {
         ))}
       </div>
 
+    
+
       <div className="flex flex-wrap gap-4">
-        {['Facebook', 'Twitter', 'LinkedIn', 'Instagram'].map((platform) => (
+        {socialLinks.map((link, index) => (
           <a
-            key={platform}
-            href={`#${platform.toLowerCase()}`}
-            className="px-4 py-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-indigo-600 
-                     hover:text-white transition-colors text-sm font-medium"
+            key={index}
+            href={link.href}
+            className="px-4 py-2 rounded-lg bg-gray-100 bg-primary  text-white hover:bg-indigo-600 
+                     hover:text-white transition-colors text-sm font-medium flex items-center gap-2"
           >
-            {platform}
+            <link.icon className="w-5 h-5" />
+            {link.icon.name}
           </a>
         ))}
       </div>

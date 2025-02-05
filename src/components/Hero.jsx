@@ -2,8 +2,7 @@ import React from "react";
 import Background3D from '../components/Hero/Background3D';
 import HeroContent from '../components/Hero/HeroContent';
 import VideoSection from '../components/Hero/VideoSection';
-import SponsorSlider from '../components/Hero/SponsorSlider'
-import ScrollIndicator from '../components/Hero/ScrollIndicator';
+
 const Hero = () => {
   return (
     <>
@@ -16,7 +15,7 @@ const Hero = () => {
               <HeroContent />
             </div>
 
-            <div className="w-full lg:w-[85%] xl:w-[90%] mx-auto max-h-[70vh] mb-[20px]">
+            <div className="w-full lg:w-[85%] xl:w-[90%] mx-auto max-h-[90vh] mb-[20px]">
               <VideoSection videoId="UoktjftyStg" />
             </div>
           </div>

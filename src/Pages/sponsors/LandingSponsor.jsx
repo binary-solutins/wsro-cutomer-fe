@@ -15,9 +15,9 @@ const LandingSponsor = ({title1,title2,content,img}) => {
           <div className="w-full max-w-lg mx-auto lg:max-w-none">
            
             <ContentSection title1={title1} title2={title2} content={content} />
-            <button className=' w-[1/2] mt-10 text-white py-3 px-6 rounded-lg flex items-center justify-center gap-2 bg-[#485db5]  font-semibold
+            <a href="/contact-us" className=' w-[1/2] mt-10 text-white py-3 px-6 rounded-lg flex items-center justify-center gap-2 bg-[#485db5]  font-semibold
           hover:bg-[#5b6fc7] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg
-          hover:shadow-[#485db5]/30 relative overflow-hidden group'>Get In Touch</button>
+          hover:shadow-[#485db5]/30 relative overflow-hidden group'>Get In Touch</a>
           </div>
         </div>
       </div>

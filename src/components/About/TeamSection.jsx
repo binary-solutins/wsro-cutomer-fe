@@ -26,7 +26,7 @@ const teamMembers = [
   },
   {
     name: 'Mr. Dhruv Patel',
-    role: 'Head of Resource & Program Development',
+    role: 'Head of Resource & Development',
     image: '/dhruv-patel.jpg',
     bio: 'Specializes in AI and machine learning integration in competitive robotics.',
     social: {
@@ -46,17 +46,17 @@ const teamMembers = [
       email: 'mailto:marcus@example.com'
     }
   },
-  {
-    name: 'Mr. Alpesh Purohit',
-    role: 'Head of Finance',
-    image: '/alpesh-purohit.png',
-    bio: 'Mechanical engineering expert with experience in industrial robotics.',
-    social: {
-      github: 'https://github.com',
-      linkedin: 'https://linkedin.com',
-      email: 'mailto:marcus@example.com'
-    }
-  }
+  // {
+  //   name: 'Mr. Alpesh Purohit',
+  //   role: 'Head of Finance',
+  //   image: '/alpesh-purohit.png',
+  //   bio: 'Mechanical engineering expert with experience in industrial robotics.',
+  //   social: {
+  //     github: 'https://github.com',
+  //     linkedin: 'https://linkedin.com',
+  //     email: 'mailto:marcus@example.com'
+  //   }
+  // }
 ];
 
 const TeamSection = () => {
@@ -72,7 +72,7 @@ const TeamSection = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {teamMembers.map((member, index) => (
             <div
               key={index}

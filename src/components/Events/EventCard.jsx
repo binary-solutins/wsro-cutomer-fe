@@ -43,7 +43,8 @@ const EventCard = ({ event, onLearnMore }) => {
         {/* Date Badge */}
         <div className="absolute top-4 right-4 flex items-center gap-2 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
           <Calendar className="w-4 h-4 text-[#485db5]" />
-          <span className="text-sm font-medium text-gray-800">{formattedDate}</span>
+          {/* <span className="text-sm font-medium text-gray-800">{formattedDate}</span> */}
+          <span className="text-sm font-medium text-gray-800">TBA</span>
         </div>
       </div>
 
@@ -84,7 +85,7 @@ const EventCard = ({ event, onLearnMore }) => {
           <div className="w-full bg-red-500 text-white py-3 px-6 rounded-xl
             font-semibold flex items-center justify-center gap-2 cursor-not-allowed">
             <Lock className="w-5 h-5" />
-            <span>Registration Closed</span>
+            <span>Registration Locked</span>
           </div>
         ) : (
           <motion.button

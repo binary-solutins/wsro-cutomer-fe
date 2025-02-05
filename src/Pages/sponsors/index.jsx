@@ -4,6 +4,7 @@ import Navbar from '../../components/Navbar';
 import FooterSection from '../../components/Footer/FooterSection';
 import SponsorsBanner from './SponsorsBanner';
 import SponsorForm from './SponsorForm';
+import SponsorSlider from '../../components/Hero/Sponsor/SponsorSlider';
 
 
 function SponsorPage() {
@@ -12,6 +13,7 @@ function SponsorPage() {
     <Navbar />
     <div className='pt-[90px] md:pt-[40px] lg:pt-[40px]'>
     <SponsorsBanner />
+
     </div>
     <div  className="mx-10 pt-[30px] animate-fadeIn" 
       style={{ animationDelay: '0.2s' }}>
@@ -28,7 +30,9 @@ function SponsorPage() {
     </div>
     <div className='h-[700px] md:h-[500px]'>
     <LandingSponsor  img={'/sponsor_image.png'} title1={'Our Regional'} title2={'Partners: '} content={'WSRO Championship 2024 is an annual event and one of the largest robotics & STEM festivals in Asia. Thousands of engineers, executives, students and families come together to be inspired by industry leaders, examine new startups, build robots for various challenges and learn about the latest technology innovations.'} />
+   
     </div>
+    <SponsorSlider />
     <SponsorForm />
     <FooterSection />
     </>

@@ -64,7 +64,7 @@ const VideoSection = ({ videoId }) => {
   };
 
   return (
-    <div className="relative group w-full h-[60vh] transform-gpu h-[60vh]">
+    <div className="relative group w-full h-[80vh] transform-gpu h-[80vh]">
       {/* Enhanced Animated Border */}
       <div className="absolute -inset-1 bg-gradient-to-r from-[#485db5] via-[#ef5b4f] to-[#485db5] 
         rounded-2xl blur-lg opacity-75 group-hover:opacity-100 transition duration-1000 
