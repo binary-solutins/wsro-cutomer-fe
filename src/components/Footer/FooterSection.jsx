@@ -111,11 +111,7 @@ const FooterSection = () => {
             <p className="text-gray-400 text-sm">
               © 2024 World Stem & Robotics Olympiad. All rights reserved.
             </p>
-            <div className="flex gap-6">
-              <FooterLink href="/terms & conditions">
-                Terms And Conditions
-              </FooterLink>
-            </div>
+  
           </div>
         </div>
       </div>
