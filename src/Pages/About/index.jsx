@@ -6,13 +6,15 @@ import Points from '../../components/About Page/About Us/Points';
 import Stats from '../../components/Stats/Stats';
 import FooterSection from '../../components/Footer/FooterSection';
 import AboutHero from '../../components/About Page/AboutHero';
+import TeamSection from '../../components/About/TeamSection';
 
 function About() {
   return (
     <>
     <Navbar />
-    <main className='pt-20'> 
-      <AboutHero />
+    <main className='pt-20'>
+    <AboutHero />
+    <TeamSection />
     <LandingSectionAbout />
     <LandingSectionAbout2 />
     <Stats />
