@@ -8,7 +8,7 @@ const WelcomePopup = () => {
 
     const hasShownPopup = localStorage.getItem('hasShownWelcomePopup');
     
-    if (hasShownPopup) {
+    if (!hasShownPopup) {
       setIsOpen(true);
     
       localStorage.setItem('hasShownWelcomePopup', 'true');
