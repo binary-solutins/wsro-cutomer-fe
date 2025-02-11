@@ -29,7 +29,7 @@ const ImageSection = ({img}) => {
         <ImageOverlay />
         
         <img
-          src={img || '/about-banner-2.jpg'}
+          src={img || '/about-banner-2.webp'}
           alt="Robotics Education"
           className="w-full h-full object-contain"
         />

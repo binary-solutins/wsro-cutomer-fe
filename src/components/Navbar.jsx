@@ -47,7 +47,7 @@ const Navbar = () => {
           <Link to="/" className="relative group">
             <div className="flex items-center space-x-2">
               <img 
-                src="/logo.png" 
+                src="/logo.webp" 
                 alt="WSRO Logo" 
                 className="h-[50px] w-[140px] object-contain transform group-hover:scale-105 
                   transition-transform duration-300"

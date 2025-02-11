@@ -4,7 +4,7 @@ import { Trophy, ChevronRight } from 'lucide-react';
 
 const LevelCard = ({ level, onLearnMore }) => {
   // Generate the image URL based on the level id
-  const imageUrl = `/regional-${Math.floor(Math.random() * 3) + 1}.jpg`;
+  const imageUrl = `/regional-${Math.floor(Math.random() * 3) + 1}.webp`;
 
   return (
     <motion.div 

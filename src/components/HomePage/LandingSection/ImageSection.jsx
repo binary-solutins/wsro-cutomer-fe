@@ -29,7 +29,7 @@ const ImageSection = () => {
         <ImageOverlay />
         
         <img
-          src="/eventlike.png"
+          src="/eventlike.webp"
           alt="Robotics Education"
           className="w-full h-full object-cover"
         />

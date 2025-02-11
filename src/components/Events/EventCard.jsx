@@ -28,7 +28,7 @@ const EventCard = ({ event, onLearnMore }) => {
     >
       <div className="relative h-50 overflow-hidden group">
         <img 
-          src={`/comp-${randomImageId}.png`}
+          src={`/comp-${randomImageId}.webp`}
           alt={event.name}
           className="w-full h-[300px] object-cover transform group-hover:scale-110 transition-transform duration-700"
         />

@@ -15,7 +15,7 @@ const EventBaseCard = ({ level, onLearnMore }) => {
     >
       <div className="relative h-60 overflow-hidden group">
         <img 
-          src={`/comp-${randomImageId}.png`} // Using the random number for the image
+          src={`/comp-${randomImageId}.webp`} // Using the random number for the image
           alt={level.name}
           className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
         />

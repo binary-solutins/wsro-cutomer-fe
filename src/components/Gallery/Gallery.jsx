@@ -22,247 +22,247 @@ const Gallery = () => {
   const images = {
     competitions: [
       {
-        url: '/gl1.jpg',
+        url: '/gl1.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl2.jpg',
+        url: '/gl2.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl3.jpg',
+        url: '/gl3.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl4.jpg',
+        url: '/gl4.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl5.jpg',
+        url: '/gl5.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl6.jpg',
+        url: '/gl6.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl7.jpg',
+        url: '/gl7.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl8.jpg',
+        url: '/gl8.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl9.jpg',
+        url: '/gl9.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl10.jpg',
+        url: '/gl10.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl11.jpg',
+        url: '/gl11.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl12.jpg',
+        url: '/gl12.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl13.jpg',
+        url: '/gl13.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl14.jpg',
+        url: '/gl14.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl15.jpg',
+        url: '/gl15.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl16.jpg',
+        url: '/gl16.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl17.jpg',
+        url: '/gl17.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl18.jpg',
+        url: '/gl18.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl19.jpg',
+        url: '/gl19.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl20.jpg',
+        url: '/gl20.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl21.jpg',
+        url: '/gl21.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl22.jpg',
+        url: '/gl22.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl23.jpg',
+        url: '/gl23.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl24.jpg',
+        url: '/gl24.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl25.jpg',
+        url: '/gl25.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl26.jpg',
+        url: '/gl26.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl27.jpg',
+        url: '/gl27.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl28.jpg',
+        url: '/gl28.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl29.jpg',
+        url: '/gl29.webp',
         caption: 'National Championship 2023'
       },
       {
-        url: '/gl30.jpg',
+        url: '/gl30.webp',
         caption: 'National Championship 2023'
       }
     ],
     workshop: [
       {
-        url: '/ws1.jpg',
+        url: '/ws1.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws2.jpg',
+        url: '/ws2.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws3.jpg',
+        url: '/ws3.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws4.jpg',
+        url: '/ws4.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws5.jpg',
+        url: '/ws5.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws6.jpg',
+        url: '/ws6.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws7.jpg',
+        url: '/ws7.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws8.jpg',
+        url: '/ws8.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws9.jpg',
+        url: '/ws9.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws10.jpg',
+        url: '/ws10.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws11.jpg',
+        url: '/ws11.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws12.jpg',
+        url: '/ws12.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws13.jpg',
+        url: '/ws13.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws14.jpg',
+        url: '/ws14.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws15.jpg',
+        url: '/ws15.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws16.jpeg',
+        url: '/ws16.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws17.jpeg',
+        url: '/ws17.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws18.jpeg',
+        url: '/ws18.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws19.jpeg',
+        url: '/ws19.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws20.jpeg',
+        url: '/ws20.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws21.jpeg',
+        url: '/ws21.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws22.jpg',
+        url: '/ws22.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws23.jpg',
+        url: '/ws23.webp',
         caption: 'Robotics Workshop 2023'
       },
       {
-        url: '/ws24.jpg',
+        url: '/ws24.webp',
         caption: 'Robotics Workshop 2023'
       },
       // Add more workshop images
     ],
     press: [
-      { url: '/pc1.jpeg', caption: 'WSRO in News' },
-      { url: '/pc2.jpeg', caption: 'WSRO in News' },
-      { url: '/pc3.jpeg', caption: 'WSRO in News' },
-      { url: '/pc4.jpeg', caption: 'WSRO in News' },
-      { url: '/pc5.jpeg', caption: 'WSRO in News' },
-      { url: '/pc6.jpeg', caption: 'WSRO in News' },
-      { url: '/pc7.jpeg', caption: 'WSRO in News' },
-      { url: '/pc8.jpeg', caption: 'WSRO in News' },
-      { url: '/pc9.jpeg', caption: 'WSRO in News' },
-      { url: '/pc10.jpeg', caption: 'WSRO in News' },
-      { url: '/pc11.jpeg', caption: 'WSRO in News' },
-      { url: '/pc12.jpeg', caption: 'WSRO in News' },
-      { url: '/pc13.jpeg', caption: 'WSRO in News' },
-      { url: '/pc14.jpeg', caption: 'WSRO in News' },
-      { url: '/pc15.jpeg', caption: 'WSRO in News' },
-      { url: '/pc16.jpeg', caption: 'WSRO in News' },
-      { url: '/pc17.jpeg', caption: 'WSRO in News' },
-      { url: '/pc18.jpeg', caption: 'WSRO in News' },
-      { url: '/pc19.jpeg', caption: 'WSRO in News' },
-      { url: '/pc20.jpeg', caption: 'WSRO in News' },
-      { url: '/pc21.jpeg', caption: 'WSRO in News' }
+      { url: '/pc1.webp', caption: 'WSRO in News' },
+      { url: '/pc2.webp', caption: 'WSRO in News' },
+      { url: '/pc3.webp', caption: 'WSRO in News' },
+      { url: '/pc4.webp', caption: 'WSRO in News' },
+      { url: '/pc5.webp', caption: 'WSRO in News' },
+      { url: '/pc6.webp', caption: 'WSRO in News' },
+      { url: '/pc7.webp', caption: 'WSRO in News' },
+      { url: '/pc8.webp', caption: 'WSRO in News' },
+      { url: '/pc9.webp', caption: 'WSRO in News' },
+      { url: '/pc10.webp', caption: 'WSRO in News' },
+      { url: '/pc11.webp', caption: 'WSRO in News' },
+      { url: '/pc12.webp', caption: 'WSRO in News' },
+      { url: '/pc13.webp', caption: 'WSRO in News' },
+      { url: '/pc14.webp', caption: 'WSRO in News' },
+      { url: '/pc15.webp', caption: 'WSRO in News' },
+      { url: '/pc16.webp', caption: 'WSRO in News' },
+      { url: '/pc17.webp', caption: 'WSRO in News' },
+      { url: '/pc18.webp', caption: 'WSRO in News' },
+      { url: '/pc19.webp', caption: 'WSRO in News' },
+      { url: '/pc20.webp', caption: 'WSRO in News' },
+      { url: '/pc21.webp', caption: 'WSRO in News' }
     ]
   };
 

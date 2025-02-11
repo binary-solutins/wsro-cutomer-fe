@@ -29,7 +29,7 @@ const ImageSection = () => {
         <ImageOverlay />
         
         <img
-          src="/group.jpg"
+          src="/group.webp"
           alt="Robotics Education"
           className="w-full h-full object-cover"
         />

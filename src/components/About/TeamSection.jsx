@@ -5,7 +5,7 @@ const teamMembers = [
   {
     name: 'Mr. Vishal Chiripal',
     role: 'Founder & Robotics Enthusiastic',
-    image: '/vishal-chiripal.jpg',
+    image: '/vishal-chiripal.webp',
     bio: 'Ph.D. in Robotics from MIT with 10+ years of experience in competitive robotics.',
     social: {
       github: 'https://github.com',
@@ -16,7 +16,7 @@ const teamMembers = [
   {
     name: 'Mr. Gopal Maheshwari',
     role: 'Head of Marketing & Communications',
-    image: '/gopal-maheshwari.jpg',
+    image: '/gopal-maheshwari.webp',
     bio: 'Former FIRST Robotics champion and international competition organizer.',
     social: {
       github: 'https://github.com',
@@ -27,7 +27,7 @@ const teamMembers = [
   {
     name: 'Mr. Dhruv Patel',
     role: 'Head of Resource & Development',
-    image: '/dhruv-patel.jpg',
+    image: '/dhruv-patel.webp',
     bio: 'Specializes in AI and machine learning integration in competitive robotics.',
     social: {
       github: 'https://github.com',
@@ -38,7 +38,7 @@ const teamMembers = [
   {
     name: 'Mr. Devendra Parmar',
     role: 'Advisor : Competition Development',
-    image: '/devendra-parmar.jpg',
+    image: '/devendra-parmar.webp',
     bio: 'Mechanical engineering expert with experience in industrial robotics.',
     social: {
       github: 'https://github.com',
@@ -49,7 +49,7 @@ const teamMembers = [
   // {
   //   name: 'Mr. Alpesh Purohit',
   //   role: 'Head of Finance',
-  //   image: '/alpesh-purohit.png',
+  //   image: '/alpesh-purohit.webp',
   //   bio: 'Mechanical engineering expert with experience in industrial robotics.',
   //   social: {
   //     github: 'https://github.com',
