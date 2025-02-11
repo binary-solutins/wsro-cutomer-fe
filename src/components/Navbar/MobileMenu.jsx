@@ -53,7 +53,8 @@ const MobileMenu = ({ isOpen, onClose, navLinks }) => {
           </div>
 
           <div className="py-4 px-4 relative">
-            <button className="w-full relative overflow-hidden group bg-primary text-white py-3 px-6 
+            <a href='/competitions'>
+            <button  className="w-full relative overflow-hidden group bg-primary text-white py-3 px-6 
               rounded-lg font-medium transform hover:scale-105 active:scale-95 transition-all duration-300">
               <span className="relative z-10">REGISTRATION</span>
               <span className="absolute inset-0 bg-secondary transform scale-x-0 group-hover:scale-x-100
@@ -61,6 +62,7 @@ const MobileMenu = ({ isOpen, onClose, navLinks }) => {
               <span className="absolute -inset-3 bg-white/30 rotate-12 transform translate-x-full 
                 group-hover:translate-x-[-200%] transition-transform duration-1000" />
             </button>
+            </a>
           </div>
         </div>
       </div>
