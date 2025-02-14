@@ -106,8 +106,8 @@ const CompetitionPage = () => {
   return (
     <>
     <Navbar />
-    <div className="min-h-screen bg-gray-50 pt-20">
-      <CompetitionHeader />
+    <div className="min-h-screen bg-gray-50 pt-[100px]">
+    
       
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="flex flex-col gap-8">
@@ -128,6 +128,9 @@ const CompetitionPage = () => {
           />
         </div>
       </div>
+    </div>
+    <div className="container flex justify-center items-center mb-2 ">
+    <img src='/map.png' height={500} width={500} className='rounded'></img>
     </div>
 <FooterSection />
     </>

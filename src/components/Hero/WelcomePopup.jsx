@@ -1,25 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const WelcomePopup = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true); 
 
-  useEffect(() => {
-
-    const hasShownPopup = localStorage.getItem('hasShownWelcomePopup');
-    
-    if (!hasShownPopup) {
-      setIsOpen(true);
-    
-      localStorage.setItem('hasShownWelcomePopup', 'true');
-    }
-  }, []);
-
-  if (!isOpen) return null;
-
+  if (!isOpen) return null; 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg w-full max-w-2xl mx-auto relative overflow-hidden max-h-[90vh]">
+      <div className="bg-white md:h-[800px] rounded-lg w-full max-w-2xl mx-auto relative overflow-hidden max-h-[100vh] flex flex-col">
         {/* Close button */}
         <button 
           onClick={() => setIsOpen(false)}
@@ -40,31 +28,24 @@ const WelcomePopup = () => {
           </svg>
         </button>
 
-        <div className="flex flex-col h-full">
-          {/* Image container */}
-          <div className="w-full h-[400px] sm:h-[600px] md:h-[700px]">
-            <Link to={{pathname:'/competitions'}} >
+      
+        <div className="w-full">
+          <Link to="/competitions">
             <img
               src="/welcome.jpg"
               alt="Welcome"
-              className="w-full h-full"
+              className="w-full max-h-[650px] object-cover"
             />
-            </Link>
-          </div>
+          </Link>
+        </div>
 
-          {/* Content container */}
-          {/* <div className="w-full p-6 bg-white">
-            <h2 className="text-2xl font-bold mb-4 text-center">Welcome!</h2>
-            <button 
-              onClick={() => {
-                // Add your register logic here
-                setIsOpen(false);
-              }}
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors w-full sm:w-auto mx-auto block"
-            >
+        
+        <div className="p-4 flex justify-center bg-white">
+          <Link to="/competitions">
+            <button className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
               Register Now
             </button>
-          </div> */}
+          </Link>
         </div>
       </div>
     </div>

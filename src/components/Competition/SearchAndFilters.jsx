@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, SlidersHorizontal, X } from 'lucide-react';
+import { Download, Search, SlidersHorizontal, X } from 'lucide-react';
 
 const SearchAndFilters = ({ 
   searchTerm, 
@@ -28,7 +28,25 @@ const SearchAndFilters = ({
           </div>
         </div>
 
+        
+
         {/* Filter Toggle Button */}
+
+        <button
+  onClick={() => window.open('https://cloud.appwrite.io/v1/storage/buckets/67aee35f000b324ca10c/files/67aee3b40026488acc7b/view?project=67aee32f0028febbce2c', '_blank')}
+  className="flex items-center gap-2 px-4 py-3 rounded-xl bg-primary text-white transition-colors"
+>
+  <Download className="w-5 h-5" />
+  <span>Download Rule Book</span>
+</button>
+
+<button
+  onClick={() => window.open('https://drive.google.com/file/d/1Y3TBRQ-Ng9TZspmgYFzC-wOVi3sPw9z1/view?usp=sharing', '_blank')}
+  className="flex items-center gap-2 px-2 py-3 rounded-xl bg-primary text-white transition-colors"
+>
+  <Download className="w-5 h-5" />
+  <span>Download Track Manual</span>
+</button>
         <button
           onClick={() => setShowFilters(!showFilters)}
           className="flex items-center gap-2 px-4 py-3 rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors"
@@ -36,6 +54,8 @@ const SearchAndFilters = ({
           <SlidersHorizontal className="w-5 h-5" />
           <span>Filters</span>
         </button>
+
+        
 
         {/* Clear Filters Button */}
         {hasActiveFilters && (

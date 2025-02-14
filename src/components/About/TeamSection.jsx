@@ -37,7 +37,7 @@ const teamMembers = [
   },
   {
     name: 'Mr. Devendra Parmar',
-    role: 'Advisor : Competition Development',
+    role: 'Head of Competition & Tech. Development',
     image: '/devendra-parmar.webp',
     bio: 'Mechanical engineering expert with experience in industrial robotics.',
     social: {

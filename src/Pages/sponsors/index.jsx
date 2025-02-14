@@ -29,12 +29,13 @@ function SponsorPage() {
 <p className='text-base sm:text-lg leading-relaxed mb-10'>Join us on this exciting journey at the intersection of education, technology, and creativity with WSRO.</p>
     </div>
     <div className='h-[700px] md:h-[500px]'>
-    <LandingSponsor  img={'/sponsor_image.webp'} title1={'Our Regional'} title2={'Partners: '} content={'WSRO Championship 2024 is an annual event and one of the largest robotics & STEM festivals in Asia. Thousands of engineers, executives, students and families come together to be inspired by industry leaders, examine new startups, build robots for various challenges and learn about the latest technology innovations.'} />
+    <LandingSponsor  img={'/sponsors.jpg'} title1={'Our Regional'} title2={'Partners: '} content={'WSRO Championship 2024 is an annual event and one of the largest robotics & STEM festivals in Asia. Thousands of engineers, executives, students and families come together to be inspired by industry leaders, examine new startups, build robots for various challenges and learn about the latest technology innovations.'} />
    
     </div>
     <SponsorSlider />
     <SponsorForm />
     <FooterSection />
+    
     </>
   )
 }

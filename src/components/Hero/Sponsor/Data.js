@@ -1,4 +1,23 @@
 export const sponsors = [
+
+  {
+    id: 13,
+    name: 'Sponsor 13',
+    url: '/sp13.webp',
+    category: 'Category 13'
+  },
+  {
+    id: 14,
+    name: 'Sponsor 14',
+    url: '/sp14.webp',
+    category: 'Category 14'
+  },
+  {
+    id: 15,
+    name: 'Sponsor 15',
+    url: '/sp15.webp',
+    category: 'Category 15'
+  },
     {
       id: 1,
       name: 'Tech Corp',
@@ -70,23 +89,6 @@ export const sponsors = [
       name: 'Sponsor 12',
       url: '/sp12.webp',
       category: 'Category 12'
-    },
-    {
-      id: 13,
-      name: 'Sponsor 13',
-      url: '/sp13.webp',
-      category: 'Category 13'
-    },
-    {
-      id: 14,
-      name: 'Sponsor 14',
-      url: '/sp14.webp',
-      category: 'Category 14'
-    },
-    {
-      id: 15,
-      name: 'Sponsor 15',
-      url: '/sp15.webp',
-      category: 'Category 15'
     }
+   
   ];

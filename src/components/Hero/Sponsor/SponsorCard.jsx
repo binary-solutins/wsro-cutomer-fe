@@ -13,9 +13,9 @@ const SponsorCard = ({ url, name, category, index }) => {
         type: "spring",
         stiffness: 100
       }}
-      className="flex-shrink-0 group perspective"
+      className="flex-shrink-0 group perspective w-64"
     >
-      <div className="relative w-64 h-32 transform-gpu transition-all duration-500 
+      <div className="relative h-32 transform-gpu transition-all duration-500 
         group-hover:rotate-y-12 group-hover:scale-110">
         <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50
           rounded-xl overflow-hidden border border-[#485db5]/20 backdrop-blur-sm

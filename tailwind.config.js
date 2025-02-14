@@ -45,6 +45,7 @@ export default {
         scrollX: "scrollX 30s linear infinite",
         float: "float 6s ease-in-out infinite",
         wiggle: "wiggle 1s ease-in-out infinite",
+        'infinite-scroll': 'infinite-scroll 30s linear infinite',
 
         // Robotic arm animations
         armSegment1: "armSegment1 4s ease-in-out infinite",
@@ -130,6 +131,10 @@ export default {
           "0%, 100%": { boxShadow: "0 0 5px rgba(239, 68, 68, 0.5)" },
           "50%": { boxShadow: "0 0 20px rgba(239, 68, 68, 0.8)" },
         },
+        'infinite-scroll': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-50%)' },
+        }
       },
       // Additional robotic-themed utilities
       backgroundImage: {
@@ -144,4 +149,9 @@ export default {
     },
   },
   plugins: [],
+  variants: {
+    extend: {
+      animation: ['hover', 'group-hover'],
+    },
+  },
 };
