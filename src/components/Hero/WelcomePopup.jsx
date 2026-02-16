@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 const WelcomePopup = () => {
   const [isOpen, setIsOpen] = useState(true); 
@@ -7,7 +6,7 @@ const WelcomePopup = () => {
   if (!isOpen) return null; 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white md:h-[800px] rounded-lg w-full max-w-2xl mx-auto relative overflow-hidden max-h-[100vh] flex flex-col">
+      <div className="bg-white md:h-[600px] rounded-lg w-full max-w-lg mx-auto relative overflow-hidden max-h-[100vh] flex flex-col">
         {/* Close button */}
         <button 
           onClick={() => setIsOpen(false)}
@@ -30,22 +29,11 @@ const WelcomePopup = () => {
 
       
         <div className="w-full">
-          <Link to="/competitions">
-            <img
-              src="/welcome.jpg"
-              alt="Welcome"
-              className="w-full max-h-[650px] object-cover"
-            />
-          </Link>
-        </div>
-
-        
-        <div className="p-4 flex justify-center bg-white">
-          <Link to="/competitions">
-            <button className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-              Register Now
-            </button>
-          </Link>
+          <img
+            src="/wsro_int.jpeg"
+            alt="Site Closed"
+            className="w-full max-h-[580px] object-fill"
+          />
         </div>
       </div>
     </div>

@@ -9,7 +9,21 @@ const EventCard = ({ event, onLearnMore }) => {
     return null;
   }
 
-  const formattedDate = format(new Date(event.date), 'MMM dd, yyyy');
+  // Special handling for event_id 30 to show custom date
+  const getFormattedDate = (event) => {
+    // Debug logging - remove this after fixing
+    console.log('Event ID check:', event.id, event.event_id, typeof event.id);
+    
+    // Check both id and event_id properties with type coercion
+    if (parseInt(event.id) === 30 || parseInt(event.event_id) === 30) {
+      console.log('Returning custom date for event 30');
+      return '4-5 October';
+    }
+    return event.date ? format(new Date(event.date), 'MMM dd, yyyy') : 'TBA';
+  };
+
+  const formattedDate = getFormattedDate(event);
+  
   const formattedFees = new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR',
@@ -17,7 +31,7 @@ const EventCard = ({ event, onLearnMore }) => {
   }).format(event.fees);
 
   // Check if registration deadline has passed
-  const isRegistrationClosed = isPast(new Date(event.registration_deadline));
+  const isRegistrationClosed = event.is_active == 0
   const randomImageId = Math.floor(Math.random() * 12) + 1;
   return (
     <motion.div 
@@ -35,17 +49,24 @@ const EventCard = ({ event, onLearnMore }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
         
         {/* Level Badge */}
-        <div className="absolute top-4 left-4 flex items-center gap-2 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
-          <Trophy className="w-4 h-4 text-[#485db5]" />
-          <span className="text-sm font-medium text-gray-800">{event.level}</span>
-        </div>
+        <div
+  className={`absolute top-4 left-4 flex ${
+    event.level === "International" ? "flex-col gap-3" : "gap-2"
+  }`}
+>
+  {/* Level Badge */}
+  <div className="flex items-center gap-2 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
+    <Trophy className="w-4 h-4 text-[#485db5]" />
+    <span className="text-sm font-medium text-gray-800">{event.level}</span>
+  </div>
 
-        {/* Date Badge */}
-        <div className="absolute top-4 right-4 flex items-center gap-2 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
-          <Calendar className="w-4 h-4 text-[#485db5]" />
-          {/* <span className="text-sm font-medium text-gray-800">{formattedDate}</span> */}
-          <span className="text-sm font-medium text-gray-800">TBA</span>
-        </div>
+  {/* Date Badge */}
+  <div className="flex items-center gap-2 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
+    <Calendar className="w-4 h-4 text-[#485db5]" />
+    <span className="text-sm font-medium text-gray-800">{formattedDate}</span>
+  </div>
+</div>
+
       </div>
 
       <div className="p-6 space-y-6">
@@ -74,10 +95,18 @@ const EventCard = ({ event, onLearnMore }) => {
             </div>
 
             {/* Team Limit */}
+
             <div className="flex items-center gap-3 text-gray-600">
               <Users className="w-5 h-5 text-[#485db5]" />
-              <span className="text-sm">Maximum {event.maximum_teams} teams</span>
+              <span className="text-sm">Minimum {event.minimum_teams} Members</span>
             </div>
+
+            <div className="flex items-center gap-3 text-gray-600">
+              <Users className="w-5 h-5 text-[#485db5]" />
+              <span className="text-sm">Maximum {event.maximum_teams} Members</span>
+            </div>
+
+           
           </div>
         </div>
 

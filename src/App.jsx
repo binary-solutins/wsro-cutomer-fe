@@ -21,7 +21,7 @@ function App() {
       <Features />
       <LandingSection2 />
       <MissionVisionValues />
-      <Events />
+      {/* <Events /> */}
       <LandingSection />
       <ContactForm />
       <FooterSection />

@@ -13,6 +13,7 @@ const navLinks = [
   { href: '/sponsors', label: 'SPONSOR' },
   { href: '/gallery', label: 'GALLERY' },
   { href: '/contact-us', label: 'CONTACT' },
+  { href: '/verify-certificate', label: 'VERIFY CERTIFICATE' }
 ];
 
 const Navbar = () => {

@@ -104,7 +104,7 @@ const AboutHero = () => {
               className="flex flex-wrap justify-center gap-8 mt-12"
             >
               {[
-                { label: "Students Enrolled", value: "> 25000" },
+                { label: "Students Enrolled", value: "> 50000" },
                 { label: "Schools Covered", value: "> 500" },
                 { label: "Cities Covered", value: "> 100" }
               ].map((stat, index) => (

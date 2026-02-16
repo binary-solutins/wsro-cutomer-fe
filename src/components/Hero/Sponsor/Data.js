@@ -1,4 +1,35 @@
 export const sponsors = [
+  {
+    id: 51,
+    name: 'Sponsor 50',
+    url: '/sp50.png',
+    category: 'Category 51'
+  },
+  {
+    id: 52,
+    name: 'Sponsor 52',
+    url: '/sp51.png',
+    category: 'Category 52'
+  },    
+  {
+    id: 53,
+    name: 'Sponsor 53',
+    url: '/sp52.png',
+    category: 'Category 53'
+  },
+  {
+    id: 54,
+    name: 'Sponsor 54',
+    url: '/sp53.png',
+    category: 'Category 54'
+  },
+  {
+    id: 55,
+    name: 'Sponsor 55',
+    url: '/sp54.jpg',
+    category: 'Category 55'
+  },
+  
 
   {
     id: 13,
@@ -24,18 +55,7 @@ export const sponsors = [
       url: '/sp1.webp',
       category: 'Technology'
     },
-    {
-      id: 2,
-      name: 'Innovate Labs',
-      url: '/sp2.webp',
-      category: 'Research'
-    },
-    {
-      id: 3,
-      name: 'Future Systems',
-      url: '/sp3.webp',
-      category: 'Robotics'
-    },
+   
     {
       id: 4,
       name: 'AI Solutions',
@@ -54,12 +74,7 @@ export const sponsors = [
       url: '/sp6.webp',
       category: 'Innovation'
     },
-    {
-      id: 7,
-      name: 'Sponsor 7',
-      url: '/sp7.webp',
-      category: 'Category 7'
-    },
+  
     {
       id: 8,
       name: 'Sponsor 8',
@@ -84,11 +99,8 @@ export const sponsors = [
       url: '/sp11.webp',
       category: 'Category 11'
     },
-    {
-      id: 12,
-      name: 'Sponsor 12',
-      url: '/sp12.webp',
-      category: 'Category 12'
-    }
+    
+    
+    
    
   ];

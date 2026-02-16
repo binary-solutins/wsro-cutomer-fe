@@ -41,7 +41,7 @@ const features = [
 
 const stats = [
   { number: '20k +', label: 'Visitors' },
-  { number: '100 +', label: 'Investors' },
+  { number: '15k +', label: 'Participants' },
   { number: '5k  +', label: 'Robots Built' },
   { number: '200 +', label: 'Start-Ups' },
   { number: '400 +', label: 'Entrepreneurs' },

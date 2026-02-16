@@ -82,6 +82,7 @@ const CompetitionGrid = ({ competitions = [], loading }) => {
                   key={level.id}
                   level={level}
                   onLearnMore={handleLearnMore}
+                  disabled={level.id === "startup" || level.id === "regional" || level.id === "national" || level.id === "international"}
                 />
               ))}
       </div>

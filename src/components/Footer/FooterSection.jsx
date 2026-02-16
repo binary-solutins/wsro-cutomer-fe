@@ -13,11 +13,10 @@ import FooterLink from "./FooterLinks";
 const FooterSection = () => {
   const socialLinks = [
     { icon: Facebook, href: "https://www.facebook.com/WSROIndia" },
-    { icon: Twitter, href: "https://www.linkedin.com/company/wsro/" },
+    { icon: Twitter, href: "https://twitter.com/WSROIndia" },
     { icon: Instagram, href: "https://www.instagram.com/wsroindia/" },
-    { icon: Linkedin, href: "https://twitter.com/WSROIndia" },
+    { icon: Linkedin, href: "https://www.linkedin.com/company/wsro/" },
   ];
-
   return (
     <footer className="relative bg-gray-900 text-white overflow-hidden">
       {/* Decorative Elements */}
@@ -109,7 +108,7 @@ const FooterSection = () => {
         <div className="mt-12 pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
-              © 2024 World Stem & Robotics Olympiad. All rights reserved.
+              © 2025 World Stem & Robotics Olympiad. All rights reserved.
             </p>
   
           </div>

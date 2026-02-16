@@ -16,7 +16,7 @@ const Description = () => {
       
       {/* <div className="flex flex-wrap gap-6 text-lg sm:text-xl font-semibold">
         <div className="flex items-center gap-2">
-          <span className="text-secondary">25000+</span>
+          <span className="text-secondary">50000+</span>
           <span>Students</span>
         </div>
         <div className="flex items-center gap-2">

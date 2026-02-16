@@ -14,6 +14,7 @@ import EventCompetitions from './Pages/Competitions/index.jsx';
 import Workshop from './Pages/Workshop/index.jsx';
 import SponsorPage from './Pages/sponsors/index.jsx';
 import Terms from './Pages/Terms & Condition/index.jsx';
+import CertificateVerification from './components/VerifycertificateIran.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/workshop" element={<Workshop />} />
         <Route path="/sponsors" element={<SponsorPage />} />
         <Route path="/terms & conditions" element={<Terms />} />
+         <Route path="/verify-certificate" element={<CertificateVerification />} />
         
            
       </Routes>

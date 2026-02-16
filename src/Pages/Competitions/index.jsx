@@ -7,17 +7,26 @@ import RegistrationModal from "../../components/Events/RegistrationModal";
 import Navbar from "../../components/Navbar";
 import FooterSection from "../../components/Footer/FooterSection";
 import EventCard from "../../components/Events/EventCard";
+import InternationalCompetitionCard from "../../components/Events/InternationalCompetitionCard";
+import PDFModal from "../../components/Events/PDFModal";
 
 const EventCompetitions = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showRegistration, setShowRegistration] = useState(false);
+  const [showPDFModal, setShowPDFModal] = useState(false);
   const navigate = useNavigate();
   const { eventId } = useParams();
   const levelid = eventId;
 
   const fetchEvents = async () => {
+    // Don't fetch API data for international level
+    if (levelid === 'international') {
+      setLoading(false);
+      return;
+    }
+
     try {
       setLoading(true);
       const data = await getCompetitionByEvent(levelid);
@@ -31,7 +40,7 @@ const EventCompetitions = () => {
 
   useEffect(() => {
     fetchEvents();
-  }, []);
+  }, [levelid]);
   console.log(events);
 
   const handleLearnMore = (event) => {
@@ -42,6 +51,33 @@ const EventCompetitions = () => {
     setSelectedEvent(event);
     setShowRegistration(true);
   };
+
+  const handleItalyClick = () => {
+    setShowPDFModal(true);
+  };
+
+  const handleClosePDFModal = () => {
+    setShowPDFModal(false);
+  };
+
+  // International competitions data
+  const internationalCompetitions = [
+    {
+      id: "dubai-2025",
+      name: "Dubai 2025",
+      description: "International robotics competition in Dubai",
+      isLocked: true,
+      image: "/comp-1.webp"
+    },
+    {
+      id: "italy-2025",
+      name: "Italy 2025",
+      description: "International robotics competition in Italy",
+      isLocked: false,
+      image: "/comp-2.webp",
+      pdfUrl: "https://drive.google.com/file/d/1km8UBKhLwqXlWRx5-N5jRRJLYdMF-UWT/view?usp=sharing"
+    }
+  ];
 
   return (
     <>
@@ -56,17 +92,30 @@ const EventCompetitions = () => {
             opportunities
           </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {loading
-              ? [...Array(3)].map((_, index) => <EventSkeleton key={index} />)
-              : events.map((event) => (
-                  <EventCard
-                    key={event.id}
-                    event={event}
-                    onLearnMore={handleLearnMore}
-                  />
-                ))}
-          </div>
+          {/* Show international competitions for international level */}
+          {levelid === 'international' ? (
+            <div className="grid md:grid-cols-2 gap-8">
+              {internationalCompetitions.map((competition) => (
+                <InternationalCompetitionCard
+                  key={competition.id}
+                  competition={competition}
+                  onItalyClick={handleItalyClick}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {loading
+                ? [...Array(3)].map((_, index) => <EventSkeleton key={index} />)
+                : events.map((event) => (
+                    <EventCard
+                      key={event.id}
+                      event={event}
+                      onLearnMore={handleLearnMore}
+                    />
+                  ))}
+            </div>
+          )}
         </div>
 
         {selectedEvent && !showRegistration && (
@@ -84,6 +133,13 @@ const EventCompetitions = () => {
               setShowRegistration(false);
               setSelectedEvent(null);
             }}
+          />
+        )}
+
+        {showPDFModal && (
+          <PDFModal
+            onClose={handleClosePDFModal}
+            pdfUrl="https://drive.google.com/file/d/1km8UBKhLwqXlWRx5-N5jRRJLYdMF-UWT/view?usp=sharing"
           />
         )}
       </section>

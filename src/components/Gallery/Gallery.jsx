@@ -9,13 +9,19 @@ const Gallery = () => {
   const videos = {
     journey: [
       {
-        title: 'WSRO 2023',
-        embedUrl: 'https://www.youtube.com/embed/your-video-id-1'
+        title: 'WSRO 2022',
+        embedUrl: 'https://www.youtube.com/embed/CkMbonFTLfw'
       },
       {
-        title: 'WSRO 2022',
-        embedUrl: 'https://www.youtube.com/embed/your-video-id-2'
-      }
+        title: 'WSRO 2023',
+        embedUrl: 'https://www.youtube.com/embed/QREiXmRgmo4'
+      },
+      {
+        title: 'WSRO 2024',
+        embedUrl: 'https://www.youtube.com/embed/UoktjftyStg'
+      },
+     
+     
     ]
   };
 

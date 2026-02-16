@@ -33,7 +33,8 @@ const SearchAndFilters = ({
         {/* Filter Toggle Button */}
 
         <button
-  onClick={() => window.open('https://cloud.appwrite.io/v1/storage/buckets/67aee35f000b324ca10c/files/67aee3b40026488acc7b/view?project=67aee32f0028febbce2c', '_blank')}
+  onClick={() => window.open('https://drive.google.com/file/d/13Un64aI74-LQ9q9GE2mwSv18oAxRt5QU/view?usp=sharing',
+'_blank')}
   className="flex items-center gap-2 px-4 py-3 rounded-xl bg-primary text-white transition-colors"
 >
   <Download className="w-5 h-5" />
@@ -41,12 +42,13 @@ const SearchAndFilters = ({
 </button>
 
 <button
-  onClick={() => window.open('https://drive.google.com/file/d/1Y3TBRQ-Ng9TZspmgYFzC-wOVi3sPw9z1/view?usp=sharing', '_blank')}
+  onClick={() => window.open('https://drive.google.com/file/d/1B-bmIqNw5OFbyOICrVMcM4cH4JJhWTUn/view?usp=sharing', '_blank')}
   className="flex items-center gap-2 px-2 py-3 rounded-xl bg-primary text-white transition-colors"
 >
   <Download className="w-5 h-5" />
   <span>Download Track Manual</span>
 </button>
+
         <button
           onClick={() => setShowFilters(!showFilters)}
           className="flex items-center gap-2 px-4 py-3 rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors"

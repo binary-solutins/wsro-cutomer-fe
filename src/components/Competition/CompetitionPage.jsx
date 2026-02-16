@@ -6,6 +6,7 @@ import CompetitionGrid from './CompetitionGrid';
 import { getCompetitions } from '../../Api/api';
 import Navbar from '../Navbar';
 import FooterSection from '../Footer/FooterSection';
+import WSROCompetitionTable from '../Events/CompTable';
 
 
 const CompetitionPage = () => {
@@ -130,7 +131,7 @@ const CompetitionPage = () => {
       </div>
     </div>
     <div className="container flex justify-center items-center mb-2 ">
-    <img src='/map.png' height={500} width={500} className='rounded'></img>
+    <WSROCompetitionTable />
     </div>
 <FooterSection />
     </>

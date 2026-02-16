@@ -27,9 +27,9 @@ const ContactInfo = () => {
 
   const socialLinks = [
     { icon: Facebook, href: "https://www.facebook.com/WSROIndia" },
-    { icon: Twitter, href: "https://www.linkedin.com/company/wsro/" },
+    { icon: Twitter, href: "https://twitter.com/WSROIndia" },
     { icon: Instagram, href: "https://www.instagram.com/wsroindia/" },
-    { icon: Linkedin, href: "https://twitter.com/WSROIndia" },
+    { icon: Linkedin, href: "https://www.linkedin.com/company/wsro/" },
   ];
 
   return (

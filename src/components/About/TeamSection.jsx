@@ -4,7 +4,7 @@ import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
 const teamMembers = [
   {
     name: 'Mr. Vishal Chiripal',
-    role: 'Founder & Robotics Enthusiastic',
+    role: 'Founder & Robotics Enthusiast',
     image: '/vishal-chiripal.webp',
     bio: 'Ph.D. in Robotics from MIT with 10+ years of experience in competitive robotics.',
     social: {
@@ -15,8 +15,8 @@ const teamMembers = [
   },
   {
     name: 'Mr. Gopal Maheshwari',
-    role: 'Head of Marketing & Communications',
-    image: '/gopal-maheshwari.webp',
+    role: ' Chief Operating Officer',
+    image: '/gpal-maheshwari.jpg',
     bio: 'Former FIRST Robotics champion and international competition organizer.',
     social: {
       github: 'https://github.com',
@@ -26,7 +26,7 @@ const teamMembers = [
   },
   {
     name: 'Mr. Dhruv Patel',
-    role: 'Head of Resource & Development',
+    role: 'Head of Program & Competition.',
     image: '/dhruv-patel.webp',
     bio: 'Specializes in AI and machine learning integration in competitive robotics.',
     social: {

@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, CheckCircle, Cog } from 'lucide-react';
+import React, { useCallback, useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Bot, CheckCircle, Cog } from "lucide-react";
 
 const SuccessMessage = ({ onClose }) => (
-  <motion.div 
+  <motion.div
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     exit={{ opacity: 0 }}
@@ -27,11 +27,11 @@ const SuccessMessage = ({ onClose }) => (
       <motion.div
         initial={{ scale: 0, rotate: -180 }}
         animate={{ scale: 1, rotate: 0 }}
-        transition={{ 
+        transition={{
           type: "spring",
           damping: 10,
           stiffness: 100,
-          duration: 0.8
+          duration: 0.8,
         }}
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
       >
@@ -59,7 +59,7 @@ const SuccessMessage = ({ onClose }) => (
           </motion.div>
         </div>
       </motion.div>
-      
+
       {/* Success Checkmark */}
       <motion.div
         initial={{ scale: 0, x: 20 }}
@@ -80,7 +80,7 @@ const SuccessMessage = ({ onClose }) => (
       transition={{ delay: 0.4 }}
       className="max-w-md mx-auto"
     >
-      <motion.h3 
+      <motion.h3
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
@@ -88,18 +88,19 @@ const SuccessMessage = ({ onClose }) => (
       >
         Welcome to the Future!
       </motion.h3>
-      
-      <motion.p 
+
+      <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6 }}
         className="text-gray-600 mb-8"
       >
-        Your journey into robotics excellence begins now! Check your email for the next steps in your competition adventure.
+        Your journey into robotics excellence begins now! Check your email for
+        the next steps in your competition adventure.
       </motion.p>
 
       {/* Next Steps Cards */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7 }}
@@ -108,7 +109,7 @@ const SuccessMessage = ({ onClose }) => (
         {[
           { icon: "📧", text: "Check your email for confirmation details" },
           { icon: "🤖", text: "Join Our Instagram community" },
-          { icon: "📋", text: "Review competition guidelines & schedule" }
+          { icon: "📋", text: "Review competition guidelines & schedule" },
         ].map((step, index) => (
           <motion.div
             key={index}
@@ -165,14 +166,14 @@ const LoadingOverlay = () => (
           <Cog className="w-full h-full" />
         </motion.div>
       </div>
-      <motion.h3 
+      <motion.h3
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="mt-6 text-xl font-bold text-white"
       >
         Processing Registration
       </motion.h3>
-      <motion.p 
+      <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="mt-2 text-gray-300"
@@ -184,25 +185,14 @@ const LoadingOverlay = () => (
 );
 
 const RegistrationModal = ({ event, onClose }) => {
-  const [teamName, setTeamName] = useState('');
-  const [leaderName, setLeaderName] = useState('');
-  const [leaderEmail, setLeaderEmail] = useState('');
-  const [leaderAge, setLeaderAge] = useState();
-  const [leaderSchool, setLeaderSchool] = useState('');
-  const [leaderTotalStudents, setLeaderTotalStudents] = useState();
-  const [leaderAddress, setLeaderAddress] = useState('');
-  const [leaderCity, setLeaderCity] = useState('');
-  const [leaderState, setLeaderState] = useState('');
-  const [leaderZipcode, setLeaderZipcode] = useState('');
-  const [leaderPhone, setLeaderPhone] = useState('');
-  const [coachName, setCoachName] = useState('');
-  const [coachOrganization, setCoachOrganization] = useState('');
-  const [coachPhone, setCoachPhone] = useState('');
-  const [coachEmail, setCoachEmail] = useState('');
-  const [emailCheckError, setEmailCheckError] = useState('');
-  const [existingEmails, setExistingEmails] = useState([]);
+  const [teamName, setTeamName] = useState("");
+  const [numberOfStudents, setNumberOfStudents] = useState("");
+  const [coachName, setCoachName] = useState("");
+  const [coachOrganization, setCoachOrganization] = useState("");
+  const [coachPhone, setCoachPhone] = useState("");
+  const [coachEmail, setCoachEmail] = useState("");
+  const [emailCheckError, setEmailCheckError] = useState("");
   const [paymentInProgress, setPaymentInProgress] = useState(false);
-  const [paymentError, setPaymentError] = useState('');
   const [paymentTimeout, setPaymentTimeout] = useState(null);
   const [razorpayInstance, setRazorpayInstance] = useState(null);
   const [members, setMembers] = useState([]);
@@ -211,11 +201,14 @@ const RegistrationModal = ({ event, onClose }) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState({
-    status: 'idle', 
+    status: "idle",
     paymentId: null,
-    error: null
+    error: null,
   });
-  const tshirtSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+
+  const totalTeamSize = members.length;
+  const maxMembers = event.maximum_teams;
+  const minMembers = Math.max(0, event.minimum_teams);
 
   const cleanupPayment = useCallback(() => {
     if (paymentTimeout) {
@@ -231,19 +224,37 @@ const RegistrationModal = ({ event, onClose }) => {
   }, [paymentTimeout, razorpayInstance]);
 
   useEffect(() => {
+    setNumberOfStudents(members.length.toString());
+  }, [members]);
+
+  useEffect(() => {
     return () => {
       cleanupPayment();
     };
   }, [cleanupPayment]);
 
   const addMember = () => {
-    if (members.length < 4) {
-      setMembers([...members, { name: '', email: '', age: '', phone: '', tshirtSize: '' }]);
+    if (members.length < maxMembers) {
+      setMembers([
+        ...members,
+        {
+          name: "",
+          email: "",
+          age: "",
+          phone: "",
+          state: "",
+          city: "",
+          zipcode: "",
+          institution: "",
+        },
+      ]);
     }
   };
 
   const removeMember = (index) => {
-    setMembers(members.filter((_, i) => i !== index));
+    if (totalTeamSize > minMembers) {
+      setMembers(members.filter((_, i) => i !== index));
+    }
   };
 
   const updateMember = (index, field, value) => {
@@ -254,8 +265,8 @@ const RegistrationModal = ({ event, onClose }) => {
 
   const loadRazorpay = () => {
     return new Promise((resolve) => {
-      const script = document.createElement('script');
-      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
       script.onload = () => resolve(true);
       script.onerror = () => resolve(false);
       document.body.appendChild(script);
@@ -264,227 +275,258 @@ const RegistrationModal = ({ event, onClose }) => {
 
   const checkEmails = async () => {
     const allEmails = [
-      leaderEmail,
       coachEmail,
-      ...members.map(member => member.email)
+      ...members.map((member) => member.email),
     ].filter(Boolean);
-  
+
     try {
-      const response = await fetch('https://wsro-backend.onrender.com/api/auth/check-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          emails: allEmails,
-          competition_id: event.id,
-          team_name: teamName
-        }),
-      });
-      console.log(response);
+      const response = await fetch(
+        "https://wsro-backend-mota.onrender.com/api/auth/check-email",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            emails: allEmails,
+            competition_id: event.id,
+            team_name: teamName,
+          }),
+        }
+      );
+
       const data = await response.json();
-      
-      let errorMessage = '';
-      
-      // Check for existing emails
+
+      let errorMessage = "";
+
       if (data.emails && data.emails.length > 0) {
-        errorMessage += `The following email addresses are already registered for this competition: ${data.emails.join(', ')}\n`;
+        errorMessage += `The following email addresses are already registered for this competition: ${data.emails.join(
+          ", "
+        )}\n`;
       }
-      
-      // Check for existing team name
+
       if (data.team_names && data.team_names.length > 0) {
         errorMessage += `The team name "${teamName}" is already taken for this competition.`;
       }
-      
+
       if (errorMessage) {
         setEmailCheckError(errorMessage.trim());
         return false;
       }
-  
-      setEmailCheckError('');
+
+      setEmailCheckError("");
       return true;
     } catch (error) {
-      console.error('Email check error:', error);
-      setEmailCheckError('Failed to verify email addresses and team name. Please try again.');
+      console.error("Email check error:", error);
+      setEmailCheckError(
+        "Failed to verify email addresses and team name. Please try again."
+      );
       return false;
     }
   };
-  
 
-  const handleRegistration = useCallback(async (paymentId) => {
-    try {
-      const registrationData = {
-        competition_id: event.id,
-        event_id: event.event_id,
-        team_name: teamName,
-        leader_name: leaderName,
-        leader_email: leaderEmail,
-        leader_age: leaderAge,
-        leader_school: leaderSchool,
-        leader_total_students: leaderTotalStudents,
-        leader_address: leaderAddress,
-        leader_city: leaderCity,
-        leader_state: leaderState,
-        leader_zipcode: leaderZipcode,
-        leader_phone: leaderPhone,
-        coach_mentor_name: coachName,
-        coach_mentor_organization: coachOrganization,
-        coach_mentor_phone: coachPhone,
-        coach_mentor_email: coachEmail,
-        member_names: members.map(m => m.name),
-        member_ages: members.map(m => m.age),
-        member_emails: members.map(m => m.email),
-        member_phones: members.map(m => m.phone),
-        member_tshirt_sizes: members.map(m => m.tshirtSize),
-        payment_id: paymentId
-      };
+  const handleRegistration = useCallback(
+    async (paymentId) => {
+      setIsProcessing(true);
+      try {
+        const registrationData = {
+          competition_id: event.id,
+          event_id: event.event_id,
+          team_name: teamName,
+          coach_mentor_name: coachName,
+          coach_mentor_organization: coachOrganization,
+          coach_mentor_phone: coachPhone,
+          coach_mentor_email: coachEmail,
+          no_of_students: parseInt(numberOfStudents),
+          member_names: members.map((m) => m.name),
+          member_ages: members.map((m) => parseInt(m.age)),
+          member_emails: members.map((m) => m.email),
+          member_phones: members.map((m) => m.phone),
+          member_states: members.map((m) => m.state),
+          member_cities: members.map((m) => m.city),
+          member_zipcodes: members.map((m) => m.zipcode),
+          member_institutions: members.map((m) => m.institution),
+          payment_id: paymentId,
+        };
 
-      const registerResponse = await fetch('https://wsro-backend.onrender.com/api/competitions/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(registrationData),
-      });
+        const registerResponse = await fetch(
+          "https://wsro-backend-mota.onrender.com/api/competitions/register",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(registrationData),
+          }
+        );
 
-      if (!registerResponse.ok) {
-        const errorData = await registerResponse.json();
-        throw new Error(errorData.message || 'Registration failed');
-      }
-
-      await registerResponse.json();
-      setIsSuccess(true);
-      return true;
-    }  catch (error) {
-      console.error('Registration error:', error);
-      setPaymentStatus({
-        status: 'error',
-        paymentId,
-        error: `Registration failed: ${error.message}. Payment ID: ${paymentId}`
-      });
-      return false;
-    } finally {
-      setIsProcessing(false);
-      setPaymentInProgress(false);
-    }
-  }, [event.id, event.event_id, teamName, leaderName, leaderEmail]);
-const handlePaymentSuccess = useCallback(async (response) => {
-    if (paymentTimeout) {
-      clearTimeout(paymentTimeout);
-      setPaymentTimeout(null);
-    }
-
-    setPaymentStatus({
-      status: 'processing',
-      paymentId: response.razorpay_payment_id,
-      error: null
-    });
-
-    try {
-      let retries = 3;
-      let success = false;
-      
-      while (retries > 0 && !success) {
-        try {
-          success = await handleRegistration(response.razorpay_payment_id);
-          if (success) break;
-        } catch (error) {
-          console.error(`Registration attempt failed. Retries left: ${retries - 1}`, error);
-          retries--;
-          if (retries === 0) throw error;
-          await new Promise(resolve => setTimeout(resolve, 2000));
+        if (!registerResponse.ok) {
+          const errorData = await registerResponse.json();
+          throw new Error(errorData.message || "Registration failed");
         }
-      }
 
-      if (success) {
-        setPaymentStatus({
-          status: 'success',
-          paymentId: response.razorpay_payment_id,
-          error: null
-        });
+        await registerResponse.json();
         setIsSuccess(true);
-       
+        return true;
+      } catch (error) {
+        console.error("Registration error:", error);
+        setPaymentStatus({
+          status: "error",
+          paymentId,
+          error: `Registration failed: ${error.message}. Payment ID: ${paymentId}`,
+        });
+        return false;
+      } finally {
+        setIsProcessing(false);
+        setPaymentInProgress(false);
       }
-    } catch (error) {
-      console.error('Final registration error:', error);
-      setPaymentStatus({
-        status: 'error',
-        paymentId: response.razorpay_payment_id,
-        error: `Registration failed after payment. Please contact support with Payment ID: ${response.razorpay_payment_id}`
-      });
-    } finally {
-      cleanupPayment();
-    }
-  }, [handleRegistration, paymentTimeout, cleanupPayment]);
+    },
+    [
+      event.id,
+      event.event_id,
+      teamName,
+      coachName,
+      coachOrganization,
+      coachPhone,
+      coachEmail,
+      numberOfStudents,
+      members,
+    ]
+  );
 
-  const handlePaymentFailure = useCallback((response) => {
-    cleanupPayment();
-    setPaymentStatus({
-      status: 'error',
-      paymentId: response.error?.metadata?.payment_id,
-      error: `Payment failed: ${response.error?.description || 'Unknown error'}`
-    });
-  }, [cleanupPayment]);
+  const handlePaymentSuccess = useCallback(
+    async (response) => {
+      if (paymentTimeout) {
+        clearTimeout(paymentTimeout);
+        setPaymentTimeout(null);
+      }
+
+      setPaymentStatus({
+        status: "processing",
+        paymentId: response.razorpay_payment_id,
+        error: null,
+      });
+
+      try {
+        let retries = 3;
+        let success = false;
+
+        while (retries > 0 && !success) {
+          try {
+            success = await handleRegistration(response.razorpay_payment_id);
+            if (success) break;
+          } catch (error) {
+            console.error(
+              `Registration attempt failed. Retries left: ${retries - 1}`,
+              error
+            );
+            retries--;
+            if (retries === 0) throw error;
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+          }
+        }
+
+        if (success) {
+          setPaymentStatus({
+            status: "success",
+            paymentId: response.razorpay_payment_id,
+            error: null,
+          });
+          setIsSuccess(true);
+        }
+      } catch (error) {
+        console.error("Final registration error:", error);
+        setPaymentStatus({
+          status: "error",
+          paymentId: response.razorpay_payment_id,
+          error: `Registration failed after payment. Please contact support with Payment ID: ${response.razorpay_payment_id}`,
+        });
+      } finally {
+        cleanupPayment();
+      }
+    },
+    [handleRegistration, paymentTimeout, cleanupPayment]
+  );
+
+  const handlePaymentFailure = useCallback(
+    (response) => {
+      cleanupPayment();
+      setPaymentStatus({
+        status: "error",
+        paymentId: response.error?.metadata?.payment_id,
+        error: `Payment failed: ${
+          response.error?.description || "Unknown error"
+        }`,
+      });
+    },
+    [cleanupPayment]
+  );
 
   const initializeRazorpay = useCallback(async () => {
     try {
       const res = await loadRazorpay();
-  
+
       if (!res) {
         throw new Error("Razorpay SDK failed to load");
       }
-  
-      // Create order via backend
-      const orderResponse = await fetch("https://wsro-backend.onrender.com/razorpay/create-order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: event.fees,
-          currency: "INR",
-          receipt: `team_${teamName}_${Date.now()}`,
-          notes: {
-            team_name: teamName,
-            event_name: event.name,
-            event_id: event.id,
+
+      const orderResponse = await fetch(
+        "https://wsro-backend-mota.onrender.com/razorpay/create-order",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        }),
-      });
-  
+          body: JSON.stringify({
+            amount: event.fees,
+            currency: "INR",
+            receipt: `team_${teamName}_${Date.now()}`,
+            notes: {
+              team_name: teamName,
+              event_name: event.name,
+              event_id: event.id,
+            },
+          }),
+        }
+      );
+
       if (!orderResponse.ok) {
         throw new Error("Failed to create Razorpay order");
       }
-  
+
       const orderData = await orderResponse.json();
-  
+
       const options = {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-        order_id: orderData.order.id, 
+        order_id: orderData.order.id,
         amount: orderData.order.amount,
         currency: orderData.order.currency,
         name: "WSRO Robotics",
         description: `Registration for ${event.name}`,
-        handler: async function(response) {
+        handler: async function (response) {
           try {
-           
-            const verifyResponse = await fetch("https://wsro-backend.onrender.com/razorpay/verify-payment", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature
-              }),
-            });
-  
+            const verifyResponse = await fetch(
+              "https://wsro-backend-mota.onrender.com/razorpay/verify-payment",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature,
+                }),
+              }
+            );
+
             if (!verifyResponse.ok) {
               const errorData = await verifyResponse.json();
-              throw new Error(errorData.message || "Payment verification failed");
+              throw new Error(
+                errorData.message || "Payment verification failed"
+              );
             }
-  
+
             const verifyData = await verifyResponse.json();
             if (verifyData.success) {
               await handlePaymentSuccess(response);
@@ -496,8 +538,8 @@ const handlePaymentSuccess = useCallback(async (response) => {
             handlePaymentFailure({
               error: {
                 description: error.message,
-                metadata: { payment_id: response.razorpay_payment_id }
-              }
+                metadata: { payment_id: response.razorpay_payment_id },
+              },
             });
           }
         },
@@ -509,11 +551,7 @@ const handlePaymentSuccess = useCallback(async (response) => {
           animation: true,
           backdropClose: false,
         },
-        prefill: {
-          name: leaderName,
-          email: leaderEmail,
-          contact: leaderPhone,
-        },
+        prefill: {},
         theme: {
           color: "#2563eb",
         },
@@ -523,19 +561,18 @@ const handlePaymentSuccess = useCallback(async (response) => {
         },
         method: {
           upi: {
-            _: true, 
-            qr: false
+            _: true,
+            qr: true,
           },
           netbanking: true,
           card: true,
           wallet: true,
         },
       };
-      
-  
+
       const paymentObject = new window.Razorpay(options);
       setRazorpayInstance(paymentObject);
-  
+
       const timeout = setTimeout(() => {
         cleanupPayment();
         setPaymentStatus({
@@ -544,7 +581,7 @@ const handlePaymentSuccess = useCallback(async (response) => {
           error: "Payment timed out. Please try again.",
         });
       }, 5 * 60 * 1000);
-  
+
       setPaymentTimeout(timeout);
       paymentObject.open();
       setPaymentInProgress(true);
@@ -559,49 +596,57 @@ const handlePaymentSuccess = useCallback(async (response) => {
     }
   }, [
     event,
-    leaderName,
-    leaderEmail,
-    leaderPhone,
     teamName,
     handlePaymentSuccess,
     handlePaymentFailure,
     cleanupPayment,
   ]);
-  
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!termsAccepted || !liabilityAccepted) {
+
+    if (
+      totalTeamSize < event.minimum_teams ||
+      totalTeamSize > event.maximum_teams
+    ) {
       setPaymentStatus({
-        status: 'error',
+        status: "error",
         paymentId: null,
-        error: 'Please accept both the Terms and Conditions and the Liability Waiver to continue.'
+        error: `Team size must be between ${event.minimum_teams} and ${event.maximum_teams} members.`,
       });
       return;
     }
+
+    if (!termsAccepted || !liabilityAccepted) {
+      setPaymentStatus({
+        status: "error",
+        paymentId: null,
+        error:
+          "Please accept both the Terms and Conditions and the Liability Waiver to continue.",
+      });
+      return;
+    }
+
     setIsProcessing(true);
-    setEmailCheckError('');
-    setPaymentStatus({ status: 'idle', paymentId: null, error: null });
-  
+    setEmailCheckError("");
+    setPaymentStatus({ status: "idle", paymentId: null, error: null });
+
     try {
-      // First check emails and team name
       const validationPassed = await checkEmails();
-      
+
       if (!validationPassed) {
         setIsProcessing(false);
         return;
       }
-  
-      // If validation passes, proceed with payment
+
       await initializeRazorpay();
       setPaymentInProgress(true);
     } catch (error) {
-      console.error('Payment initialization error:', error);
+      console.error("Payment initialization error:", error);
       setPaymentStatus({
-        status: 'error',
+        status: "error",
         paymentId: null,
-        error: 'Failed to initialize payment. Please try again.'
+        error: "Failed to initialize payment. Please try again.",
       });
       cleanupPayment();
     }
@@ -611,7 +656,7 @@ const handlePaymentSuccess = useCallback(async (response) => {
     <AnimatePresence>
       {isProcessing && <LoadingOverlay />}
       <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.9 }}
@@ -619,14 +664,26 @@ const handlePaymentSuccess = useCallback(async (response) => {
         >
           <div className="p-6">
             <div className="flex justify-between items-start mb-6">
-              <h2 className="text-2xl font-bold text-gray-800">Register for {event.name}</h2>
-              <button 
+              <h2 className="text-2xl font-bold text-gray-800">
+                Register for {event.name}
+              </h2>
+              <button
                 onClick={onClose}
                 className="p-2 hover:bg-gray-100 rounded-full"
                 disabled={paymentInProgress}
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               </button>
             </div>
@@ -640,25 +697,38 @@ const handlePaymentSuccess = useCallback(async (response) => {
                     {emailCheckError}
                   </div>
                 )}
-                
-                {/* {paymentStatus.status === 'error' && (
+
+                {paymentStatus.status === "error" && (
                   <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
                     <p>{paymentStatus.error}</p>
                     {paymentStatus.paymentId && (
-                      <p className="mt-2 text-sm">Payment ID: {paymentStatus.paymentId}</p>
+                      <p className="mt-2 text-sm">
+                        Payment ID: {paymentStatus.paymentId}
+                      </p>
                     )}
                   </div>
-                )} */}
-
-                {paymentStatus.status === 'processing' && (
-                <LoadingOverlay />
                 )}
 
-                {/* Team Information */}
+                {/* Team Size Information */}
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <p className="text-sm text-blue-700">
+                    Team size requirements: Minimum {event.minimum_teams}{" "}
+                    {event.minimum_teams === 1 ? "member" : "members"} , Maximum{" "}
+                    {event.maximum_teams}{" "}
+                    {event.maximum_teams === 1 ? "member" : "members"}
+                  </p>
+                  <p className="text-sm text-blue-700 mt-2">
+                    Current team size: {totalTeamSize}{" "}
+                    {totalTeamSize === 1 ? "member" : "members"}
+                  </p>
+                </div>
+
                 <div>
-                  <h3 className="text-lg font-semibold mb-4">Team Information</h3>
-                  <div className="grid grid-cols-1 gap-4">
-                    <div className="col-span-1">
+                  <h3 className="text-lg font-semibold mb-4">
+                    Team Information
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Team Name
                       </label>
@@ -670,131 +740,17 @@ const handlePaymentSuccess = useCallback(async (response) => {
                         required
                       />
                     </div>
-                  </div>
-                </div>
+                    <div>
+                  
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
 
-                {/* Leader Information */}
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold mb-4">Team Captain Information</h3>
-                  <div className="grid grid-cols-1 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                       Captain Name
-                      </label>
-                      <input
-                        type="text"
-                        value={leaderName}
-                        onChange={(e) => setLeaderName(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Captain Email
-                      </label>
-                      <input
-                        type="email"
-                        value={leaderEmail}
-                        onChange={(e) => setLeaderEmail(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Captain Age
+                        Number of Students    <span className="text-red-500 text-[9px]"> *(Automatic filled when you add or remove Participants)</span>
                       </label>
                       <input
                         type="number"
-                        value={leaderAge}
-                        onChange={(e) => setLeaderAge(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Captain Phone/Mobile Number
-                      </label>
-                      <input
-                        type="tel"
-                        value={leaderPhone}
-                        onChange={(e) => setLeaderPhone(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Captain School /Institute/ University / Organization
-                      </label>
-                      <input
-                        type="text"
-                        value={leaderSchool}
-                        onChange={(e) => setLeaderSchool(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Total Number of Students
-                      </label>
-                      <input
-                        type="number"
-                        value={leaderTotalStudents}
-                        onChange={(e) => setLeaderTotalStudents(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                        required
-                      />
-                    </div>
-                    <div className="col-span-1">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Captain Full Address
-                      </label>
-                      <input
-                        type="text"
-                        value={leaderAddress}
-                        onChange={(e) => setLeaderAddress(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        City
-                      </label>
-                      <input
-                        type="text"
-                        value={leaderCity}
-                        onChange={(e) => setLeaderCity(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        State
-                      </label>
-                      <input
-                        type="text"
-                        value={leaderState}
-                        onChange={(e) => setLeaderState(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Zipcode
-                      </label>
-                      <input
-                        type="text"
-                        value={leaderZipcode}
-                        onChange={(e) => setLeaderZipcode(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                        required
+                        value={numberOfStudents}
+                        readOnly
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50"
                       />
                     </div>
                   </div>
@@ -802,8 +758,10 @@ const handlePaymentSuccess = useCallback(async (response) => {
 
                 {/* Coach Information */}
                 <div className="bg-gray-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold mb-4">Coach/Mentor Information</h3>
-                  <div className="grid grid-cols-1 gap-4">
+                  <h3 className="text-lg font-semibold mb-4">
+                    Coach/Mentor Information
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Coach/Mentor Name
@@ -818,7 +776,7 @@ const handlePaymentSuccess = useCallback(async (response) => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Coach/Mentor Organization
+                        Coach/Mentor Organization
                       </label>
                       <input
                         type="text"
@@ -830,7 +788,7 @@ const handlePaymentSuccess = useCallback(async (response) => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Coach/Mentor Phone/Mobile Number
+                        Coach/Mentor Phone
                       </label>
                       <input
                         type="tel"
@@ -842,7 +800,7 @@ const handlePaymentSuccess = useCallback(async (response) => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Coach/Mentor Email Address
+                        Coach/Mentor Email
                       </label>
                       <input
                         type="email"
@@ -857,159 +815,229 @@ const handlePaymentSuccess = useCallback(async (response) => {
 
                 {/* Team Members */}
                 <div className="space-y-4">
-  <h3 className="text-lg font-semibold">Team Members</h3>
+                  <h3 className="text-lg font-semibold">Participants</h3>
+                  <div className="space-y-6">
+                    {members.map((member, index) => (
+                      <div key={index} className="bg-gray-50 p-6 rounded-lg">
+                        <div className="flex justify-between items-center mb-4">
+                          <h4 className="font-medium">Participants {index + 1}</h4>
+                          {totalTeamSize > minMembers && (
+                            <button
+                              type="button"
+                              onClick={() => removeMember(index)}
+                              className="text-red-500 hover:text-red-600"
+                            >
+                              Remove
+                            </button>
+                          )}
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                              Name
+                            </label>
+                            <input
+                              type="text"
+                              value={member.name}
+                              onChange={(e) =>
+                                updateMember(index, "name", e.target.value)
+                              }
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                              Email
+                            </label>
+                            <input
+                              type="email"
+                              value={member.email}
+                              onChange={(e) =>
+                                updateMember(index, "email", e.target.value)
+                              }
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                              Age
+                            </label>
+                            <input
+                              type="number"
+                              value={member.age}
+                              onChange={(e) =>
+                                updateMember(index, "age", e.target.value)
+                              }
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                              Phone
+                            </label>
+                            <input
+                              type="tel"
+                              value={member.phone}
+                              onChange={(e) =>
+                                updateMember(index, "phone", e.target.value)
+                              }
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                              State
+                            </label>
+                            <input
+                              type="text"
+                              value={member.state}
+                              onChange={(e) =>
+                                updateMember(index, "state", e.target.value)
+                              }
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                           
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                              City
+                            </label>
+                            <input
+                              type="text"
+                              value={member.city}
+                              onChange={(e) =>
+                                updateMember(index, "city", e.target.value)
+                              }
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                              Zipcode
+                            </label>
+                            <input
+                              type="text"
+                              value={member.zipcode}
+                              onChange={(e) =>
+                                updateMember(index, "zipcode", e.target.value)
+                              }
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                           
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                              Institution
+                            </label>
+                            <input
+                              type="text"
+                              value={member.institution}
+                              onChange={(e) =>
+                                updateMember(
+                                  index,
+                                  "institution",
+                                  e.target.value
+                                )
+                              }
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
 
-  <div className="space-y-6">
-    {members.map((member, index) => (
-      <div key={index}>
-        <div className="bg-gray-50 p-6 rounded-lg space-y-4">
-          <div className="flex justify-between items-center">
-            <h4 className="font-medium">Member {index + 1}</h4>
-            {index > 0 && (
-              <button
-                type="button"
-                onClick={() => removeMember(index)}
-                className="text-red-500 hover:text-red-600"
-              >
-                Remove
-              </button>
-            )}
-          </div>
-          <div className="grid grid-cols-1 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Name
-              </label>
-              <input
-                type="text"
-                value={member.name}
-                onChange={(e) => updateMember(index, 'name', e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Email
-              </label>
-              <input
-                type="email"
-                value={member.email}
-                onChange={(e) => updateMember(index, 'email', e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Age
-              </label>
-              <input
-                type="number"
-                value={member.age}
-                onChange={(e) => updateMember(index, 'age', e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Mobile Number
-              </label>
-              <input
-                type="tel"
-                value={member.phone}
-                onChange={(e) => updateMember(index, 'phone', e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                T-Shirt Size
-              </label>
-              <select
-                value={member.tshirtSize}
-                onChange={(e) => updateMember(index, 'tshirtSize', e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                required
-              >
-                <option value="">Select Size</option>
-                {tshirtSizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-        
-        {/* Add Member button after each member form except when max members reached */}
-        {index === members.length - 1 && members.length < 4 && (
-          <div className="mt-4 flex justify-center">
-            <button
-              type="button"
-              onClick={addMember}
-              className="inline-flex items-center px-4 py-2 text-primary hover:text-secondary"
-            >
-              <span className="mr-2">+</span> Add Another Member
-            </button>
-          </div>
-        )}
-      </div>
-    ))}
+                    {/* Add Member Button */}
+                    {members.length < maxMembers && (
+                      <div className="flex justify-center">
+                        <button
+                          type="button"
+                          onClick={addMember}
+                          className="inline-flex items-center px-4 py-2 text-primary hover:text-secondary"
+                        >
+                          <span className="mr-2">+</span> Add Participant
+                        </button>
+                      </div>
+                    )}
 
-    {/* Show Add Member button if no members yet */}
-    {members.length === 0 && (
-      <div className="flex justify-center">
-        <button
-          type="button"
-          onClick={addMember}
-          className="inline-flex items-center px-4 py-2 text-primary hover:text-secondary"
-        >
-          <span className="mr-2">+</span> Add Member
-        </button>
-      </div>
-    )}
-  </div>
-</div>
+                    {/* Team Size Warning */}
+                    {totalTeamSize < minMembers && (
+                      <div className="text-red-600 text-sm mt-2">
+                        Please add at least {minMembers - totalTeamSize} more
+                        team{" "}
+                        {minMembers - totalTeamSize === 1
+                          ? "member"
+                          : "members"}
+                      </div>
+                    )}
+                  </div>
+                </div>
 
-<div className="space-y-4">
-          <div className="flex items-start space-x-3">
-            <input
-              type="checkbox"
-              id="terms"
-              checked={termsAccepted}
-              onChange={(e) => setTermsAccepted(e.target.checked)}
-              className="mt-1 rounded border-gray-300 text-primary focus:ring-primary"
-              required
-            />
-            <label htmlFor="terms" className="text-sm text-gray-700">
-              I have read and agree to the Terms and Conditions and Return and Refund Policy
-            </label>
-          </div>
+                {/* Terms and Conditions */}
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <input
+                      type="checkbox"
+                      id="terms"
+                      checked={termsAccepted}
+                      onChange={(e) => setTermsAccepted(e.target.checked)}
+                      className="mt-1 rounded border-gray-300 text-primary focus:ring-primary"
+                      required
+                    />
+                    <label htmlFor="terms" className="text-sm text-gray-700">
+                      I have read and agree to the Terms and Conditions and
+                      Return and Refund Policy
+                    </label>
+                  </div>
 
-          <div className="flex items-start space-x-3">
-            <input
-              type="checkbox"
-              id="liability"
-              checked={liabilityAccepted}
-              onChange={(e) => setLiabilityAccepted(e.target.checked)}
-              className="mt-1 rounded border-gray-300 text-primary focus:ring-primary"
-              required
-            />
-            <label htmlFor="liability" className="text-sm text-gray-700">
-              We understand that participation in this robotics event is not by force and if any physical injury, including serious injury may occur during competition then its my/our responsibility. Also I agree to accept any liability for personal injury arising out of my participation in this WSRO event
-            </label>
-          </div>
-        </div>
+                  <div className="flex items-start space-x-3">
+                    <input
+                      type="checkbox"
+                      id="liability"
+                      checked={liabilityAccepted}
+                      onChange={(e) => setLiabilityAccepted(e.target.checked)}
+                      className="mt-1 rounded border-gray-300 text-primary focus:ring-primary"
+                      required
+                    />
+                    <label
+                      htmlFor="liability"
+                      className="text-sm text-gray-700"
+                    >
+                      We understand that participation in this robotics event is
+                      not by force and if any physical injury, including serious
+                      injury may occur during competition then its my/our
+                      responsibility. Also I agree to accept any liability for
+                      personal injury arising out of my participation in this
+                      WSRO event
+                    </label>
+                  </div>
+                </div>
 
-
+                {/* Submit Button */}
                 <button
                   type="submit"
-                  disabled={isProcessing || paymentInProgress || !termsAccepted || !liabilityAccepted}
+                  disabled={
+                    isProcessing ||
+                    paymentInProgress ||
+                    !termsAccepted ||
+                    !liabilityAccepted ||
+                    totalTeamSize < minMembers ||
+                    totalTeamSize > maxMembers
+                  }
                   className="w-full bg-primary text-white py-3 rounded-lg hover:bg-secondary transition-colors duration-300 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isProcessing || paymentInProgress ? 'Processing...' : 'Submit Registration'}
+                  {isProcessing || paymentInProgress
+                    ? "Processing..."
+                    : totalTeamSize < minMembers
+                    ? `Add ${minMembers - totalTeamSize} More ${
+                        minMembers - totalTeamSize === 1 ? "Member" : "Members"
+                      }`
+                    : "Submit Registration"}
                 </button>
               </form>
             )}

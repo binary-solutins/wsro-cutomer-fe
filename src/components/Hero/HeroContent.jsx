@@ -26,7 +26,7 @@ const HeroContent = () => {
         className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8 relative inline-block"
       >
         <span className="text-[#485db5]">World</span>{" "}
-        <span className="text-[#ef5b4f]">STEM</span>{" "}
+        <span className="text-[#ef5b4f]">STEM &</span>{" "}
         <span className="text-[#485db5]">Robotics</span>{" "}
         <span className="text-[#ef5b4f]">Olympiad</span>
         <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#485db5] to-[#ef5b4f] transform origin-left animate-expandWidth" />

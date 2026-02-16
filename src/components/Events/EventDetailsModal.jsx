@@ -25,8 +25,8 @@ const EventDetailsModal = ({ event, onClose, onRegister }) => {
     { icon: <Calendar className="w-5 h-5" />, text: formattedDate },
     { icon: <MapPin className="w-5 h-5" />, text: event.venue },
     { icon: <Target className="w-5 h-5" />, text: event.level },
-    { icon: <Clock className="w-5 h-5" />, text: `Deadline: ${formattedDeadline}` },
-    { icon: <Users className="w-5 h-5" />, text: `Max Teams: ${event.maximum_teams}` },
+    { icon: <Users className="w-5 h-5" />, text: `Minimum Team Size: ${event.minimum_teams}` },
+    { icon: <Users className="w-5 h-5" />, text: `Maximum Team Size: ${event.maximum_teams}` },
     { icon: <Wallet className="w-5 h-5" />, text: `Fees: ₹${event.fees}` }
   ];
 
@@ -63,7 +63,7 @@ const EventDetailsModal = ({ event, onClose, onRegister }) => {
             <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
               <div className="flex items-center gap-2 mb-3">
                 <FileText className="w-5 h-5 text-indigo-600" />
-                <h3 className="font-semibold text-gray-900">Rules & Guidelines</h3>
+                <h3 className="font-semibold text-gray-900">Information</h3>
               </div>
               <p className="text-gray-600 leading-relaxed">{event.rules}</p>
             </div>
