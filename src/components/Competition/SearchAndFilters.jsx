@@ -1,12 +1,12 @@
 import React from 'react';
 import { Download, Search, SlidersHorizontal, X } from 'lucide-react';
 
-const SearchAndFilters = ({ 
-  searchTerm, 
-  setSearchTerm, 
-  filters, 
-  setFilters, 
-  showFilters, 
+const SearchAndFilters = ({
+  searchTerm,
+  setSearchTerm,
+  filters,
+  setFilters,
+  showFilters,
   setShowFilters,
   clearFilters,
   hasActiveFilters
@@ -28,26 +28,26 @@ const SearchAndFilters = ({
           </div>
         </div>
 
-        
+
 
         {/* Filter Toggle Button */}
 
         <button
-  onClick={() => window.open('https://drive.google.com/file/d/13Un64aI74-LQ9q9GE2mwSv18oAxRt5QU/view?usp=sharing',
-'_blank')}
-  className="flex items-center gap-2 px-4 py-3 rounded-xl bg-primary text-white transition-colors"
->
-  <Download className="w-5 h-5" />
-  <span>Download Rule Book</span>
-</button>
+          onClick={() => window.open('https://drive.google.com/file/d/13Un64aI74-LQ9q9GE2mwSv18oAxRt5QU/view?usp=sharing',
+            '_blank')}
+          className="flex items-center gap-2 px-4 py-3 rounded-xl bg-primary text-white transition-colors"
+        >
+          <Download className="w-5 h-5" />
+          <span>Download Track Manual</span>
+        </button>
 
-<button
-  onClick={() => window.open('https://drive.google.com/file/d/1B-bmIqNw5OFbyOICrVMcM4cH4JJhWTUn/view?usp=sharing', '_blank')}
-  className="flex items-center gap-2 px-2 py-3 rounded-xl bg-primary text-white transition-colors"
->
-  <Download className="w-5 h-5" />
-  <span>Download Track Manual</span>
-</button>
+        <button
+          onClick={() => window.open('https://drive.google.com/file/d/1B-bmIqNw5OFbyOICrVMcM4cH4JJhWTUn/view?usp=sharing', '_blank')}
+          className="flex items-center gap-2 px-2 py-3 rounded-xl bg-primary text-white transition-colors"
+        >
+          <Download className="w-5 h-5" />
+          <span>Download Rulebook</span>
+        </button>
 
         <button
           onClick={() => setShowFilters(!showFilters)}
@@ -57,7 +57,7 @@ const SearchAndFilters = ({
           <span>Filters</span>
         </button>
 
-        
+
 
         {/* Clear Filters Button */}
         {hasActiveFilters && (
@@ -76,7 +76,7 @@ const SearchAndFilters = ({
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 p-6 bg-white rounded-xl shadow-sm">
           {/* Level Filter */}
           <div className="space-y-2">
-                    </div>
+          </div>
 
           {/* Price Range Filter */}
           <div className="space-y-2">

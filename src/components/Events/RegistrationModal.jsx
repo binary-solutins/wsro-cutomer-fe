@@ -281,7 +281,7 @@ const RegistrationModal = ({ event, onClose }) => {
 
     try {
       const response = await fetch(
-        "https://wsro-backend-mota.onrender.com/api/auth/check-email",
+        "https://wsroapi.softarotechnolabs.com/api/auth/check-email",
         {
           method: "POST",
           headers: {
@@ -350,7 +350,7 @@ const RegistrationModal = ({ event, onClose }) => {
         };
 
         const registerResponse = await fetch(
-          "https://wsro-backend-mota.onrender.com/api/competitions/register",
+          "https://wsroapi.softarotechnolabs.com/api/competitions/register",
           {
             method: "POST",
             headers: {
@@ -454,9 +454,8 @@ const RegistrationModal = ({ event, onClose }) => {
       setPaymentStatus({
         status: "error",
         paymentId: response.error?.metadata?.payment_id,
-        error: `Payment failed: ${
-          response.error?.description || "Unknown error"
-        }`,
+        error: `Payment failed: ${response.error?.description || "Unknown error"
+          }`,
       });
     },
     [cleanupPayment]
@@ -471,7 +470,7 @@ const RegistrationModal = ({ event, onClose }) => {
       }
 
       const orderResponse = await fetch(
-        "https://wsro-backend-mota.onrender.com/razorpay/create-order",
+        "https://wsroapi.softarotechnolabs.com/razorpay/create-order",
         {
           method: "POST",
           headers: {
@@ -495,18 +494,19 @@ const RegistrationModal = ({ event, onClose }) => {
       }
 
       const orderData = await orderResponse.json();
+      const order = orderData.order || orderData;
 
       const options = {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-        order_id: orderData.order.id,
-        amount: orderData.order.amount,
-        currency: orderData.order.currency,
+        order_id: order.id,
+        amount: order.amount,
+        currency: order.currency,
         name: "WSRO Robotics",
         description: `Registration for ${event.name}`,
         handler: async function (response) {
           try {
             const verifyResponse = await fetch(
-              "https://wsro-backend-mota.onrender.com/razorpay/verify-payment",
+              "https://wsroapi.softarotechnolabs.com/razorpay/verify-payment",
               {
                 method: "POST",
                 headers: {
@@ -528,7 +528,7 @@ const RegistrationModal = ({ event, onClose }) => {
             }
 
             const verifyData = await verifyResponse.json();
-            if (verifyData.success) {
+            if (verifyData.message === "success") {
               await handlePaymentSuccess(response);
             } else {
               throw new Error("Payment verification failed");
@@ -741,7 +741,7 @@ const RegistrationModal = ({ event, onClose }) => {
                       />
                     </div>
                     <div>
-                  
+
                       <label className="block text-sm font-medium text-gray-700 mb-1">
 
                         Number of Students    <span className="text-red-500 text-[9px]"> *(Automatic filled when you add or remove Participants)</span>
@@ -899,7 +899,7 @@ const RegistrationModal = ({ event, onClose }) => {
                                 updateMember(index, "state", e.target.value)
                               }
                               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                           
+
                             />
                           </div>
                           <div>
@@ -927,7 +927,7 @@ const RegistrationModal = ({ event, onClose }) => {
                                 updateMember(index, "zipcode", e.target.value)
                               }
                               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                           
+
                             />
                           </div>
                           <div>
@@ -1034,10 +1034,9 @@ const RegistrationModal = ({ event, onClose }) => {
                   {isProcessing || paymentInProgress
                     ? "Processing..."
                     : totalTeamSize < minMembers
-                    ? `Add ${minMembers - totalTeamSize} More ${
-                        minMembers - totalTeamSize === 1 ? "Member" : "Members"
+                      ? `Add ${minMembers - totalTeamSize} More ${minMembers - totalTeamSize === 1 ? "Member" : "Members"
                       }`
-                    : "Submit Registration"}
+                      : "Submit Registration"}
                 </button>
               </form>
             )}

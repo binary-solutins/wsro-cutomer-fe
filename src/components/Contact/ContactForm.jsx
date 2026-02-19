@@ -14,11 +14,11 @@ const ContactForm = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
     }
-    
+
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else {
@@ -27,7 +27,7 @@ const ContactForm = () => {
         newErrors.email = 'Please enter a valid email address';
       }
     }
-    
+
     if (!formData.message.trim()) {
       newErrors.message = 'Message is required';
     }
@@ -42,7 +42,7 @@ const ContactForm = () => {
       ...prev,
       [name]: value
     }));
-    
+
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => {
@@ -55,13 +55,13 @@ const ContactForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
 
     setIsLoading(true);
-    
+
     const payload = {
       name: formData.name.trim(),
       email: formData.email.trim(),
@@ -69,7 +69,7 @@ const ContactForm = () => {
     };
 
     try {
-      const response = await fetch('https://wsro-backend-mota.onrender.com/api/inquiries', {
+      const response = await fetch('https://wsroapi.softarotechnolabs.com/api/inquiries', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -108,50 +108,50 @@ const ContactForm = () => {
           <form onSubmit={handleSubmit} className="relative space-y-6 p-8 rounded-2xl bg-white/80 backdrop-blur-sm shadow-xl border border-primary/10 hover:shadow-primary/5 transition-all duration-500">
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <ContactInput 
-                  name="name" 
-                  value={formData.name} 
-                  onChange={handleChange} 
+                <ContactInput
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   placeholder="Your Name"
                   error={errors.name}
                 />
                 {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
               </div>
               <div>
-                <ContactInput 
-                  name="email" 
-                  type="email" 
-                  value={formData.email} 
-                  onChange={handleChange} 
+                <ContactInput
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Your Email"
                   error={errors.email}
                 />
                 {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
               </div>
             </div>
-            
-            <ContactInput 
-              name="subject" 
-              value={formData.subject} 
-              onChange={handleChange} 
+
+            <ContactInput
+              name="subject"
+              value={formData.subject}
+              onChange={handleChange}
               placeholder="Subject (Optional)"
               required={false}
             />
-            
+
             <div>
-              <ContactInput 
+              <ContactInput
                 name="message"
-                type="textarea" 
-                value={formData.message} 
-                onChange={handleChange} 
-                placeholder="Your Message" 
+                type="textarea"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Your Message"
                 rows={6}
                 error={errors.message}
               />
               {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
             </div>
 
-            <button 
+            <button
               type="submit"
               disabled={isLoading}
               className="w-full bg-[#485db5] text-white px-8 py-4 rounded-lg text-lg font-semibold
@@ -171,8 +171,8 @@ const ContactForm = () => {
 
           {/* Corner Accents */}
           {['-top-1 -right-1', '-top-1 -left-1', '-bottom-1 -right-1', '-bottom-1 -left-1'].map((position, i) => (
-            <div 
-              key={i} 
+            <div
+              key={i}
               className={`absolute w-3 h-3 ${position} 
                 ${i % 2 === 0 ? 'bg-primary' : 'bg-secondary'} rounded-full 
                 animate-pulse`}

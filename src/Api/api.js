@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const baseUrl = 'https://wsro-backend-mota.onrender.com/api';
+// const baseUrl = 'https://wsroapi.softarotechnolabs.com/api';
+const baseUrl = 'https://wsroapi.softarotechnolabs.com/api';
 
 export const getCompetitions = async () => {
     try {
@@ -13,22 +14,22 @@ export const getCompetitions = async () => {
 };
 
 export const getEventsByLevel = async (level) => {
-    try{
+    try {
         const response = await axios.get(`${baseUrl}/events/level/${level}`);
         return response.data;
     }
-    catch(error){
+    catch (error) {
         console.error('error in fetching events', error);
         throw error;
     }
 };
 
 export const getCompetitionByEvent = async (id) => {
-    try{
+    try {
         const response = await axios.get(`${baseUrl}/competitions/?event_id=${id}`);
         return response.data;
     }
-    catch(error){
+    catch (error) {
         console.error('error in fetching events', error);
         throw error;
     }

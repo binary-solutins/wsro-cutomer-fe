@@ -23,15 +23,15 @@ const Events = () => {
   // International competitions data
   const internationalCompetitions = [
     {
-      id: "dubai-2025",
-      name: "Dubai 2025",
+      id: "dubai-2026",
+      name: "Dubai 2026",
       description: "International robotics competition in Dubai",
       isLocked: true,
       image: "/comp-1.webp"
     },
     {
-      id: "italy-2025",
-      name: "Italy 2025",
+      id: "italy-2026",
+      name: "Italy 2026",
       description: "International robotics competition in Italy",
       isLocked: false,
       image: "/comp-2.webp",
@@ -42,26 +42,26 @@ const Events = () => {
   const landingSectionContent = {
     regional: {
       title1: "WSRO",
-      title2: "Regional 2025",
+      title2: "Regional 2026",
       content:
         "In 2018, WSRO & HRF marked a historic milestone by hosting the inaugural Robotex India International National Level Competition in Ahmedabad at SBS. The event showcased the prowess of more than 500 students in the final round, captivating an audience of over 3000, including students, teachers, and parents hailing from every corner of India. The victorious were rewarded with sponsorships to partake in the prestigious World Championship held in Tallinn, Estonia, in December 2018. The momentum continued into 2019 as WSRO & HRF orchestrated a remarkable series of 6+ Regional competitions in Delhi, Indore, Mumbai, Pune, Ludhiana, and Ahmedabad. This extravaganza drew a phenomenal participation of 3000+ individuals and 500+ teams nationwide, culminating in the grand Robotex India International National Level Competition in Ahmedabad at Shanti Business School. WSRO, now an annual spectacle, stands as one of Asia's premier robotics and STEM festivals. Each year, thousands of engineers, executives, students, and families converge to bask in the brilliance of industry leaders, explore pioneering startups, delve into robot-building challenges, and stay abreast of the latest technological innovations. Fast forward to 2022 and 2023, WSRO & HRF continued their commitment by hosting a National and international competition in Ahmedabad at Science City, boasting the participation of over 13+ competitions, 200 + mentors, 100+ schools , 2500+ individuals and 450+ teams from across India and 15+ Countries. As we gear up for 2024, WSRO & HRF are thrilled to unveil a diverse array of competitions in various categories, promising to elevate the excitement and engagement for participants and enthusiasts alike. Stay tuned for a spectacular showcase of talent, creativity, and cutting-edge advancements! In 2024 we are going with the following competitions in different categories hosted by WSRO & HRF",
     },
 
     national: {
       title1: "WSRO",
-      title2: "National 2025",
+      title2: "National 2026",
       content:
         "In 2018, WSRO & HRF marked a historic milestone by hosting the inaugural Robotex India International National Level Competition in Ahmedabad at SBS. The event showcased the prowess of more than 500 students in the final round, captivating an audience of over 3000, including students, teachers, and parents hailing from every corner of India. The victorious were rewarded with sponsorships to partake in the prestigious World Championship held in Tallinn, Estonia, in December 2018. The momentum continued into 2019 as WSRO & HRF orchestrated a remarkable series of 6+ Regional competitions in Delhi, Indore, Mumbai, Pune, Ludhiana, and Ahmedabad. This extravaganza drew a phenomenal participation of 3000+ individuals and 500+ teams nationwide, culminating in the grand Robotex India International National Level Competition in Ahmedabad at Shanti Business School. WSRO, now an annual spectacle, stands as one of Asia's premier robotics and STEM festivals. Each year, thousands of engineers, executives, students, and families converge to bask in the brilliance of industry leaders, explore pioneering startups, delve into robot-building challenges, and stay abreast of the latest technological innovations. Fast forward to 2022 and 2023, WSRO & HRF continued their commitment by hosting a National and international competition in Ahmedabad at Science City, boasting the participation of over 13+ competitions, 200 + mentors, 100+ schools , 2500+ individuals and 450+ teams from across India and 15+ Countries. As we gear up for 2024, WSRO & HRF are thrilled to unveil a diverse array of competitions in various categories, promising to elevate the excitement and engagement for participants and enthusiasts alike. Stay tuned for a spectacular showcase of talent, creativity, and cutting-edge advancements! In 2024 we are going with the following competitions in different categories hosted by WSRO & HRF.",
     },
     international: {
       title1: "WSRO",
-      title2: "International 2025",
+      title2: "International 2026",
       content:
         "In 2018, WSRO & HRF marked a historic milestone by hosting the inaugural Robotex India International National Level Competition in Ahmedabad at SBS. The event showcased the prowess of more than 500 students in the final round, captivating an audience of over 3000, including students, teachers, and parents hailing from every corner of India. The victorious were rewarded with sponsorships to partake in the prestigious World Championship held in Tallinn, Estonia, in December 2018. The momentum continued into 2019 as WSRO & HRF orchestrated a remarkable series of 6+ Regional competitions in Delhi, Indore, Mumbai, Pune, Ludhiana, and Ahmedabad. This extravaganza drew a phenomenal participation of 3000+ individuals and 500+ teams nationwide, culminating in the grand Robotex India International National Level Competition in Ahmedabad at Shanti Business School. WSRO, now an annual spectacle, stands as one of Asia's premier robotics and STEM festivals. Each year, thousands of engineers, executives, students, and families converge to bask in the brilliance of industry leaders, explore pioneering startups, delve into robot-building challenges, and stay abreast of the latest technological innovations. Fast forward to 2022 and 2023, WSRO & HRF continued their commitment by hosting a National and international competition in Ahmedabad at Science City, boasting the participation of over 13+ competitions, 200 + mentors, 100+ schools , 2500+ individuals and 450+ teams from across India and 15+ Countries. As we gear up for 2024, WSRO & HRF are thrilled to unveil a diverse array of competitions in various categories, promising to elevate the excitement and engagement for participants and enthusiasts alike. Stay tuned for a spectacular showcase of talent, creativity, and cutting-edge advancements! In 2024 we are going with the following competitions in different categories hosted by WSRO & HRF.",
     },
     startup: {
       title1: "WSRO",
-      title2: "India StartUp Awards 2025",
+      title2: "India StartUp Awards 2026",
       content:
         "Join startup-focused events to learn, collaborate, and grow your robotics ventures.",
     },
@@ -197,7 +197,7 @@ const Events = () => {
                     <div className="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-primary 
                       rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-1000 
                       group-hover:duration-200 animate-gradient-x" />
-                    
+
                     <div className="relative rounded-2xl overflow-hidden 
                       transform group-hover:scale-[1.02] transition-transform duration-500
                       border-2 border-primary/30">

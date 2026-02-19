@@ -28,7 +28,7 @@ function CertificateVerification() {
 
     try {
       const response = await axios.post(
-        'https://wsro-backend-mota.onrender.com/api/competitions/get-iran',
+        'https://wsroapi.softarotechnolabs.com/api/competitions/get-iran',
         { certificate_u_id: certificateId }
       );
 
@@ -37,7 +37,7 @@ function CertificateVerification() {
           setCertificateData(response.data.data);
           setVerificationStatus('verified');
           setLoading(false);
-        }, 1000); 
+        }, 1000);
       } else {
         setTimeout(() => {
           setError('Certificate not found. Please check the ID and try again.');
@@ -136,7 +136,7 @@ function CertificateVerification() {
                     <Check className="h-8 w-8 text-green-600" />
                   </div>
                 </div>
-                
+
                 <h2 className="text-2xl font-bold text-center text-blue-800 mb-2">Certificate Verified</h2>
                 <p className="text-center text-gray-500 mb-6">This certificate is authentic and registered in our system</p>
 
@@ -166,13 +166,13 @@ function CertificateVerification() {
                       <p className="text-lg font-medium">{certificateData.age}</p>
                     </div> */}
                   </div>
-                  
+
                   <div className="flex flex-col">
                     <div className="mb-4">
                       <h3 className="text-sm font-semibold text-gray-500">COURSE/COMPETITION</h3>
                       <p className="text-lg font-medium">{certificateData.course_name_competition_category}</p>
                     </div>
-                   
+
                     <div>
                       <h3 className="text-sm font-semibold text-gray-500">CERTIFICATE ID</h3>
                       <p className="text-lg font-medium font-mono">{certificateData.certificate_u_id}</p>
@@ -183,7 +183,7 @@ function CertificateVerification() {
             )}
           </div>
         </div>
-        
+
         <div className="mt-8 text-center text-gray-600 max-w-lg">
           <h3 className="font-semibold mb-2">Need Help?</h3>
           <p className="text-sm">
@@ -192,7 +192,7 @@ function CertificateVerification() {
         </div>
       </div>
       <FooterSection />
-      
+
       <style jsx>{`
         .fadeIn {
           animation: fadeIn 0.5s ease-in-out;

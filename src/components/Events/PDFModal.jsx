@@ -25,7 +25,7 @@ const PDFModal = ({ onClose, pdfUrl }) => {
         >
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-200">
-            <h2 className="text-2xl font-bold text-gray-800">Italy Competitions 2025</h2>
+            <h2 className="text-2xl font-bold text-gray-800">Italy Competitions 2026</h2>
             <button
               onClick={onClose}
               className="text-gray-500 hover:text-gray-700 transition-colors"
@@ -42,10 +42,10 @@ const PDFModal = ({ onClose, pdfUrl }) => {
                 Important Notice:
               </h3>
               <p className="text-yellow-700 mb-4">
-                Before registering for the Italy Competitions 2025, kindly contact the WSRO India Team for guidance, concerns, or any queries.
+                Before registering for the Italy Competitions 2026, kindly contact the WSRO India Team for guidance, concerns, or any queries.
               </p>
               <p className="text-yellow-700">
-                📄 Please refer to the official PDF for complete details about the Italy Competitions 2025.
+                📄 Please refer to the official PDF for complete details about the Italy Competitions 2026.
               </p>
             </div>
 
@@ -76,16 +76,16 @@ const PDFModal = ({ onClose, pdfUrl }) => {
                   <span>Open PDF</span>
                 </button>
               </div>
-              
+
               {/* PDF Preview Image */}
               <div className="relative w-full border border-gray-300 rounded-lg overflow-hidden bg-white">
                 <img
                   src="/italy-pdf.png"
-                  alt="Italy Competitions 2025 PDF Preview"
+                  alt="Italy Competitions 2026 PDF Preview"
                   className="w-full h-auto object-contain"
                 />
               </div>
-              
+
               <p className="text-sm text-gray-600 mt-2 text-center">
                 Click "Open PDF" to view the full document in a new tab
               </p>

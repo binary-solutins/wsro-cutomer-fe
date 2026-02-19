@@ -4,26 +4,26 @@ import { Trophy, ChevronRight, Lock, FileText } from 'lucide-react';
 
 const InternationalCompetitionCard = ({ competition, onItalyClick }) => {
   const handleClick = () => {
-    if (competition.id === 'italy-2025') {
+    if (competition.id === 'italy-2026') {
       onItalyClick();
     }
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -8, transition: { duration: 0.2 } }}
       className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
     >
       <div className="relative h-60 overflow-hidden group">
-        <img 
+        <img
           src={competition.image}
           alt={competition.name}
           className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        
+
         {/* Level Badge */}
         <div className="absolute top-4 left-4 flex items-center gap-2 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
           <Trophy className="w-4 h-4 text-[#485db5]" />

@@ -63,15 +63,15 @@ const EventCompetitions = () => {
   // International competitions data
   const internationalCompetitions = [
     {
-      id: "dubai-2025",
-      name: "Dubai 2025",
+      id: "dubai-2026",
+      name: "Dubai 2026",
       description: "International robotics competition in Dubai",
       isLocked: true,
       image: "/comp-1.webp"
     },
     {
-      id: "italy-2025",
-      name: "Italy 2025",
+      id: "italy-2026",
+      name: "Italy 2026",
       description: "International robotics competition in Italy",
       isLocked: false,
       image: "/comp-2.webp",
@@ -108,12 +108,12 @@ const EventCompetitions = () => {
               {loading
                 ? [...Array(3)].map((_, index) => <EventSkeleton key={index} />)
                 : events.map((event) => (
-                    <EventCard
-                      key={event.id}
-                      event={event}
-                      onLearnMore={handleLearnMore}
-                    />
-                  ))}
+                  <EventCard
+                    key={event.id}
+                    event={event}
+                    onLearnMore={handleLearnMore}
+                  />
+                ))}
             </div>
           )}
         </div>

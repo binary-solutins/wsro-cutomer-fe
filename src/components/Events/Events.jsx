@@ -3,7 +3,7 @@ import LevelCard from "./LevelCard";
 import { useNavigate } from "react-router-dom";
 
 const Events = () => {
- 
+
 
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showRegistration, setShowRegistration] = useState(false);
@@ -17,25 +17,25 @@ const Events = () => {
   const levels = [
     {
       id: "regional",
-      name: "Regional 2025:",
+      name: "Regional 2026:",
       description:
         "The journey begins here! Regional competitions set the stage for participants from various cities to demonstrate their abilities and qualify for the grand national-level event.",
     },
     {
       id: "national",
-      name: "National 2025:",
+      name: "National 2026:",
       description:
         "Witness the brilliance of India’s finest minds as participants from all states compete for national glory. This platform bridges talent and opportunity, offering an unmatched showcase of skill and innovation.",
     },
     {
       id: "international",
-      name: "International 2025:",
+      name: "International 2026:",
       description:
         "Where the world meets innovation! Participants from across 15+ countries come together to compete and collaborate, showcasing their expertise on a global platform.",
     },
     {
       id: "startup",
-      name: "WSRO Start Up Awards 2025:",
+      name: "WSRO Start Up Awards 2026:",
       description:
         "A unique competition to empower and recognize emerging startups in the robotics and STEM sectors. It’s a launchpad for the next generation of tech leaders.",
     },
@@ -54,12 +54,12 @@ const Events = () => {
 
         <div className="grid md:grid-cols-4 lg:grid-cols-4 gap-8">
           {levels.map((level) => (
-                <LevelCard
-                  key={level.id}
-                  level={level}
-                  onLearnMore={handleLearnMore}
-                />
-              ))}
+            <LevelCard
+              key={level.id}
+              level={level}
+              onLearnMore={handleLearnMore}
+            />
+          ))}
         </div>
       </div>
     </section>

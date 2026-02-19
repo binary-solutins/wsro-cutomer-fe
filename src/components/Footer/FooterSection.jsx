@@ -108,9 +108,9 @@ const FooterSection = () => {
         <div className="mt-12 pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
-              © 2025 World Stem & Robotics Olympiad. All rights reserved.
+              © 2026 World Stem & Robotics Olympiad. All rights reserved.
             </p>
-  
+
           </div>
         </div>
       </div>
