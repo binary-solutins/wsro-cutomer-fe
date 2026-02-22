@@ -86,15 +86,23 @@ const Events = () => {
 
       // Sort only the events that have dates
       const sortedEventsWithDates = [...eventsWithDates].sort((a, b) => {
+        if (b.is_active !== a.is_active) {
+          return b.is_active - a.is_active; // Active (1) before Locked (0)
+        }
         const dateA = new Date(a.event_date);
         const dateB = new Date(b.event_date);
         return dateA - dateB; // Ascending order (earliest dates first)
       });
 
+      // Sort events without dates by is_active as well
+      const sortedEventsWithoutDates = [...eventsWithoutDates].sort((a, b) => {
+        return b.is_active - a.is_active; // Active (1) before Locked (0)
+      });
+
       // Combine sorted events with dates first, followed by events without dates
       const finalSortedEvents = [
         ...sortedEventsWithDates,
-        ...eventsWithoutDates,
+        ...sortedEventsWithoutDates,
       ];
 
       setEvents(finalSortedEvents);

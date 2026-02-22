@@ -1,16 +1,17 @@
 import React from 'react';
 import { format } from 'date-fns';
-import { 
-  X, 
-  Calendar, 
-  MapPin, 
-  Target, 
-  Clock, 
-  Users, 
+import {
+  X,
+  Calendar,
+  MapPin,
+  Target,
+  Clock,
+  Users,
   Wallet,
   FileText,
   Download,
-  Archive
+  Archive,
+  Lock
 } from 'lucide-react';
 import EventDetail from './EventDetails';
 import EventButton from './EventButton';
@@ -51,7 +52,7 @@ const EventDetailsModal = ({ event, onClose, onRegister }) => {
             {/* Event Details Grid */}
             <div className="grid md:grid-cols-2 gap-6">
               {eventDetails.map((detail, index) => (
-                <EventDetail 
+                <EventDetail
                   key={index}
                   icon={detail.icon}
                   text={detail.text}
@@ -89,14 +90,19 @@ const EventDetailsModal = ({ event, onClose, onRegister }) => {
             </div>
 
             {/* Register Button */}
-            <button
-              onClick={() => onRegister(event)}
-              className="w-full bg-primary text-white py-4 rounded-xl 
-                         hover:bg-secondary  transition-all duration-300 
-                         font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-            >
-              Register Now
-            </button>
+            {event.is_active == 0 ? (
+              <div className="w-full bg-red-500 text-white py-4 rounded-xl flex items-center justify-center gap-2 font-semibold shadow-lg cursor-not-allowed">
+                <Lock className="w-5 h-5" />
+                <span>Registration Locked</span>
+              </div>
+            ) : (
+              <button
+                onClick={() => onRegister(event)}
+                className="w-full bg-primary text-white py-4 rounded-xl hover:bg-secondary transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              >
+                Register Now
+              </button>
+            )}
           </div>
         </div>
       </div>
