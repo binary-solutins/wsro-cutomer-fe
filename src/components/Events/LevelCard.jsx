@@ -5,7 +5,7 @@ import { Trophy, ChevronRight, Lock } from 'lucide-react';
 const LevelCard = ({ level, onLearnMore, disabled }) => {
   // Generate the image URL based on the level id
   const imageUrl = `/regional-${Math.floor(Math.random() * 3) + 1}.webp`;
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -20,7 +20,7 @@ const LevelCard = ({ level, onLearnMore, disabled }) => {
           className="w-full h-full object-fill transform group-hover:scale-110 transition-transform duration-700"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-       
+
         {/* Level Badge */}
         <div className="absolute top-4 left-4 flex items-center gap-2 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
           <Trophy className="w-4 h-4 text-[#485db5]" />
@@ -37,6 +37,20 @@ const LevelCard = ({ level, onLearnMore, disabled }) => {
             <Lock className="w-5 h-5" />
             <span>Locked</span>
           </div>
+        ) : level.externalLink ? (
+          <motion.a
+            href={level.externalLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full bg-gradient-to-r from-secondary to-secondary text-white py-3 px-6 rounded-xl
+              font-semibold shadow-lg shadow-[#485db5]/20 hover:shadow-xl hover:shadow-[#485db5]/30
+              transition-all duration-300 flex items-center justify-center gap-2 group block outline-none"
+          >
+            <span>{level.buttonText || "know more"}</span>
+            <ChevronRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
+          </motion.a>
         ) : (
           <motion.button
             whileHover={{ scale: 1.02 }}
@@ -46,7 +60,7 @@ const LevelCard = ({ level, onLearnMore, disabled }) => {
               transition-all duration-300 flex items-center justify-center gap-2 group"
             onClick={() => onLearnMore(level)}
           >
-            <span>Register</span>
+            <span>{level.buttonText || "Register"}</span>
             <ChevronRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
           </motion.button>
         )}

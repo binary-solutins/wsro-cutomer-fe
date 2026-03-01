@@ -21,11 +21,8 @@ const EventCompetitions = () => {
   const levelid = eventId;
 
   const fetchEvents = async () => {
-    // Don't fetch API data for international level
-    if (levelid === 'international') {
-      setLoading(false);
-      return;
-    }
+    // Fetch API data for all levels, including international
+    // We will use the first event's pdf_url for the international section
 
     try {
       setLoading(true);
@@ -60,7 +57,7 @@ const EventCompetitions = () => {
     setShowPDFModal(false);
   };
 
-  // International competitions data
+  // International competitions data - we'll dynamically inject the PDF URL from the API later
   const internationalCompetitions = [
     {
       id: "dubai-2026",
@@ -75,7 +72,7 @@ const EventCompetitions = () => {
       description: "International robotics competition in Italy",
       isLocked: false,
       image: "/comp-2.webp",
-      pdfUrl: "https://drive.google.com/file/d/1km8UBKhLwqXlWRx5-N5jRRJLYdMF-UWT/view?usp=sharing"
+      pdfUrl: events.length > 0 ? events[0].pdf_url : null
     }
   ];
 
@@ -136,10 +133,10 @@ const EventCompetitions = () => {
           />
         )}
 
-        {showPDFModal && (
+        {showPDFModal && events.length > 0 && (
           <PDFModal
             onClose={handleClosePDFModal}
-            pdfUrl="https://drive.google.com/file/d/1km8UBKhLwqXlWRx5-N5jRRJLYdMF-UWT/view?usp=sharing"
+            pdfUrl={events[0].pdf_url}
           />
         )}
       </section>

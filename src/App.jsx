@@ -23,6 +23,11 @@ function App() {
       <MissionVisionValues />
       {/* <Events /> */}
       <LandingSection />
+      <img
+        src="/BAT-WSRO-web-banner1(2).jpg"
+        alt="WSRO Banner"
+        className="w-full h-auto object-cover"
+      />
       <ContactForm />
       <FooterSection />
     </div>

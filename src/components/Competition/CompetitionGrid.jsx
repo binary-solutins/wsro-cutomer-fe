@@ -32,6 +32,14 @@ const CompetitionGrid = ({ competitions = [], loading }) => {
         "The journey begins here! Regional competitions set the stage for participants from various cities to demonstrate their abilities and qualify for the grand national-level event.",
     },
     {
+      id: "blixathon",
+      name: "Blixathon:",
+      description:
+        "India's most exciting STEM robotics competition – where imagination meets engineering. Get ready to experience Robo-Sprint, Maze, Robo-Precision, and more!",
+      externalLink: "https://blixathon.in/",
+      buttonText: "know more",
+    },
+    {
       id: "national",
       name: "National 2026:",
       description:

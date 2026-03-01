@@ -48,7 +48,7 @@ const CompetitionPage = () => {
 
     // Search filter
     if (searchTerm) {
-      filtered = filtered.filter(comp => 
+      filtered = filtered.filter(comp =>
         comp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         comp.venue.toLowerCase().includes(searchTerm.toLowerCase())
       );
@@ -106,34 +106,34 @@ const CompetitionPage = () => {
 
   return (
     <>
-    <Navbar />
-    <div className="min-h-screen bg-gray-50 pt-[100px]">
-    
-      
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="flex flex-col gap-8">
-          <SearchAndFilters 
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            filters={filters}
-            setFilters={setFilters}
-            showFilters={showFilters}
-            setShowFilters={setShowFilters}
-            clearFilters={clearFilters}
-            hasActiveFilters={hasActiveFilters}
-          />
+      <Navbar />
+      <div className="min-h-screen bg-gray-50 pt-[100px]">
 
-          <CompetitionGrid 
-            competitions={filteredCompetitions}
-            loading={loading}
-          />
+
+        <div className="max-w-7xl mx-auto px-4 py-12">
+          <div className="flex flex-col gap-8">
+            <SearchAndFilters
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              filters={filters}
+              setFilters={setFilters}
+              showFilters={showFilters}
+              setShowFilters={setShowFilters}
+              clearFilters={clearFilters}
+              hasActiveFilters={hasActiveFilters}
+            />
+
+            <CompetitionGrid
+              competitions={filteredCompetitions}
+              loading={loading}
+            />
+          </div>
         </div>
       </div>
-    </div>
-    <div className="container flex justify-center items-center mb-2 ">
-    <WSROCompetitionTable />
-    </div>
-<FooterSection />
+      <div className="container flex justify-center items-center mb-2 ">
+        <WSROCompetitionTable />
+      </div>
+      <FooterSection />
     </>
   );
 };
