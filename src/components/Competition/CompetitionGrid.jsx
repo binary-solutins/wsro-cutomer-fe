@@ -36,6 +36,7 @@ const CompetitionGrid = ({ competitions = [], loading }) => {
       name: "Blixathon:",
       description:
         "India's most exciting STEM robotics competition – where imagination meets engineering. Get ready to experience Robo-Sprint, Maze, Robo-Precision, and more!",
+      image: "/BAT-WSRO-web-banner1(2).jpg",
       externalLink: "https://blixathon.in/",
       buttonText: "know more",
     },

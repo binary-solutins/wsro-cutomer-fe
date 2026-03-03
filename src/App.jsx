@@ -18,16 +18,18 @@ function App() {
       <Navbar />
       <Hero />
       <SponsorSlider />
+      <a href="https://blixathon.in/" target="_blank" rel="noopener noreferrer">
+        <img
+          src="/BAT-WSRO-web-banner1(2).jpg"
+          alt="WSRO Banner"
+          className="w-full h-auto object-cover cursor-pointer"
+        />
+      </a>
       <Features />
       <LandingSection2 />
       <MissionVisionValues />
       {/* <Events /> */}
       <LandingSection />
-      <img
-        src="/BAT-WSRO-web-banner1(2).jpg"
-        alt="WSRO Banner"
-        className="w-full h-auto object-cover"
-      />
       <ContactForm />
       <FooterSection />
     </div>

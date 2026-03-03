@@ -8,16 +8,17 @@ const WSROCompetitionTable = () => {
     { id: 4, name: 'Jr. Line Following (Non-Lego)', amount: 4000, teamSizeMin: 1, teamSizeMax: 2, level: 'Regional', age: '8-16' },
     { id: 5, name: 'STEM Balloon Car', amount: 2000, teamSizeMin: 1, teamSizeMax: 2, level: 'Regional', age: '8-16' },
     { id: 6, name: 'Young Scientist - All STEM', amount: 3500, teamSizeMin: 1, teamSizeMax: 2, level: 'Regional', age: '8-16' },
-    { id: 7, name: 'Blix - Robo Sprint', amount: 2000, teamSizeMin: 1, teamSizeMax: 4, level: 'Regional', age: '8-16' },
+    { id: 7, name: 'Smart Factory Robotics Challenge (SFRC) 2026 ', amount: 4500, teamSizeMin: 2, teamSizeMax: 4, level: 'Regional', age: '9-16' },
     { id: 8, name: 'Lego Budding Builder', amount: 4000, teamSizeMin: 1, teamSizeMax: 2, level: 'Regional', age: '4-8' },
-
-    { id: 9, name: 'Entrepreneur Challenge', amount: 4000, teamSizeMin: 1, teamSizeMax: 2, level: 'National', age: '8+' },
-    { id: 10, name: '1 Kg Lego Sumo', amount: 4000, teamSizeMin: 1, teamSizeMax: 2, level: 'National', age: '8+' },
-    { id: 11, name: 'Sr. Robo Race', amount: 4000, teamSizeMin: 1, teamSizeMax: 2, level: 'National', age: '16+' },
-    { id: 12, name: 'Jr. Drone', amount: 3500, teamSizeMin: 1, teamSizeMax: 2, level: 'National', age: '8-16' },
-    { id: 13, name: 'Blix - The Ultimate Maze', amount: 2500, teamSizeMin: 1, teamSizeMax: 4, level: 'National', age: '8-16' },
-    { id: 14, name: 'Blix - Robo Precision', amount: 2500, teamSizeMin: 1, teamSizeMax: 4, level: 'National', age: '8-16' },
-    { id: 15, name: 'STEM Water Rocketry', amount: 2000, teamSizeMin: 1, teamSizeMax: 2, level: 'National', age: '8-16' },
+    { id: 9, name: 'Blix - Robo Sprint', amount: 2000, teamSizeMin: 1, teamSizeMax: 4, level: 'Regional', age: '8-12' },
+    { id: 10, name: 'Blix - Robo Pricision', amount: 2000, teamSizeMin: 1, teamSizeMax: 4, level: 'Regional', age: '12-16' },
+    { id: 11, name: 'Entrepreneur Challenge', amount: 4000, teamSizeMin: 1, teamSizeMax: 2, level: 'National', age: '8+' },
+    { id: 12, name: '1 Kg Lego Sumo', amount: 4000, teamSizeMin: 1, teamSizeMax: 2, level: 'National', age: '8+' },
+    { id: 13, name: 'Sr. Robo Race', amount: 4000, teamSizeMin: 1, teamSizeMax: 2, level: 'National', age: '16+' },
+    { id: 14, name: 'Jr. Drone', amount: 3500, teamSizeMin: 1, teamSizeMax: 2, level: 'National', age: '8-16' },
+    { id: 15, name: 'Blix - The Ultimate Maze', amount: 2500, teamSizeMin: 1, teamSizeMax: 4, level: 'National', age: '8-16' },
+    { id: 16, name: 'Blix - Robo Precision', amount: 2500, teamSizeMin: 1, teamSizeMax: 4, level: 'National', age: '8-16' },
+    { id: 17, name: 'STEM Water Rocketry', amount: 2000, teamSizeMin: 1, teamSizeMax: 2, level: 'National', age: '8-16' },
   ];
 
 

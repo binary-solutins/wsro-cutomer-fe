@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import { Trophy, ChevronRight, Lock } from 'lucide-react';
 
 const LevelCard = ({ level, onLearnMore, disabled }) => {
-  // Generate the image URL based on the level id
-  const imageUrl = `/regional-${Math.floor(Math.random() * 3) + 1}.webp`;
+  // Generate the image URL based on the level id or use the provided image
+  const imageUrl = level.image || `/regional-${Math.floor(Math.random() * 3) + 1}.webp`;
 
   return (
     <motion.div
