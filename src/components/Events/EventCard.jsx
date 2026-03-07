@@ -13,7 +13,7 @@ const EventCard = ({ event, onLearnMore }) => {
   const getFormattedDate = (event) => {
     // Debug logging - remove this after fixing
     console.log('Event ID check:', event.id, event.event_id, typeof event.id);
-    
+
     // Check both id and event_id properties with type coercion
     if (parseInt(event.id) === 30 || parseInt(event.event_id) === 30) {
       console.log('Returning custom date for event 30');
@@ -23,7 +23,7 @@ const EventCard = ({ event, onLearnMore }) => {
   };
 
   const formattedDate = getFormattedDate(event);
-  
+
   const formattedFees = new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR',
@@ -33,53 +33,60 @@ const EventCard = ({ event, onLearnMore }) => {
   // Check if registration deadline has passed
   const isRegistrationClosed = event.is_active == 0
   const randomImageId = Math.floor(Math.random() * 12) + 1;
+
+  const eventName = event?.name || event?.title || "";
+  const eventImage = eventName.includes("Robo Sprint")
+    ? "/robo-sprint.jpeg"
+    : eventName.includes("Robo Precision")
+      ? "/robo-precision.jpeg"
+      : `/comp-${randomImageId}.webp`;
+
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -8, transition: { duration: 0.2 } }}
       className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
     >
       <div className="relative h-50 overflow-hidden group">
-        <img 
-          src={`/comp-${randomImageId}.webp`}
+        <img
+          src={eventImage}
           alt={event.name}
           className="w-full h-[300px] object-cover transform group-hover:scale-110 transition-transform duration-700"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        
+
         {/* Level Badge */}
         <div
-  className={`absolute top-4 left-4 flex ${
-    event.level === "International" ? "flex-col gap-3" : "gap-2"
-  }`}
->
-  {/* Level Badge */}
-  <div className="flex items-center gap-2 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
-    <Trophy className="w-4 h-4 text-[#485db5]" />
-    <span className="text-sm font-medium text-gray-800">{event.level}</span>
-  </div>
+          className={`absolute top-4 left-4 flex ${event.level === "International" ? "flex-col gap-3" : "gap-2"
+            }`}
+        >
+          {/* Level Badge */}
+          <div className="flex items-center gap-2 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
+            <Trophy className="w-4 h-4 text-[#485db5]" />
+            <span className="text-sm font-medium text-gray-800">{event.level}</span>
+          </div>
 
-  {/* Date Badge */}
-  <div className="flex items-center gap-2 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
-    <Calendar className="w-4 h-4 text-[#485db5]" />
-    <span className="text-sm font-medium text-gray-800">{formattedDate}</span>
-  </div>
-</div>
+          {/* Date Badge */}
+          <div className="flex items-center gap-2 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
+            <Calendar className="w-4 h-4 text-[#485db5]" />
+            <span className="text-sm font-medium text-gray-800">{formattedDate}</span>
+          </div>
+        </div>
 
       </div>
 
       <div className="p-6 space-y-6">
         <div>
-        <div className="relative group w-fit">
-  <h3 className="text-md font-bold text-gray-800 mb-3 cursor-pointer">
-    {event.name.length > 20 ? `${event.name.substring(0, 20)}...` : event.name}
-  </h3>
-  <div className="absolute bottom-full left-[100px] -translate-x-1/2 mb-2 w-max max-w-xs bg-gray-900 text-white text-xs rounded-lg px-3 py-1 
+          <div className="relative group w-fit">
+            <h3 className="text-md font-bold text-gray-800 mb-3 cursor-pointer">
+              {event.name.length > 20 ? `${event.name.substring(0, 20)}...` : event.name}
+            </h3>
+            <div className="absolute bottom-full left-[100px] -translate-x-1/2 mb-2 w-max max-w-xs bg-gray-900 text-white text-xs rounded-lg px-3 py-1 
       opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-lg">
-    {event.name}
-  </div>
-</div>
+              {event.name}
+            </div>
+          </div>
 
           <div className="space-y-3">
             {/* Venue */}
@@ -106,7 +113,7 @@ const EventCard = ({ event, onLearnMore }) => {
               <span className="text-sm">Maximum {event.maximum_teams} Members</span>
             </div>
 
-           
+
           </div>
         </div>
 

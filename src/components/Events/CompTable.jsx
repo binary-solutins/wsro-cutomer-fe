@@ -11,7 +11,7 @@ const WSROCompetitionTable = () => {
     { id: 7, name: 'Smart Factory Robotics Challenge (SFRC) 2026 ', amount: 4500, teamSizeMin: 2, teamSizeMax: 4, level: 'Regional', age: '9-16' },
     { id: 8, name: 'Lego Budding Builder', amount: 4000, teamSizeMin: 1, teamSizeMax: 2, level: 'Regional', age: '4-8' },
     { id: 9, name: 'Blix - Robo Sprint', amount: 2000, teamSizeMin: 1, teamSizeMax: 4, level: 'Regional', age: '8-12' },
-    { id: 10, name: 'Blix - Robo Pricision', amount: 2000, teamSizeMin: 1, teamSizeMax: 4, level: 'Regional', age: '12-16' },
+    { id: 10, name: 'Blix - Robo Precision', amount: 2000, teamSizeMin: 1, teamSizeMax: 4, level: 'Regional', age: '12-16' },
     { id: 11, name: 'Entrepreneur Challenge', amount: 4000, teamSizeMin: 1, teamSizeMax: 2, level: 'National', age: '8+' },
     { id: 12, name: '1 Kg Lego Sumo', amount: 4000, teamSizeMin: 1, teamSizeMax: 2, level: 'National', age: '8+' },
     { id: 13, name: 'Sr. Robo Race', amount: 4000, teamSizeMin: 1, teamSizeMax: 2, level: 'National', age: '16+' },
@@ -53,11 +53,47 @@ const WSROCompetitionTable = () => {
               {competitions.map((comp) => (
                 <tr key={comp.id} className={getRowColor(comp.level)}>
                   <td className="border border-gray-400 px-2 py-1">{comp.id}</td>
-                  <td className="border border-gray-400 px-2 py-1 text-left">{comp.name}</td>
+                  <td className="border border-gray-400 px-2 py-1 text-left">
+                    <div className="flex items-center gap-2">
+                      {comp.name}
+                      {((comp?.name || comp?.title || "").includes("Robo Sprint") || (comp?.name || comp?.title || "").includes("Robo Precision") || (comp?.name || comp?.title || "").includes("Robo Pricision")) && (
+                        <div className="flex gap-1 shrink-0">
+                          <img
+                            src={(comp?.name || "").includes("Robo Sprint") ? "/robo-sprint.jpeg" : "/robo-precision.jpeg"}
+                            alt="Competition"
+                            className="w-8 h-8 rounded object-cover border border-gray-200"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </td>
                   <td className="border border-gray-400 px-2 py-1">{comp.teamSizeMin} - {comp.teamSizeMax}</td>
                   <td className="border border-gray-400 px-2 py-1">{comp.age}</td>
                   <td className="border border-gray-400 px-2 py-1">{comp.level}</td>
-                  <td className="border border-gray-400 px-2 py-1">{comp.international || '-'}</td>
+                  <td className="border border-gray-400 px-2 py-1">
+                    {((comp?.name || comp?.title || "").includes("Robo Sprint") || (comp?.name || comp?.title || "").includes("Robo Precision") || (comp?.name || comp?.title || "").includes("Robo Pricision")) ? (
+                      <div className="flex flex-col gap-1 text-[10px]">
+                        <a
+                          href="https://drive.google.com/file/d/1MgJTrJ2sm7KcggUq30qnfeWX3wJaS1Ji/view?usp=drive_link"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline"
+                        >
+                          Piecelist
+                        </a>
+                        <a
+                          href="https://blix.in/collections/competition-kits"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary hover:underline"
+                        >
+                          Buy Kit
+                        </a>
+                      </div>
+                    ) : (
+                      comp.international || '-'
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>

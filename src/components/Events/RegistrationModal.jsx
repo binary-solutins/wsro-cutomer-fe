@@ -723,6 +723,40 @@ const RegistrationModal = ({ event, onClose }) => {
                   </p>
                 </div>
 
+                {/* Competition Specific Information */}
+                {((event?.name || event?.title || "").includes("Robo Precision") || (event?.name || event?.title || "").includes("Robo Sprint")) && (
+                  <div className="bg-yellow-50 border-2 border-yellow-400 p-4 rounded-lg shadow-sm">
+                    <h4 className="text-yellow-800 font-bold mb-2 flex items-center gap-2">
+                      <Bot className="w-5 h-5" />
+                      Important Competition Resources
+                    </h4>
+                    <div className="space-y-2 text-sm">
+                      <p className="flex items-center gap-2">
+                        <span className="font-semibold text-yellow-700">Piece List:</span>
+                        <a
+                          href="https://drive.google.com/file/d/1MgJTrJ2sm7KcggUq30qnfeWX3wJaS1Ji/view?usp=drive_link"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:text-blue-800 underline break-all"
+                        >
+                          View Piecelist
+                        </a>
+                      </p>
+                      <p className="flex items-center gap-2">
+                        <span className="font-semibold text-yellow-700">Required Kit:</span>
+                        <a
+                          href="https://blix.in/collections/competition-kits"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:text-blue-800 underline break-all"
+                        >
+                          Purchase the Kit
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                )}
+
                 <div>
                   <h3 className="text-lg font-semibold mb-4">
                     Team Information

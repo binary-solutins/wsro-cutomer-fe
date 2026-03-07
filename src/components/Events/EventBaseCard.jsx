@@ -8,11 +8,12 @@ import { enUS } from "date-fns/locale";
 const EventBaseCard = ({ level, onLearnMore }) => {
   // Generate a random number between 1 and 9 for the image
   const randomImageId = Math.floor(Math.random() * 12) + 1;
-
-  // Special handling for National level events
-
-
-
+  const eventName = level.name || level.title || "";
+  const eventImage = eventName.includes("Robo Sprint")
+    ? "/robo-sprint.jpeg"
+    : eventName.includes("Robo Precision")
+      ? "/robo-precision.jpeg"
+      : `/comp-${randomImageId}.webp`;
 
   return (
     <motion.div
@@ -23,7 +24,7 @@ const EventBaseCard = ({ level, onLearnMore }) => {
     >
       <div className="relative h-60 overflow-hidden group">
         <img
-          src={`/comp-${randomImageId}.webp`} // Using the random number for the image
+          src={eventImage} // Using the conditional image
           alt={level.name}
           className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
         />
