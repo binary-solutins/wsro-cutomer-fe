@@ -730,6 +730,9 @@ const RegistrationModal = ({ event, onClose }) => {
                       <Bot className="w-5 h-5" />
                       Important Competition Resources
                     </h4>
+                    <p className="text-red-600 font-semibold mb-2 text-xs italic text-left">
+                      Note: Blix kit is mandatory for this competition.
+                    </p>
                     <div className="space-y-2 text-sm">
                       <p className="flex items-center gap-2">
                         <span className="font-semibold text-yellow-700">Piece List:</span>
