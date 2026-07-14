@@ -2,100 +2,78 @@ import React from 'react';
 
 const WSROCompetitionTable = () => {
   const competitions = [
-    { id: 1, name: 'Lego Line Following', amount: 4500, teamSizeMin: 1, teamSizeMax: 2, level: 'Regional', age: '8-16' },
-    { id: 2, name: 'Lego Master Challenge', amount: 4500, teamSizeMin: 1, teamSizeMax: 2, level: 'Regional', age: '8-16' },
-    { id: 3, name: 'Jr. Robo Race', amount: 4000, teamSizeMin: 1, teamSizeMax: 2, level: 'Regional', age: '8-16' },
-    { id: 4, name: 'Jr. Line Following (Non-Lego)', amount: 4000, teamSizeMin: 1, teamSizeMax: 2, level: 'Regional', age: '8-16' },
-    { id: 5, name: 'STEM Balloon Car', amount: 2000, teamSizeMin: 1, teamSizeMax: 2, level: 'Regional', age: '8-16' },
-    { id: 6, name: 'Young Scientist - All STEM', amount: 3500, teamSizeMin: 1, teamSizeMax: 2, level: 'Regional', age: '8-16' },
-    { id: 7, name: 'Smart Factory Robotics Challenge (SFRC) 2026 ', amount: 4500, teamSizeMin: 2, teamSizeMax: 4, level: 'Regional', age: '9-16' },
-    { id: 8, name: 'Lego Budding Builder', amount: 4000, teamSizeMin: 1, teamSizeMax: 2, level: 'Regional', age: '4-8' },
-    { id: 9, name: 'Blix - Robo Sprint', amount: 2000, teamSizeMin: 1, teamSizeMax: 4, level: 'Regional', age: '8-12' },
-    { id: 10, name: 'Blix - Robo Precision', amount: 2000, teamSizeMin: 1, teamSizeMax: 4, level: 'Regional', age: '12-16' },
-    { id: 11, name: 'Entrepreneur Challenge', amount: 4000, teamSizeMin: 1, teamSizeMax: 2, level: 'National', age: '8+' },
-    { id: 12, name: '1 Kg Lego Sumo', amount: 4000, teamSizeMin: 1, teamSizeMax: 2, level: 'National', age: '8+' },
-    { id: 13, name: 'Sr. Robo Race', amount: 4000, teamSizeMin: 1, teamSizeMax: 2, level: 'National', age: '16+' },
-    { id: 14, name: 'Jr. Drone', amount: 3500, teamSizeMin: 1, teamSizeMax: 2, level: 'National', age: '8-16' },
-    { id: 15, name: 'Blix - The Ultimate Maze', amount: 2500, teamSizeMin: 1, teamSizeMax: 4, level: 'National', age: '8-16' },
-    { id: 16, name: 'Blix - Robo Precision', amount: 2500, teamSizeMin: 1, teamSizeMax: 4, level: 'National', age: '8-16' },
-    { id: 17, name: 'STEM Water Rocketry', amount: 2000, teamSizeMin: 1, teamSizeMax: 2, level: 'National', age: '8-16' },
+    { id: 1, name: 'Lego Line Following', level: 'Regional-National-International', international: 'Italy', age: '08 to 16', teamSize: 'Min 01 Max 02', amount: '4500' },
+    { id: 2, name: 'Jr. Robo Race', level: 'Regional-National-International', international: '-pore', age: '08 to 16', teamSize: 'Min 01 Max 02', amount: '4000' },
+    { id: 3, name: 'Jr. Line Following (Non-Lego)', level: 'Regional-National-International', international: 'Italy', age: '08 to 16', teamSize: 'Min 01 Max 02', amount: '4000' },
+    { id: 4, name: 'Young Scientist - All STEM', level: 'Regional-National-International', international: '-pore', age: '08 to 16', teamSize: 'Min 01 Max 02', amount: '3500' },
+    { id: 5, name: 'Lego Budding Builder', level: 'Regional-National-International', international: '-pore', age: '04 to 08', teamSize: 'Min 01 Max 02', amount: '4000' },
+    { id: 6, name: 'Smart Factory Robotics Challenge (SFRC) 2026', level: 'Regional-National-International', international: '-pore', age: '08 to 16', teamSize: 'Min 02 Max 04', amount: '4500' },
+    { id: 7, name: 'Blix - Robo Sprint', level: 'Regional-National', international: '', age: '08 to 12', teamSize: 'Min 01 Max 04', amount: '2000' },
+    { id: 8, name: 'Blix - Robo Precision', level: 'Regional-National', international: '', age: '12 to 16', teamSize: 'Min 01 Max 04', amount: '2000' },
+    { id: 9, name: 'Lego Master Challenge', level: 'Regional-National', international: '', age: '08 to 16', teamSize: 'Min 01 Max 02', amount: '4500' },
+    { id: 10, name: 'STEM Balloon Car', level: 'Regional-National', international: '', age: '08 to 16', teamSize: 'Min 01 Max 02', amount: '2000' },
+    { id: 11, name: 'Entrepreneur Challenge', level: 'National-International', international: 'Italy', age: '08+', teamSize: 'Min 01 Max 02', amount: '4000' },
+    { id: 12, name: '1 Kg Lego Sumo', level: 'National-International', international: 'Italy', age: '08+', teamSize: 'Min 01 Max 02', amount: '4000' },
+    { id: 13, name: 'Jr. Drone', level: 'National-International', international: 'Italy', age: '08 to 16', teamSize: 'Min 01 Max 04', amount: '3500' },
+    { id: 14, name: 'Sr. Robo Race', level: 'National', international: '', age: '16+', teamSize: 'Min 01 Max 02', amount: '4000' },
+    { id: 15, name: 'Blix - The Ultimate Maze', level: 'National', international: '', age: '08 to 16', teamSize: 'Min 01 Max 04', amount: '2500' },
+    { id: 16, name: 'STEM Water Rocketry', level: 'National', international: '', age: '08 to 16', teamSize: 'Min 01 Max 02', amount: '2000' },
   ];
 
-
-  const getRowColor = (level) => {
-    if (level === 'National') return 'bg-yellow-100';
-    if (level.includes('International')) return 'bg-orange-100';
-    if (level === 'Regional-National') return 'bg-green-100';
-    return 'bg-blue-100';
+  const getRowColor = (id) => {
+    if (id >= 1 && id <= 10) return 'bg-[#DDEBF7]';
+    if (id >= 11 && id <= 13) return 'bg-[#FCE4D6]';
+    if (id >= 14 && id <= 16) return 'bg-[#FFF2CC]';
+    return 'bg-white';
   };
 
   return (
     <div className="flex flex-col items-center w-full px-2 py-4">
-      <div className="w-full max-w-6xl">
-        <div className="bg-green-50 p-4 border border-gray-300 mb-4 rounded-md shadow-md">
-          <h1 className="text-2xl font-bold text-center">WSRO 2026</h1>
-          <h2 className="text-lg font-semibold text-center">List of Competitions</h2>
+      <div className="w-full max-w-7xl overflow-hidden rounded-lg shadow-lg border border-gray-300">
+        <div className="bg-[#E2EFDA] py-3 border-b border-gray-300">
+          <h1 className="text-2xl font-bold text-center text-gray-800">List of Competition</h1>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full border border-gray-300 text-sm text-center">
+          <table className="w-full border-collapse text-sm text-center font-medium">
             <thead>
-              <tr className="bg-blue-200">
-                <th className="border border-gray-400 px-2 py-1">Sr. No.</th>
-                <th className="border border-gray-400 px-2 py-1">Competition Name</th>
-                <th className="border border-gray-400 px-2 py-1">Team Size</th>
-                <th className="border border-gray-400 px-2 py-1">Age Group</th>
-                <th className="border border-gray-400 px-2 py-1">Level</th>
-                <th className="border border-gray-400 px-2 py-1">International</th>
+              <tr className="bg-[#9BC2E6] text-gray-800">
+                <th className="border border-gray-400 px-3 py-3 w-16">Sr No</th>
+                <th className="border border-gray-400 px-4 py-3">Name of Competition</th>
+                <th className="border border-gray-400 px-4 py-3">Regional/National/International</th>
+                <th className="border border-gray-400 px-4 py-3">International (Italy/-pore)</th>
+                <th className="border border-gray-400 px-3 py-3 w-24">Age</th>
+                <th className="border border-gray-400 px-4 py-3 w-32">Team Size</th>
+                <th className="border border-gray-400 px-3 py-3 w-24">Amount</th>
               </tr>
             </thead>
             <tbody>
               {competitions.map((comp) => (
-                <tr key={comp.id} className={getRowColor(comp.level)}>
-                  <td className="border border-gray-400 px-2 py-1">{comp.id}</td>
-                  <td className="border border-gray-400 px-2 py-1 text-left">
-                    <div className="flex items-center gap-2">
-                      {comp.name}
-                      {((comp?.name || comp?.title || "").includes("Robo Sprint") || (comp?.name || comp?.title || "").includes("Robo Precision") || (comp?.name || comp?.title || "").includes("Robo Pricision")) && (
-                        <div className="flex gap-1 shrink-0">
-                          <img
-                            src={(comp?.name || "").includes("Robo Sprint") ? "/robo-sprint.jpeg" : "/robo-precision.jpeg"}
-                            alt="Competition"
-                            className="w-8 h-8 rounded object-cover border border-gray-200"
-                          />
-                        </div>
-                      )}
-                    </div>
-                  </td>
-                  <td className="border border-gray-400 px-2 py-1">{comp.teamSizeMin} - {comp.teamSizeMax}</td>
-                  <td className="border border-gray-400 px-2 py-1">{comp.age}</td>
-                  <td className="border border-gray-400 px-2 py-1">{comp.level}</td>
-                  <td className="border border-gray-400 px-2 py-1">
-                    {((comp?.name || comp?.title || "").includes("Robo Sprint") || (comp?.name || comp?.title || "").includes("Robo Precision") || (comp?.name || comp?.title || "").includes("Robo Pricision")) ? (
-                      <div className="flex flex-col gap-1 text-[10px]">
-                        <a
-                          href="https://drive.google.com/file/d/1MgJTrJ2sm7KcggUq30qnfeWX3wJaS1Ji/view?usp=drive_link"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 hover:underline"
-                        >
-                          Piecelist
-                        </a>
-                        <a
-                          href="https://blix.in/collections/competition-kits"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-primary hover:underline"
-                        >
-                          Buy Kit
-                        </a>
-                      </div>
-                    ) : (
-                      comp.international || '-'
-                    )}
-                  </td>
+                <tr key={comp.id} className={`${getRowColor(comp.id)} hover:bg-opacity-80 transition-colors`}>
+                  <td className="border border-gray-400 px-2 py-2">{comp.id}</td>
+                  <td className="border border-gray-400 px-4 py-2 text-center md:text-left">{comp.name}</td>
+                  <td className="border border-gray-400 px-2 py-2">{comp.level}</td>
+                  <td className="border border-gray-400 px-2 py-2">{comp.international}</td>
+                  <td className="border border-gray-400 px-2 py-2">{comp.age}</td>
+                  <td className="border border-gray-400 px-2 py-2 whitespace-nowrap">{comp.teamSize}</td>
+                  <td className="border border-gray-400 px-2 py-2">{comp.amount}</td>
                 </tr>
               ))}
+
+              {/* Note Section */}
+              <tr className="bg-[#C6EFCE]">
+                <td rowSpan="3" className="border border-gray-400 px-4 py-4 font-bold text-lg">Note</td>
+                <td colSpan="2" className="border border-gray-400 px-4 py-2 font-bold text-xl">Regional-National</td>
+                <td colSpan="4" className="border border-gray-400 px-4 py-2 text-xl">Regional qualifiers gain entry to the national level; no direct entry is allowed.</td>
+              </tr>
+              <tr className="bg-[#C6EFCE]">
+                <td colSpan="2" className="border border-gray-400 px-4 py-2 font-bold text-xl">National</td>
+                <td colSpan="4" className="border border-gray-400 px-4 py-2 text-xl">Direct Entry in National</td>
+              </tr>
+              <tr className="bg-[#C6EFCE]">
+                <td colSpan="2" className="border border-gray-400 px-4 py-2 font-bold text-xl">Regional-National-International</td>
+                <td colSpan="4" className="border border-gray-400 px-4 py-2 text-xl"> Regional qualifiers gain entry to the National level, Further National qualifiers gain entry to the International level.</td>
+              </tr>
             </tbody>
           </table>
         </div>
